@@ -4,6 +4,10 @@
 
 @layer components {
   .item {
+    @apply text-lg bg-slate-100 border-slate-300 border-2 border-b-0 last:border-b-2 first:rounded-t-md last:rounded-b-md hover:bg-slate-300 w-full text-left break-words transition-all px-4 py-3 last:mb-3;
+  }
+
+  .input {
     @apply text-lg bg-slate-100 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-4 py-3 mb-3;
   }
 
@@ -13,6 +17,22 @@
 
   .opt {
     @apply text-xl ml-3;
+  }
+
+  .attr {
+    @apply inline-flex text-base text-slate-100 rounded-md px-2 ml-2;
+  }
+
+  .ap {
+    @apply bg-red-400;
+  }
+
+  .hon {
+    @apply bg-orange-400;
+  }
+
+  .adv {
+    @apply bg-yellow-500;
   }
 
   .xmark {

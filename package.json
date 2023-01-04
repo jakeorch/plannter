@@ -1,6 +1,6 @@
 {
-    "name": "long-term-planner",
-    "version": "1.0.0",
+    "name": "plannter",
+    "version": "1.0.1",
     "description": "",
     "main": "script.js",
     "scripts": {

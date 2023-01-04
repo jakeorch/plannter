@@ -18,27 +18,56 @@ function openAdd(num) {
 }
 
 function add() {
-    if (document.getElementById('courseTitle').value.length > 60) {
+    let input = document.getElementById('courseTitle').value.trim();
+    let sameN = false;
+
+    for (let i = 0; i < document.getElementsByTagName('li').length; i++) {
+        let course = document.getElementsByTagName('li')[i];
+
+        if (input.toLowerCase() == course.title.toLowerCase()) {
+            sameN = true;
+        }
+    }
+
+    if (input.length > 60) {
         alert('Course title is too long');
-    } else if (document.getElementById('courseTitle').value == '') {
+    } else if (input == '') {
         alert('Enter a course title');
+    } else if (sameN) {
+        alert('There is already a course with that title');
+        sameN = false;
     } else {
         currentGrade = document.getElementById('selGradeLev').value;
 
         let course = document.createElement('li');
-        course.title = document.getElementById('courseTitle').value;
+        course.title = input;
         document.getElementById('courseTitle').value = '';
 
         let t = document.createTextNode(course.title);
         course.appendChild(t);
         course.classList.add('item');
 
+        course.diff = document.getElementById('selDiff').value;
         let div = document.createElement('div');
+        t = document.createTextNode(course.diff);
+        div.appendChild(t);
+        div.className = 'attr';
+        div.id = course.title + 'Diff';
+        if (course.diff == 'AP') {
+            div.classList.add('ap');
+        } else if (course.diff == 'Honors') {
+            div.classList.add('hon');
+        } else if (course.diff == 'Advanced') {
+            div.classList.add('adv');
+        }
+        course.appendChild(div);
+
+        div = document.createElement('div');
         div.className = 'optDiv';
 
         let btn = document.createElement('button');
         icon = document.createElement('i');
-        icon.className = 'fa-solid fa-xmark';
+        icon.className = 'text-lg fa-solid fa-trash';
         btn.className = 'opt xmark';
         btn.ariaLabel = 'Delete course';
         btn.title = 'Delete course';
