@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .item {
+    @apply text-lg bg-slate-100 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-4 py-3 mb-3;
+  }
+
+  .optDiv {
+    @apply block text-right md:inline-block md:float-right;
+  }
+
+  .opt {
+    @apply text-xl ml-3;
+  }
+
+  .xmark {
+    @apply hover:text-red-600 transition-all;
+  }
+
+  .fadeIn {
+    @apply invisible opacity-0 transition-all;
+  }
+
+  .fadeOut {
+    @apply visible opacity-100 transition-all;
+  }
+}
