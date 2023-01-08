@@ -7,7 +7,7 @@
     @apply text-lg bg-slate-100 border-slate-300 border-2 border-b-0 last:border-b-2 first:rounded-t-md last:rounded-b-md hover:bg-slate-300 w-full text-left break-words transition-all px-4 py-3 last:mb-3;
   }
 
-  .subjectIcon {
+  .sbjI {
     @apply mr-2;
   }
 
@@ -25,6 +25,10 @@
 
   .attr {
     @apply inline-flex text-base text-slate-100 rounded-md px-2 ml-2;
+  }
+
+  .ib {
+    @apply bg-red-400;
   }
 
   .ap {

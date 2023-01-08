@@ -22,8 +22,8 @@
     <!-- <button onclick='localStorage.clear()' class='text-3xl border-4 border-red-500 hover:bg-red-300'>CLEAR
 		EVERYTHING</button> -->
 
-    <div id='modal' class='fadeIn bg-black/40 fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
-        <div class='bg-slate-100 relative rounded-lg w-11/12 md:w-fit shadow-md px-11 py-9 m-auto mt-24 md:mt-48'>
+    <div id='addModal' class='fadeIn bg-black/40 fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
+        <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9 m-auto mt-24 md:mt-48'>
             <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
@@ -33,7 +33,7 @@
             <input placeholder='Course title' id='courseTitle' class='input text-lg p-2 pl-3 mb-4'>
 
             <h2 class='text-base text-slate-600 px-1 ml-1 mb-1'>Grade level</h2>
-            <select id='selGradeLev' onchange='changeGradeLev();' class='input text-lg p-2 mb-4'>
+            <select id='selGradeLev' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a grade level'>
                     <option value='9'>9</option>
                     <option value='10'>10</option>
@@ -44,7 +44,7 @@
             </select>
 
             <h2 class='text-base text-slate-600 px-1 ml-1 mb-1'>Subject</h2>
-            <select id='selSubject' onchange='changeSubject();' class='input text-lg p-2 mb-4'>
+            <select id='selSubject' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a subject'>
                     <option value='eng'>English</option>
                     <option value='hist'>History</option>
@@ -58,23 +58,40 @@
             </select>
 
             <h2 class='text-base text-slate-600 px-1 ml-1 mb-1'>Difficulty</h2>
-            <select id='selDiff' onchange='changeDiff();' class='input text-lg p-2 mb-4'>
-                <optgroup label='Select a level'>
-                    <option value='Normal'>Normal</option>
-                    <option value='Advanced'>Advanced</option>
-                    <option value='Honors'>Honors</option>
-                    <option value='AP'>Advanced Placement (AP)</option>
+            <select id='selDiff' class='input text-lg p-2 mb-4'>
+                <optgroup label='Select a difficulty'>
+                    <option value='1'>Normal</option>
+                    <option value='1.5'>Advanced/Accelerated</option>
+                    <option value='2.5'>Honors</option>
+                    <option value='3.5'>Advanced Placement (AP)</option>
+                    <option value='4.5'>International Baccalaureate (IB)</option>
                 </optgroup>
             </select>
 
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
-                onclick='add()'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add course</button>
+                onclick='add()'><i class='fa-solid fa-plus mr-1'></i>Add course</button>
         </div>
     </div>
 
-    <h1 class='text-4xl bg-green-700 text-slate-100 rounded-tl-3xl rounded-br-3xl font-extrabold shadow-sm p-5 mb-12'><i
-            class='fa-solid fa-seedling'></i> Plannter</h1>
+    <div id='diffModal' class='fadeIn bg-black/40 fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
+        <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9 m-auto mt-24 md:mt-48'>
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
+                    class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
+
+            <h1 class='text-2xl mb-5'>About difficulty</h1>
+
+            <h2 class='text-lg px-1'>
+                Grade level difficulty is calculated using the difficulty of individual courses, the number of courses,
+                and comparing it to the average number of courses taken.
+            </h2>
+
+        </div>
+    </div>
+
+    <h1 class='text-4xl bg-green-700 text-slate-100 rounded-tl-3xl rounded-br-3xl font-extrabold shadow-sm p-5 mb-12'>
+        <i class='fa-solid fa-seedling'></i> Plannter
+    </h1>
 
     <!-- <div class='inline-flex mb-10'>
         <button class='text-xl border-slate-400 border-b-2 pb-4 px-4 transition-all'>
@@ -89,56 +106,66 @@
 
         <div class='mb-12'>
             <div>
-                <h2 class='text-xl px-3 mb-3'>Grade 9 (Freshman)</h2>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 9 (Freshman) <button class='attr bg-slate-500' id='diff9' onclick='openDiff()'></button>
+                </h2>
                 <ul id='list9'>
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(9)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
+                    onclick='openAdd(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
         </div>
 
         <div class='mb-12'>
             <div>
-                <h2 class='text-xl px-3 mb-3'>Grade 10 (Sophomore)</h2>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 10 (Sophomore) <button class='attr bg-slate-500' id='diff10' onclick='openDiff()'></button>
+                </h2>
                 <ul id='list10'>
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(10)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
+                    onclick='openAdd(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
         </div>
 
         <div class='mb-12'>
             <div>
-                <h2 class='text-xl px-3 mb-3'>Grade 11 (Junior)</h2>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 11 (Junior) <button class='attr bg-slate-500' id='diff11' onclick='openDiff()'></button>
+                </h2>
                 <ul id='list11'>
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(11)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
+                    onclick='openAdd(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
         </div>
 
         <div class='mb-12'>
             <div>
-                <h2 class='text-xl px-3 mb-3'>Grade 12 (Senior)</h2>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 12 (Senior) <button class='attr bg-slate-500' id='diff12' onclick='openDiff()'></button>
+                </h2>
                 <ul id='list12'>
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(12)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
+                    onclick='openAdd(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
         </div>
 
         <div class='mb-12'>
             <div>
-                <h2 class='text-xl px-3 mb-3'>Extra Courses</h2>
+                <h2 class='text-xl px-3 mb-3'>
+                    Extra Courses <button class='attr bg-slate-500' id='diff13' onclick='openDiff()'></button>
+                </h2>
                 <ul id='list13'>
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(13)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
+                    onclick='openAdd(13)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
         </div>
 
