@@ -40,8 +40,31 @@ function add() {
         currentGrade = document.getElementById('selGradeLev').value;
 
         let course = document.createElement('li');
-        course.title = input;
 
+        course.sub = document.getElementById('selSubject').value;
+
+        if (course.sub == 'eng') {
+            sbjI = 'pencil';
+        } else if (course.sub == 'hist') {
+            sbjI = 'landmark'; // landmark-dome
+        } else if (course.sub == 'math') {
+            sbjI = 'plus-minus'; // square-root-variable
+        } else if (course.sub == 'sci') {
+            sbjI = 'atom'; // flask
+        } else if (course.sub == 'lang') {
+            sbjI = 'globe';
+        } else if (course.sub == 'art') {
+            sbjI = 'palette';
+        } else if (course.sub == 'pe') {
+            sbjI = 'dumbbell';
+        } else if (course.sub == 'other') {
+            sbjI = 'graduation-cap';
+        }
+        let i = document.createElement('i');
+        i.className = 'subjectIcon fa-solid fa-' + sbjI;
+        course.appendChild(i);
+
+        course.title = input;
         let t = document.createTextNode(course.title);
         course.appendChild(t);
         course.classList.add('item');
@@ -126,6 +149,6 @@ function hide() {
     document.getElementById('modal').classList.remove('fadeOut');
 
     document.getElementById('courseTitle').value = '';
-    document.getElementById('selSubject').value = 'English';
+    document.getElementById('selSubject').value = 'eng';
     document.getElementById('selDiff').value = 'Normal';
 }

@@ -7,6 +7,10 @@
     @apply text-lg bg-slate-100 border-slate-300 border-2 border-b-0 last:border-b-2 first:rounded-t-md last:rounded-b-md hover:bg-slate-300 w-full text-left break-words transition-all px-4 py-3 last:mb-3;
   }
 
+  .subjectIcon {
+    @apply mr-2;
+  }
+
   .input {
     @apply text-lg bg-slate-100 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-4 py-3 mb-3;
   }

@@ -23,8 +23,7 @@
 		EVERYTHING</button> -->
 
     <div id='modal' class='fadeIn bg-black/40 fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
-        <div
-            class='bg-slate-100 relative rounded-lg w-11/12 md:w-fit shadow-md px-11 py-9 m-auto mt-24 md:mt-48'>
+        <div class='bg-slate-100 relative rounded-lg w-11/12 md:w-fit shadow-md px-11 py-9 m-auto mt-24 md:mt-48'>
             <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
@@ -40,20 +39,21 @@
                     <option value='10'>10</option>
                     <option value='11'>11</option>
                     <option value='12'>12</option>
+                    <option value='13'>Extra</option>
                 </optgroup>
             </select>
 
             <h2 class='text-base text-slate-600 px-1 ml-1 mb-1'>Subject</h2>
             <select id='selSubject' onchange='changeSubject();' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a subject'>
-                    <option value='English'>English</option>
-                    <option value='History'>History</option>
-                    <option value='Math'>Math</option>
-                    <option value='Science'>Science</option>
-                    <option value='Language'>Foreign Language</option>
-                    <option value='Art'>Arts</option>
-                    <option value='Physical Education'>Physical Education</option>
-                    <option value='Other/Elective'>Other/Elective</option>
+                    <option value='eng'>English</option>
+                    <option value='hist'>History</option>
+                    <option value='math'>Math</option>
+                    <option value='sci'>Science</option>
+                    <option value='lang'>Foreign Language</option>
+                    <option value='art'>Arts</option>
+                    <option value='pe'>Physical Education</option>
+                    <option value='other'>Other/Elective</option>
                 </optgroup>
             </select>
 
@@ -69,11 +69,12 @@
 
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
-                onclick='add()'><i class='fa-solid fa-plus mr-1'></i>Add course</button>
+                onclick='add()'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add course</button>
         </div>
     </div>
 
-    <h1 class='text-4xl text-green-700 font-extrabold px-4 mb-12'>🪴 Plannter</h1>
+    <h1 class='text-4xl bg-green-700 text-slate-100 rounded-tl-3xl rounded-br-3xl font-extrabold shadow-sm p-5 mb-12'><i
+            class='fa-solid fa-seedling'></i> Plannter</h1>
 
     <!-- <div class='inline-flex mb-10'>
         <button class='text-xl border-slate-400 border-b-2 pb-4 px-4 transition-all'>
@@ -93,7 +94,7 @@
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                    onclick='openAdd(9)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
             </div>
         </div>
 
@@ -104,7 +105,7 @@
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                    onclick='openAdd(10)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
             </div>
         </div>
 
@@ -115,7 +116,7 @@
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                    onclick='openAdd(11)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
             </div>
         </div>
 
@@ -126,7 +127,18 @@
                 </ul>
                 <button
                     class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                    onclick='openAdd(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                    onclick='openAdd(12)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
+            </div>
+        </div>
+
+        <div class='mb-12'>
+            <div>
+                <h2 class='text-xl px-3 mb-3'>Extra Courses</h2>
+                <ul id='list13'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAdd(13)'><i class='fa-solid fa-plus text-green-700 mr-1'></i>Add a course</button>
             </div>
         </div>
 
