@@ -41,26 +41,28 @@ function add() {
 
         let course = document.createElement('li');
         course.title = input;
-        document.getElementById('courseTitle').value = '';
 
         let t = document.createTextNode(course.title);
         course.appendChild(t);
         course.classList.add('item');
 
         course.diff = document.getElementById('selDiff').value;
-        let div = document.createElement('div');
-        t = document.createTextNode(course.diff);
-        div.appendChild(t);
-        div.className = 'attr';
-        div.id = course.title + 'Diff';
-        if (course.diff == 'AP') {
-            div.classList.add('ap');
-        } else if (course.diff == 'Honors') {
-            div.classList.add('hon');
-        } else if (course.diff == 'Advanced') {
-            div.classList.add('adv');
+
+        if (course.diff !== 'Normal') {
+            let div = document.createElement('div');
+            t = document.createTextNode(course.diff);
+            div.appendChild(t);
+            div.className = 'attr';
+            div.id = course.title + 'Diff';
+            if (course.diff == 'AP') {
+                div.classList.add('ap');
+            } else if (course.diff == 'Honors') {
+                div.classList.add('hon');
+            } else if (course.diff == 'Advanced') {
+                div.classList.add('adv');
+            }
+            course.appendChild(div);
         }
-        course.appendChild(div);
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -122,4 +124,8 @@ window.onclick = function (event) {
 function hide() {
     document.getElementById('modal').classList.add('fadeIn');
     document.getElementById('modal').classList.remove('fadeOut');
+
+    document.getElementById('courseTitle').value = '';
+    document.getElementById('selSubject').value = 'English';
+    document.getElementById('selDiff').value = 'Normal';
 }
