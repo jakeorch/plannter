@@ -11,6 +11,10 @@
     @apply mr-2;
   }
 
+  .actI {
+    @apply mr-2;
+  }
+
   .input {
     @apply text-lg bg-slate-100 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-4 py-3 mb-3;
   }
@@ -24,7 +28,7 @@
   }
 
   .attr {
-    @apply inline-flex text-base text-slate-100 rounded-md px-2 ml-2;
+    @apply inline-flex bg-slate-500 text-base text-slate-100 rounded-md px-2 ml-2;
   }
 
   .ib {
