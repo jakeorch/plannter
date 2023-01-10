@@ -47,14 +47,14 @@
             <h2 class='text-base text-slate-600 px-2 mb-1'>Subject</h2>
             <select id='selSubject' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a subject'>
-                    <option value='hist'>History</option>
-                    <option value='eng'>English</option>
-                    <option value='math'>Math</option>
-                    <option value='sci'>Science</option>
-                    <option value='lang'>Foreign Language</option>
-                    <option value='art'>Visual/Performing Arts</option>
-                    <option value='pe'>Physical Education</option>
-                    <option value='other'>Other/Elective</option>
+                    <option value='History'>History</option>
+                    <option value='English'>English</option>
+                    <option value='Math'>Math</option>
+                    <option value='Science'>Science</option>
+                    <option value='Foreign Language'>Foreign Language</option>
+                    <option value='Art'>Visual/Performing Arts</option>
+                    <option value='PE'>Physical Education</option>
+                    <option value='Other/Elective'>Other/Elective</option>
                 </optgroup>
             </select>
 
@@ -62,8 +62,8 @@
             <select id='selDiff' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a difficulty'>
                     <option value='1'>Normal</option>
-                    <option value='1.5'>Advanced/Accelerated</option>
-                    <option value='2.5'>Honors</option>
+                    <option value='1.75'>Advanced/Accelerated</option>
+                    <option value='2.75'>Honors</option>
                     <option value='3.5'>Advanced Placement (AP)</option>
                     <option value='4.5'>International Baccalaureate (IB)</option>
                 </optgroup>
@@ -72,6 +72,60 @@
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
                 onclick='addCourse()'><i class='fa-solid fa-plus mr-1'></i>Add course</button>
+        </div>
+    </div>
+
+    <div id='editCourseModal'
+        class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
+        <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
+                    class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
+
+            <h1 class='text-2xl mb-5'>Edit course</h1>
+
+            <h2 class='text-base text-slate-400 px-2 mb-1'>Title</h2>
+            <input placeholder='Course title' id='courseTitleEdit'
+                class='input text-lg p-2 pl-3 mb-4 border-slate-200 text-slate-400 cursor-not-allowed' disabled>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
+            <select id='selGradeLevEdit' class='input text-lg p-2 mb-4'>
+                <optgroup label='Select a grade level'>
+                    <option value='9'>9</option>
+                    <option value='10'>10</option>
+                    <option value='11'>11</option>
+                    <option value='12'>12</option>
+                    <option value='13'>Extra</option>
+                </optgroup>
+            </select>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Subject</h2>
+            <select id='selSubjectEdit' class='input text-lg p-2 mb-4'>
+                <optgroup label='Select a subject'>
+                    <option value='History'>History</option>
+                    <option value='English'>English</option>
+                    <option value='Math'>Math</option>
+                    <option value='Science'>Science</option>
+                    <option value='Foreign Language'>Foreign Language</option>
+                    <option value='Art'>Visual/Performing Arts</option>
+                    <option value='PE'>Physical Education</option>
+                    <option value='Other/Elective'>Other/Elective</option>
+                </optgroup>
+            </select>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Difficulty</h2>
+            <select id='selDiffEdit' class='input text-lg p-2 mb-4'>
+                <optgroup label='Select a difficulty'>
+                    <option value='1'>Normal</option>
+                    <option value='1.75'>Advanced/Accelerated</option>
+                    <option value='2.75'>Honors</option>
+                    <option value='3.5'>Advanced Placement (AP)</option>
+                    <option value='4.5'>International Baccalaureate (IB)</option>
+                </optgroup>
+            </select>
+
+            <button
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                onclick='saveCourse()'><i class='fa-solid fa-plus mr-1'></i>Save course</button>
         </div>
     </div>
 
@@ -104,9 +158,9 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Position</h2>
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Position <p class='inline text-sm'>(optional)</p>
+            </h2>
             <input placeholder='Activity position' id='actPosition' class='input text-lg p-2 pl-3 mb-4'>
-            <!-- 20 characters max -->
 
             <!-- <h2 class='text-base text-slate-600 px-2 mb-1'>Hours spent per week</h2>
             <input placeholder='Time spent' type='number' id='actTime' class='input text-lg p-2 pl-3 mb-4'>
@@ -133,6 +187,10 @@
                 and comparing it to the average number of courses taken.
             </h2>
 
+            <!-- <h2 class='text-base mt-4'>
+                This score is meant to guide you to the amount of challenge you are comfortable with.
+            </h2> -->
+
         </div>
     </div>
 
@@ -156,7 +214,8 @@
         <div class='mb-12'>
             <div>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 9 (Freshman) <button class='attr bg-slate-500' id='diff9' onclick='openDiff()'></button>
+                    Grade 9 (Freshman) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff9'
+                        onclick='openDiff()'></button>
                 </h2>
                 <ul id='list9'>
                 </ul>
@@ -169,7 +228,8 @@
         <div class='mb-12'>
             <div>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 10 (Sophomore) <button class='attr bg-slate-500' id='diff10' onclick='openDiff()'></button>
+                    Grade 10 (Sophomore) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff10'
+                        onclick='openDiff()'></button>
                 </h2>
                 <ul id='list10'>
                 </ul>
@@ -182,7 +242,8 @@
         <div class='mb-12'>
             <div>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 11 (Junior) <button class='attr bg-slate-500' id='diff11' onclick='openDiff()'></button>
+                    Grade 11 (Junior) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff11'
+                        onclick='openDiff()'></button>
                 </h2>
                 <ul id='list11'>
                 </ul>
@@ -195,7 +256,8 @@
         <div class='mb-12'>
             <div>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 12 (Senior) <button class='attr bg-slate-500' id='diff12' onclick='openDiff()'></button>
+                    Grade 12 (Senior) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff12'
+                        onclick='openDiff()'></button>
                 </h2>
                 <ul id='list12'>
                 </ul>
@@ -208,7 +270,8 @@
         <div class='mb-12'>
             <div>
                 <h2 class='text-xl px-3 mb-3'>
-                    Extra Courses <button class='attr bg-slate-500' id='diff13' onclick='openDiff()'></button>
+                    Extra Courses <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff13'
+                        onclick='openDiff()'></button>
                 </h2>
                 <ul id='list13'>
                 </ul>
@@ -220,7 +283,7 @@
 
     </div>
 
-    <div class='px-4 hidden' id='extraDiv'>
+    <div class='px-4 hidden' id='actsDiv'>
 
         <div class='mb-12'>
             <div>

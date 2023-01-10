@@ -16,7 +16,7 @@
   }
 
   .input {
-    @apply text-lg bg-slate-100 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-4 py-3 mb-3;
+    @apply text-lg bg-slate-100 border-slate-300 border-2 rounded-md hover:enabled:bg-slate-300 w-full text-left transition-all px-4 py-3 mb-3;
   }
 
   .optDiv {
@@ -47,8 +47,12 @@
     @apply bg-yellow-500;
   }
 
-  .xmark {
+  .trash {
     @apply hover:text-red-600 transition-all;
+  }
+
+  .pen {
+    @apply hover:text-slate-600 transition-all;
   }
 
   .fadeIn {

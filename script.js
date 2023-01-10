@@ -1,12 +1,7 @@
 let currentGrade = 0;
 
-document.getElementById('list9').innerHTML = localStorage.getItem('list9');
-document.getElementById('list10').innerHTML = localStorage.getItem('list10');
-document.getElementById('list11').innerHTML = localStorage.getItem('list11');
-document.getElementById('list12').innerHTML = localStorage.getItem('list12');
-document.getElementById('list13').innerHTML = localStorage.getItem('list13');
-document.getElementById('listActs').innerHTML = localStorage.getItem('listActs');
-
+getLists();
+getCourses();
 calcListDiff();
 
 function openAdd(num) {
@@ -50,11 +45,11 @@ buttons.forEach((planBtns) => {
 
 function showPlan() {
     document.getElementById('planDiv').classList.remove('hidden');
-    document.getElementById('extraDiv').classList.add('hidden');
+    document.getElementById('actsDiv').classList.add('hidden');
 }
 
 function showExtra() {
-    document.getElementById('extraDiv').classList.remove('hidden');
+    document.getElementById('actsDiv').classList.remove('hidden');
     document.getElementById('planDiv').classList.add('hidden');
 }
 
@@ -81,62 +76,28 @@ function addCourse() {
         currentGrade = document.getElementById('selGradeLev').value;
 
         let course = document.createElement('li');
+        course.title = input;
 
         course.sub = document.getElementById('selSubject').value;
         let i = document.createElement('i');
-        if (course.sub == 'eng') {
-            i.className = 'sbjI fa-solid fa-pencil';
-            i.ariaLabel = 'English';
-        } else if (course.sub == 'hist') {
-            i.className = 'sbjI fa-solid fa-landmark'; // landmark-dome
-            i.ariaLabel = 'History';
-        } else if (course.sub == 'math') {
-            i.className = 'sbjI fa-solid fa-plus-minus'; // square-root-variable
-            i.ariaLabel = 'Math';
-        } else if (course.sub == 'sci') {
-            i.className = 'sbjI fa-solid fa-atom'; // flask
-            i.ariaLabel = 'Science';
-        } else if (course.sub == 'lang') {
-            i.className = 'sbjI fa-solid fa-globe';
-            i.ariaLabel = 'Foreign Language';
-        } else if (course.sub == 'art') {
-            i.className = 'sbjI fa-solid fa-palette';
-            i.ariaLabel = 'Art';
-        } else if (course.sub == 'pe') {
-            i.className = 'sbjI fa-solid fa-dumbbell';
-            i.ariaLabel = 'PE';
-        } else if (course.sub == 'other') {
-            i.className = 'sbjI fa-solid fa-graduation-cap';
-            i.ariaLabel = 'Other/Elective';
-        }
+        i.id = course.title + 'sbjI'
+        i.className = getSubjectIcon(course.sub);
+        i.ariaLabel = course.sub;
         course.appendChild(i);
 
-        course.title = input;
         let t = document.createTextNode(course.title);
         course.appendChild(t);
         course.classList.add('item');
 
+        course.gradeLevel = currentGrade;
+
         course.diff = document.getElementById('selDiff').value;
 
         let div = document.createElement('div');
-        div.className = 'attr';
         div.id = course.title + 'Diff';
-        if (course.diff == '4.5') {
-            t = document.createTextNode('IB');
-            div.classList.add('ib');
-        } else if (course.diff == '3.5') {
-            t = document.createTextNode('AP');
-            div.classList.add('ap');
-        } else if (course.diff == '2.5') {
-            t = document.createTextNode('Honors');
-            div.classList.add('hon');
-        } else if (course.diff == '1.5') {
-            t = document.createTextNode('Advanced');
-            div.classList.add('adv');
-        } else {
-            t = document.createTextNode('');
-            div.classList.add('norm');
-        }
+        [diffText, diffClass] = getDiff(course.diff);
+        t = document.createTextNode(diffText);
+        div.className = diffClass;
         div.appendChild(t);
         course.appendChild(div);
 
@@ -145,29 +106,47 @@ function addCourse() {
 
         let btn = document.createElement('button');
         icon = document.createElement('i');
-        icon.className = 'text-lg fa-solid fa-trash';
-        btn.className = 'opt xmark';
-        btn.ariaLabel = 'Delete course';
-        btn.title = 'Delete course';
-
+        icon.className = 'text-lg fa-solid fa-pen';
+        btn.className = 'opt pen';
+        btn.ariaLabel = 'Edit course';
+        btn.title = 'Edit course';
         btn.appendChild(icon);
         div.appendChild(btn);
+
+        btn = document.createElement('button');
+        icon = document.createElement('i');
+        icon.className = 'text-lg fa-solid fa-trash';
+        btn.className = 'opt trash';
+        btn.ariaLabel = 'Remove course';
+        btn.title = 'Remove course';
+        btn.appendChild(icon);
+        div.appendChild(btn);
+
         course.appendChild(div);
 
         localStorage.setItem(course.title, course.innerHTML);
+        localStorage.setItem(course.title + 'GradeLevel', course.gradeLevel);
+        localStorage.setItem(course.title + 'Sub', course.sub);
         localStorage.setItem(course.title + 'Diff', course.diff);
 
         document.getElementById('list' + currentGrade).appendChild(course);
 
-        let xmark = document.getElementsByClassName('xmark');
-        for (i = 0; i < xmark.length; i++) {
-            xmark[i].onclick = function () {
-                clickXmark(this.parentElement.parentElement);
+        let pen = document.getElementsByClassName('pen');
+        for (i = 0; i < pen.length; i++) {
+            pen[i].onclick = function () {
+                clickPen(this.parentElement.parentElement);
+            }
+        }
+
+        let trash = document.getElementsByClassName('trash');
+        for (i = 0; i < trash.length; i++) {
+            trash[i].onclick = function () {
+                clickTrash(this.parentElement.parentElement);
             }
         }
 
         calcListDiff();
-        saveList();
+        saveLists();
         hide();
     }
 }
@@ -259,8 +238,8 @@ function addAct() {
         icon = document.createElement('i');
         icon.className = 'text-lg fa-solid fa-trash';
         btn.className = 'opt xmark';
-        btn.ariaLabel = 'Delete activity';
-        btn.title = 'Delete activity';
+        btn.ariaLabel = 'Remove activity';
+        btn.title = 'Remove activity';
 
         btn.appendChild(icon);
         div.appendChild(btn);
@@ -278,24 +257,100 @@ function addAct() {
             }
         }
 
-        saveList();
+        saveLists();
         hide();
     }
 }
 
-let xmark = document.getElementsByClassName('xmark');
-for (i = 0; i < xmark.length; i++) {
-    xmark[i].onclick = function () {
-        clickXmark(this.parentElement.parentElement);
+let pen = document.getElementsByClassName('pen');
+for (i = 0; i < pen.length; i++) {
+    pen[i].onclick = function () {
+        clickPen(this.parentElement.parentElement);
     }
 }
 
-function clickXmark(course) {
-    if (confirm('Are you sure you want to delete \"' + course.title + '\"?')) {
+let trash = document.getElementsByClassName('trash');
+for (i = 0; i < trash.length; i++) {
+    trash[i].onclick = function () {
+        clickTrash(this.parentElement.parentElement);
+    }
+}
+
+function clickPen(course) {
+    document.getElementById('courseTitleEdit').value = course.title;
+    document.getElementById('selGradeLevEdit').value = course.gradeLevel;
+    document.getElementById('selSubjectEdit').value = course.sub;
+    document.getElementById('selDiffEdit').value = course.diff;
+
+    document.getElementById('editCourseModal').classList.remove('fadeIn');
+    document.getElementById('editCourseModal').classList.add('fadeOut');
+
+}
+
+function clickTrash(course) {
+    if (confirm('Are you sure you want to remove \"' + course.title + '\"?')) {
         course.remove();
 
         calcListDiff();
-        saveList();
+        saveLists();
+    }
+}
+
+function saveCourse() {
+    if (course.gradeLevel !== document.getElementById('selGradeLevEdit').value) {
+        course.gradeLevel = document.getElementById('selGradeLevEdit').value;
+        document.getElementById('list' + course.gradeLevel).appendChild(course.cloneNode(true));
+
+        course.remove();
+    }
+    course.title = document.getElementById('courseTitleEdit').value;
+    course.sub = document.getElementById('selSubjectEdit').value;
+    course.diff = document.getElementById('selDiffEdit').value;
+
+    localStorage.setItem(course.title, course.innerHTML);
+    localStorage.setItem(course.title + 'GradeLevel', course.gradeLevel);
+    localStorage.setItem(course.title + 'Sub', course.sub);
+    localStorage.setItem(course.title + 'Diff', course.diff);
+
+    document.getElementById(course.title + 'sbjI').className = getSubjectIcon(course.sub);
+    document.getElementById(course.title + 'sbjI').ariaLabel = course.sub;
+
+    [diffText, diffClass] = getDiff(course.diff);
+    document.getElementById(course.title + 'Diff').className = diffClass;
+    document.getElementById(course.title + 'Diff').innerText = diffText;
+
+    saveLists();
+    getLists();
+    getCourses();
+    calcListDiff();
+
+    let pen = document.getElementsByClassName('pen');
+    for (i = 0; i < pen.length; i++) {
+        pen[i].onclick = function () {
+            clickPen(this.parentElement.parentElement);
+        }
+    }
+
+    let trash = document.getElementsByClassName('trash');
+    for (i = 0; i < trash.length; i++) {
+        trash[i].onclick = function () {
+            clickTrash(this.parentElement.parentElement);
+        }
+    }
+
+    hide();
+}
+
+function getCourses() { // gets all stored info of each course
+    for (let i = 9; i <= 13; i++) {
+        let currentItems = document.getElementById('list' + i).getElementsByTagName('li');
+
+        for (let j = 0; j < currentItems.length; j++) {
+            course = currentItems[j];
+            course.gradeLevel = localStorage.getItem(course.title + 'GradeLevel');
+            course.sub = localStorage.getItem(course.title + 'Sub');
+            course.diff = localStorage.getItem(course.title + 'Diff');
+        }
     }
 }
 
@@ -306,7 +361,6 @@ function calcListDiff() { // calcs diffs of ALL lists
 
         for (let j = 0; j < currentItems.length; j++) {
             course = currentItems[j];
-            course.diff = localStorage.getItem(course.title + 'Diff');
 
             sum = +sum + +course.diff;
         }
@@ -316,19 +370,23 @@ function calcListDiff() { // calcs diffs of ALL lists
 
         if (currentItems.length < 1 || localStorage.getItem('list' + i + 'Diff') <= 0) {
             document.getElementById('diff' + i).innerText = '';
+        } else if (localStorage.getItem('list' + i + 'Diff') < 1) {
+            document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Easy';
         } else if (localStorage.getItem('list' + i + 'Diff') < 2) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Normal';
         } else if (localStorage.getItem('list' + i + 'Diff') < 3) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Hard';
         } else if (localStorage.getItem('list' + i + 'Diff') < 4) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Difficult';
-        } else if (localStorage.getItem('list' + i + 'Diff') >= 4) {
+        } else if (localStorage.getItem('list' + i + 'Diff') < 5) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Challenging';
+        } else if (localStorage.getItem('list' + i + 'Diff') >= 5) {
+            document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Extreme';
         }
     }
 }
 
-function saveList() {
+function saveLists() {
     localStorage.setItem('list9', document.getElementById('list9').innerHTML);
     localStorage.setItem('list10', document.getElementById('list10').innerHTML);
     localStorage.setItem('list11', document.getElementById('list11').innerHTML);
@@ -337,8 +395,51 @@ function saveList() {
     localStorage.setItem('listActs', document.getElementById('listActs').innerHTML);
 }
 
+function getLists() {
+    document.getElementById('list9').innerHTML = localStorage.getItem('list9');
+    document.getElementById('list10').innerHTML = localStorage.getItem('list10');
+    document.getElementById('list11').innerHTML = localStorage.getItem('list11');
+    document.getElementById('list12').innerHTML = localStorage.getItem('list12');
+    document.getElementById('list13').innerHTML = localStorage.getItem('list13');
+    document.getElementById('listActs').innerHTML = localStorage.getItem('listActs');
+}
+
+function getSubjectIcon(sub) {
+    if (sub == 'English') {
+        return 'sbjI fa-solid fa-pencil';
+    } else if (sub == 'History') {
+        return 'sbjI fa-solid fa-landmark'; // landmark-dome
+    } else if (sub == 'Math') {
+        return 'sbjI fa-solid fa-plus-minus'; // square-root-variable
+    } else if (sub == 'Science') {
+        return 'sbjI fa-solid fa-atom'; // flask
+    } else if (sub == 'Foreign Language') {
+        return 'sbjI fa-solid fa-globe';
+    } else if (sub == 'Art') {
+        return 'sbjI fa-solid fa-palette';
+    } else if (sub == 'PE') {
+        return 'sbjI fa-solid fa-dumbbell';
+    } else if (sub == 'Other/Elective') {
+        return 'sbjI fa-solid fa-graduation-cap';
+    }
+}
+
+function getDiff(diff) {
+    if (diff == '4.5') {
+        return ['IB', 'attr ib'];
+    } else if (diff == '3.5') {
+        return ['AP', 'attr ap'];
+    } else if (diff == '2.75') {
+        return ['Honors', 'attr hon'];
+    } else if (diff == '1.75') {
+        return ['Advanced', 'attr adv'];
+    } else {
+        return ['', 'attr norm'];
+    }
+}
+
 window.onclick = function (event) {
-    if (event.target == document.getElementById('courseModal') || event.target == document.getElementById('actModal') || event.target == document.getElementById('diffModal')) {
+    if (event.target == document.getElementById('courseModal') || event.target == document.getElementById('editCourseModal') || event.target == document.getElementById('actModal') || event.target == document.getElementById('diffModal')) {
         hide();
     }
 }
@@ -348,8 +449,11 @@ function hide() {
     document.getElementById('courseModal').classList.remove('fadeOut');
 
     document.getElementById('courseTitle').value = '';
-    document.getElementById('selSubject').value = 'hist';
+    document.getElementById('selSubject').value = 'History';
     document.getElementById('selDiff').value = '1';
+
+    document.getElementById('editCourseModal').classList.add('fadeIn');
+    document.getElementById('editCourseModal').classList.remove('fadeOut');
 
     document.getElementById('actModal').classList.add('fadeIn');
     document.getElementById('actModal').classList.remove('fadeOut');
