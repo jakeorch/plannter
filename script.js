@@ -276,7 +276,9 @@ for (i = 0; i < trash.length; i++) {
     }
 }
 
-function clickPen(course) {
+function clickPen(c) {
+    course = c;
+
     document.getElementById('courseTitleEdit').value = course.title;
     document.getElementById('selGradeLevEdit').value = course.gradeLevel;
     document.getElementById('selSubjectEdit').value = course.sub;
@@ -284,7 +286,6 @@ function clickPen(course) {
 
     document.getElementById('editCourseModal').classList.remove('fadeIn');
     document.getElementById('editCourseModal').classList.add('fadeOut');
-
 }
 
 function clickTrash(course) {
