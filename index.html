@@ -25,7 +25,7 @@
     <div id='courseModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add course</h1>
@@ -52,7 +52,9 @@
                     <option value='Math'>Math</option>
                     <option value='Science'>Science</option>
                     <option value='Foreign Language'>Foreign Language</option>
-                    <option value='Art'>Visual/Performing Arts</option>
+                    <option value='Technology'>Technology</option>
+                    <option value='Visual Arts'>Visual Arts</option>
+                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='PE'>Physical Education</option>
                     <option value='Other/Elective'>Other/Elective</option>
                 </optgroup>
@@ -61,11 +63,11 @@
             <h2 class='text-base text-slate-600 px-2 mb-1'>Difficulty</h2>
             <select id='selDiff' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a difficulty'>
-                    <option value='1'>Normal</option>
+                    <option value='1'>None</option>
                     <option value='1.75'>Advanced/Accelerated</option>
                     <option value='2.75'>Honors</option>
-                    <option value='3.5'>Advanced Placement (AP)</option>
-                    <option value='4.5'>International Baccalaureate (IB)</option>
+                    <option value='3.75'>Advanced Placement (AP)</option>
+                    <option value='4.75'>International Baccalaureate (IB)</option>
                 </optgroup>
             </select>
 
@@ -78,7 +80,7 @@
     <div id='editCourseModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit course</h1>
@@ -106,7 +108,9 @@
                     <option value='Math'>Math</option>
                     <option value='Science'>Science</option>
                     <option value='Foreign Language'>Foreign Language</option>
-                    <option value='Art'>Visual/Performing Arts</option>
+                    <option value='Technology'>Technology</option>
+                    <option value='Visual Arts'>Visual Arts</option>
+                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='PE'>Physical Education</option>
                     <option value='Other/Elective'>Other/Elective</option>
                 </optgroup>
@@ -115,11 +119,11 @@
             <h2 class='text-base text-slate-600 px-2 mb-1'>Difficulty</h2>
             <select id='selDiffEdit' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a difficulty'>
-                    <option value='1'>Normal</option>
+                    <option value='1'>None</option>
                     <option value='1.75'>Advanced/Accelerated</option>
                     <option value='2.75'>Honors</option>
-                    <option value='3.5'>Advanced Placement (AP)</option>
-                    <option value='4.5'>International Baccalaureate (IB)</option>
+                    <option value='3.75'>Advanced Placement (AP)</option>
+                    <option value='4.75'>International Baccalaureate (IB)</option>
                 </optgroup>
             </select>
 
@@ -132,7 +136,7 @@
     <div id='actModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add activity</h1>
@@ -152,7 +156,8 @@
                     <option value='Music'>Music</option>
                     <option value='Science'>Science</option>
                     <option value='Technology'>Technology</option>
-                    <option value='Visual/Performing Arts'>Visual/Performing Arts</option>
+                    <option value='Visual Arts'>Visual Arts</option>
+                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='Volunteering'>Volunteering</option>
                     <option value='Other'>Other</option>
                 </optgroup>
@@ -177,7 +182,7 @@
     <div id='editActModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit activity</h1>
@@ -198,7 +203,8 @@
                     <option value='Music'>Music</option>
                     <option value='Science'>Science</option>
                     <option value='Technology'>Technology</option>
-                    <option value='Visual/Performing Arts'>Visual/Performing Arts</option>
+                    <option value='Visual Arts'>Visual Arts</option>
+                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='Volunteering'>Volunteering</option>
                     <option value='Other'>Other</option>
                 </optgroup>
@@ -223,7 +229,7 @@
     <div id='diffModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide();'><i
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>About grade level difficulty</h1>
@@ -241,15 +247,16 @@
     </div>
 
     <h1 class='text-4xl bg-green-600 text-slate-100 rounded-tl-3xl rounded-br-3xl font-extrabold shadow-sm p-5'>
-        <i class='fa-solid fa-seedling'></i> Plannter
+        <i class='fa-solid fa-seedling mr-3'></i>Plannter
     </h1>
 
     <div class='inline-flex mt-2 mb-12'>
-        <button class='planBtns text-xl border-slate-400 border-b-2 py-4 px-5 transition-all' onclick='showPlan()'>
+        <button class='planBtns text-xl text-slate-700 border-slate-400 border-b-2 py-4 px-5 transition-all'
+            onclick='showPlan()'>
             <h1>4-year plan</h1>
         </button>
         <button
-            class='planBtns text-xl border-slate-100 hover:text-slate-600 hover:border-slate-300 border-b-2 py-4 px-5 transition-all'
+            class='planBtns text-xl text-slate-500 border-slate-100 hover:text-slate-600 hover:border-slate-300 border-b-2 py-4 px-5 transition-all'
             onclick='showExtra()'>
             <h1>Extracurriculars</h1>
         </button>
@@ -259,10 +266,9 @@
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>
-                Grade 9 (Freshman) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff9'
-                    onclick='openDiff()'></button>
+                Grade 9 (Freshman) <button class='attr' id='diff9' onclick='openDiff()'></button>
             </h2>
-            <ul id='list9'>
+            <ul id='list9' class='mb-3'>
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
@@ -271,10 +277,9 @@
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>
-                Grade 10 (Sophomore) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff10'
-                    onclick='openDiff()'></button>
+                Grade 10 (Sophomore) <button class='attr' id='diff10' onclick='openDiff()'></button>
             </h2>
-            <ul id='list10'>
+            <ul id='list10' class='mb-3'>
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
@@ -283,10 +288,9 @@
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>
-                Grade 11 (Junior) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff11'
-                    onclick='openDiff()'></button>
+                Grade 11 (Junior) <button class='attr' id='diff11' onclick='openDiff()'></button>
             </h2>
-            <ul id='list11'>
+            <ul id='list11' class='mb-3'>
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
@@ -295,10 +299,9 @@
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>
-                Grade 12 (Senior) <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff12'
-                    onclick='openDiff()'></button>
+                Grade 12 (Senior) <button class='attr' id='diff12' onclick='openDiff()'></button>
             </h2>
-            <ul id='list12'>
+            <ul id='list12' class='mb-3'>
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
@@ -307,10 +310,9 @@
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>
-                Extra Courses <button class='attr bg-slate-500 hover:bg-slate-600 transition-all' id='diff13'
-                    onclick='openDiff()'></button>
+                Extra Courses <button class='attr' id='diff13' onclick='openDiff()'></button>
             </h2>
-            <ul id='list13'>
+            <ul id='list13' class='mb-3'>
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
@@ -323,7 +325,7 @@
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>Extracurriculars</h2>
-            <ul id='listActs'>
+            <ul id='listActs' class='mb-3'>
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'

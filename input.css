@@ -4,7 +4,7 @@
 
 @layer components {
   .item {
-    @apply text-lg border-slate-300 border-2 border-b-0 last:border-b-2 first:rounded-t-md last:rounded-b-md hover:bg-slate-300 w-full text-left break-words transition-all px-4 py-3 last:mb-3;
+    @apply text-lg border-slate-300 border-2 border-b-0 last:border-b-2 first:rounded-t-md last:rounded-b-md hover:bg-slate-300 w-full text-left break-words transition-all px-4 py-3;
   }
 
   .sbjI {
@@ -28,23 +28,47 @@
   }
 
   .attr {
-    @apply inline-flex bg-slate-500 text-base text-slate-100 rounded-md px-2 ml-2;
+    @apply inline-flex bg-green-600 text-base text-slate-100 rounded-md px-2 ml-2;
   }
 
   .ib {
-    @apply bg-red-400;
+    @apply bg-pink-500;
   }
 
   .ap {
-    @apply bg-red-400;
+    @apply bg-red-500;
   }
 
   .hon {
-    @apply bg-orange-400;
+    @apply bg-orange-500;
   }
 
   .adv {
     @apply bg-yellow-500;
+  }
+
+  .lev1 {
+    @apply bg-slate-500 hover:bg-slate-600 transition-all;
+  }
+
+  .lev2 {
+    @apply bg-slate-500 hover:bg-slate-600 transition-all;
+  }
+
+  .lev3 {
+    @apply bg-yellow-600 hover:bg-yellow-700 transition-all;
+  }
+
+  .lev4 {
+    @apply bg-orange-600 hover:bg-orange-700 transition-all;
+  }
+
+  .lev5 {
+    @apply bg-red-600 hover:bg-red-700 transition-all;
+  }
+
+  .lev6 {
+    @apply bg-pink-600 hover:bg-pink-700 transition-all;
   }
 
   .trash {
@@ -52,11 +76,11 @@
   }
 
   .pen {
-    @apply hover:text-slate-600 transition-all;
+    @apply hover:text-slate-500 transition-all;
   }
 
   .penAct {
-    @apply hover:text-slate-600 transition-all;
+    @apply hover:text-slate-500 transition-all;
   }
 
   .fadeIn {

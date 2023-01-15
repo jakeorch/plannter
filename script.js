@@ -31,13 +31,16 @@ buttons.forEach((planBtns) => {
         // add/remove classes from all buttons
         buttons.forEach((planBtns) => {
             planBtns.classList.remove('border-slate-400');
+            planBtns.classList.remove('text-slate-700');
             planBtns.classList.add('border-slate-100');
             planBtns.classList.add('hover:border-slate-300');
+            planBtns.classList.add('text-slate-500');
             planBtns.classList.add('hover:text-slate-600');
         });
 
         // add/remove classes to the clicked button
         planBtns.classList.add('border-slate-400');
+        planBtns.classList.add('text-slate-700');
         planBtns.classList.remove('border-slate-100');
         planBtns.classList.remove('hover:border-slate-300');
         planBtns.classList.remove('hover:text-slate-600');
@@ -293,6 +296,8 @@ function clickPen(c) {
 function clickPenAct(a) {
     activity = a;
 
+    console.log(activity.category);
+
     document.getElementById('actTitleEdit').value = activity.title;
     document.getElementById('selActCategoryEdit').value = activity.category;
     document.getElementById('actPositionEdit').value = activity.position;
@@ -367,45 +372,49 @@ function saveCourse() {
 }
 
 function saveAct() {
-    activity.title = document.getElementById('actTitleEdit').value;
-    activity.category = document.getElementById('selActCategoryEdit').value;
-    activity.position = document.getElementById('actPositionEdit').value;
+    if (document.getElementById('actPositionEdit').value.length > 20) {
+        alert('Position title is too long');
+    } else {
+        activity.title = document.getElementById('actTitleEdit').value;
+        activity.category = document.getElementById('selActCategoryEdit').value;
+        activity.position = document.getElementById('actPositionEdit').value;
 
-    document.getElementById(activity.title + 'actI').className = getActIcon(activity.category);
-    document.getElementById(activity.title + 'actI').ariaLabel = activity.category;
+        document.getElementById(activity.title + 'actI').className = getActIcon(activity.category);
+        document.getElementById(activity.title + 'actI').ariaLabel = activity.category;
 
-    document.getElementById(activity.title + 'Pos').innerText = activity.position;
+        document.getElementById(activity.title + 'Pos').innerText = activity.position;
 
-    localStorage.setItem(activity.title, activity.innerHTML);
-    localStorage.setItem(activity.title + 'Category', activity.category);
-    localStorage.setItem(activity.title + 'Pos', activity.position);
+        localStorage.setItem(activity.title, activity.innerHTML);
+        localStorage.setItem(activity.title + 'Category', activity.category);
+        localStorage.setItem(activity.title + 'Pos', activity.position);
 
-    saveLists();
-    getLists();
-    getActs();
+        saveLists();
+        getLists();
+        getActs();
 
-    let pen = document.getElementsByClassName('pen');
-    for (i = 0; i < pen.length; i++) {
-        pen[i].onclick = function () {
-            clickPen(this.parentElement.parentElement);
+        let pen = document.getElementsByClassName('pen');
+        for (i = 0; i < pen.length; i++) {
+            pen[i].onclick = function () {
+                clickPen(this.parentElement.parentElement);
+            }
         }
-    }
 
-    let penAct = document.getElementsByClassName('penAct');
-    for (i = 0; i < penAct.length; i++) {
-        penAct[i].onclick = function () {
-            clickPenAct(this.parentElement.parentElement);
+        let penAct = document.getElementsByClassName('penAct');
+        for (i = 0; i < penAct.length; i++) {
+            penAct[i].onclick = function () {
+                clickPenAct(this.parentElement.parentElement);
+            }
         }
-    }
 
-    let trash = document.getElementsByClassName('trash');
-    for (i = 0; i < trash.length; i++) {
-        trash[i].onclick = function () {
-            clickTrash(this.parentElement.parentElement);
+        let trash = document.getElementsByClassName('trash');
+        for (i = 0; i < trash.length; i++) {
+            trash[i].onclick = function () {
+                clickTrash(this.parentElement.parentElement);
+            }
         }
-    }
 
-    hide();
+        hide();
+    }
 }
 
 function getCourses() { // gets all stored info of each course
@@ -449,16 +458,22 @@ function calcListDiff() { // calcs diffs of ALL lists
             document.getElementById('diff' + i).innerText = '';
         } else if (localStorage.getItem('list' + i + 'Diff') < 1) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Easy';
+            document.getElementById('diff' + i).className = 'attr lev1';
         } else if (localStorage.getItem('list' + i + 'Diff') < 2) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Normal';
+            document.getElementById('diff' + i).className = 'attr lev2';
         } else if (localStorage.getItem('list' + i + 'Diff') < 3) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Hard';
+            document.getElementById('diff' + i).className = 'attr lev3';
         } else if (localStorage.getItem('list' + i + 'Diff') < 4) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Difficult';
+            document.getElementById('diff' + i).className = 'attr lev4';
         } else if (localStorage.getItem('list' + i + 'Diff') < 5) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Challenging';
+            document.getElementById('diff' + i).className = 'attr lev5';
         } else if (localStorage.getItem('list' + i + 'Diff') >= 5) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Extreme';
+            document.getElementById('diff' + i).className = 'attr lev6';
         }
     }
 }
@@ -492,8 +507,12 @@ function getSubjectIcon(sub) {
         return 'sbjI fa-solid fa-atom'; // flask
     } else if (sub == 'Foreign Language') {
         return 'sbjI fa-solid fa-globe';
-    } else if (sub == 'Art') {
+    } else if (sub == 'Technology') {
+        return 'sbjI fa-solid fa-compass-drafting';
+    } else if (sub == 'Visual Arts') {
         return 'sbjI fa-solid fa-palette';
+    } else if (sub == 'Performing Arts') {
+        return 'sbjI fa-solid fa-masks-theater';
     } else if (sub == 'PE') {
         return 'sbjI fa-solid fa-dumbbell';
     } else if (sub == 'Other/Elective') {
@@ -519,9 +538,11 @@ function getActIcon(act) {
     } else if (act == 'Science') {
         return 'actI fa-solid fa-atom';
     } else if (act == 'Technology') {
-        return 'actI fa-solid fa-desktop';
-    } else if (act == 'Visual/Performing Arts') {
+        return 'actI fa-solid fa-compass-drafting';
+    } else if (act == 'Visual Arts') {
         return 'actI fa-solid fa-palette';
+    } else if (act == 'Performing Arts') {
+        return 'actI fa-solid fa-masks-theater';
     } else if (act == 'Volunteering') {
         return 'actI fa-solid fa-hand-holding-hand';
     } else if (act == 'Other') {
@@ -530,16 +551,16 @@ function getActIcon(act) {
 }
 
 function getDiff(diff) {
-    if (diff == '4.5') {
+    if (diff == '4.75') {
         return ['IB', 'attr ib'];
-    } else if (diff == '3.5') {
+    } else if (diff == '3.75') {
         return ['AP', 'attr ap'];
     } else if (diff == '2.75') {
         return ['Honors', 'attr hon'];
     } else if (diff == '1.75') {
         return ['Advanced', 'attr adv'];
     } else {
-        return ['', 'attr norm'];
+        return ['', 'attr none'];
     }
 }
 
