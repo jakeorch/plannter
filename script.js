@@ -41,6 +41,7 @@ buttons.forEach((planBtns) => {
         // add/remove classes to the clicked button
         planBtns.classList.add('border-slate-400');
         planBtns.classList.add('text-slate-700');
+        planBtns.classList.remove('text-slate-500');
         planBtns.classList.remove('border-slate-100');
         planBtns.classList.remove('hover:border-slate-300');
         planBtns.classList.remove('hover:text-slate-600');
@@ -161,6 +162,8 @@ function addCourse() {
 
 function addAct() {
     let input = document.getElementById('actTitle').value.trim();
+    let descInput = document.getElementById('actDesc').value.trim();
+    let posInput = document.getElementById('actPosition').value.trim();
     let sameN = false;
 
     for (let i = 0; i < document.getElementsByTagName('li').length; i++) {
@@ -173,7 +176,9 @@ function addAct() {
 
     if (input.length > 60) {
         alert('Actvity title is too long');
-    } else if (document.getElementById('actPosition').value.length > 20) {
+    } else if (descInput.length > 120) {
+        alert('Actvity title is too long');
+    } else if (posInput.length > 20) {
         alert('Position title is too long');
     } else if (input == '') {
         alert('Enter the title of your activity');
@@ -196,15 +201,23 @@ function addAct() {
         activity.appendChild(t);
         activity.classList.add('item');
 
-        activity.position = document.getElementById('actPosition').value;
+        activity.pos = posInput;
 
         let div = document.createElement('div');
-        div.className = 'attr';
+        div.className = 'attr actPos';
         div.id = activity.title + 'Pos';
-        t = document.createTextNode(activity.position);
-        div.classList.add('actPos');
+        t = document.createTextNode(activity.pos);
         div.appendChild(t);
         activity.appendChild(div);
+
+        activity.desc = descInput;
+
+        let h2 = document.createElement('h2');
+        h2.className = 'actDesc';
+        h2.id = activity.title + 'Desc';
+        t = document.createTextNode(activity.desc);
+        h2.appendChild(t);
+        activity.appendChild(h2);
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -230,8 +243,9 @@ function addAct() {
         activity.appendChild(div);
 
         localStorage.setItem(activity.title, activity.innerHTML);
+        localStorage.setItem(activity.title + 'Desc', activity.desc);
         localStorage.setItem(activity.title + 'Category', activity.category);
-        localStorage.setItem(activity.title + 'Pos', activity.position);
+        localStorage.setItem(activity.title + 'Pos', activity.pos);
 
         document.getElementById('listActs').appendChild(activity);
 
@@ -296,11 +310,11 @@ function clickPen(c) {
 function clickPenAct(a) {
     activity = a;
 
-    console.log(activity.category);
-
     document.getElementById('actTitleEdit').value = activity.title;
+
+    document.getElementById('actDescEdit').value = activity.desc;
     document.getElementById('selActCategoryEdit').value = activity.category;
-    document.getElementById('actPositionEdit').value = activity.position;
+    document.getElementById('actPositionEdit').value = activity.pos;
 
     document.getElementById('editActModal').classList.remove('fadeIn');
     document.getElementById('editActModal').classList.add('fadeOut');
@@ -372,21 +386,29 @@ function saveCourse() {
 }
 
 function saveAct() {
-    if (document.getElementById('actPositionEdit').value.length > 20) {
+    let descInput = document.getElementById('actDescEdit').value.trim();
+    let posInput = document.getElementById('actPositionEdit').value.trim();
+
+    if (descInput.length > 120) {
+        alert('Actvity title is too long');
+    } else if (posInput.length > 20) {
         alert('Position title is too long');
     } else {
         activity.title = document.getElementById('actTitleEdit').value;
+        activity.desc = descInput;
         activity.category = document.getElementById('selActCategoryEdit').value;
-        activity.position = document.getElementById('actPositionEdit').value;
+        activity.pos = posInput;
 
         document.getElementById(activity.title + 'actI').className = getActIcon(activity.category);
         document.getElementById(activity.title + 'actI').ariaLabel = activity.category;
 
-        document.getElementById(activity.title + 'Pos').innerText = activity.position;
+        document.getElementById(activity.title + 'Desc').innerText = activity.desc;
+        document.getElementById(activity.title + 'Pos').innerText = activity.pos;
 
         localStorage.setItem(activity.title, activity.innerHTML);
+        localStorage.setItem(activity.title + 'Desc', activity.desc);
         localStorage.setItem(activity.title + 'Category', activity.category);
-        localStorage.setItem(activity.title + 'Pos', activity.position);
+        localStorage.setItem(activity.title + 'Pos', activity.pos);
 
         saveLists();
         getLists();
@@ -435,8 +457,9 @@ function getActs() { // gets all stored info of activities
 
     for (let j = 0; j < currentItems.length; j++) {
         activity = currentItems[j];
+        activity.desc = localStorage.getItem(activity.title + 'Desc');
         activity.category = localStorage.getItem(activity.title + 'Category');
-        activity.position = localStorage.getItem(activity.title + 'Pos');
+        activity.pos = localStorage.getItem(activity.title + 'Pos');
     }
 }
 
@@ -447,7 +470,7 @@ function calcListDiff() { // calcs diffs of ALL lists
 
         for (let j = 0; j < currentItems.length; j++) {
             course = currentItems[j];
-
+            course.diff = localStorage.getItem(course.title + 'Diff');
             sum = +sum + +course.diff;
         }
 
@@ -529,6 +552,8 @@ function getActIcon(act) {
         return 'actI fa-solid fa-ranking-star';
     } else if (act == 'Employment') {
         return 'actI fa-solid fa-briefcase';
+    } else if (act == 'Event') {
+        return 'actI fa-solid fa-calendar-day';
     } else if (act == 'Literature') {
         return 'actI fa-solid fa-pencil';
     } else if (act == 'Math') {
