@@ -176,8 +176,8 @@ function addAct() {
 
     if (input.length > 60) {
         alert('Actvity title is too long');
-    } else if (descInput.length > 120) {
-        alert('Actvity title is too long');
+    } else if (descInput.length > 160) {
+        alert('Actvity description is too long');
     } else if (posInput.length > 20) {
         alert('Position title is too long');
     } else if (input == '') {
@@ -290,6 +290,8 @@ for (i = 0; i < trash.length; i++) {
 }
 
 function clickPen(c) {
+    getCourses();
+
     course = c;
 
     document.getElementById('courseTitleEdit').value = course.title;
@@ -308,6 +310,8 @@ function clickPen(c) {
 }
 
 function clickPenAct(a) {
+    getActs();
+
     activity = a;
 
     document.getElementById('actTitleEdit').value = activity.title;
@@ -389,8 +393,8 @@ function saveAct() {
     let descInput = document.getElementById('actDescEdit').value.trim();
     let posInput = document.getElementById('actPositionEdit').value.trim();
 
-    if (descInput.length > 120) {
-        alert('Actvity title is too long');
+    if (descInput.length > 160) {
+        alert('Actvity description is too long');
     } else if (posInput.length > 20) {
         alert('Position title is too long');
     } else {
@@ -613,6 +617,7 @@ function hide() {
     document.getElementById('editActModal').classList.remove('fadeOut');
 
     document.getElementById('actTitle').value = '';
+    document.getElementById('actDesc').value = '';
     document.getElementById('selActCategory').value = 'Athletics';
     document.getElementById('actPosition').value = '';
 

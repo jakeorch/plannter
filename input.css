@@ -28,7 +28,7 @@
   }
 
   .attr {
-    @apply inline-flex bg-green-600 text-base text-slate-100 rounded-md px-2 ml-2;
+    @apply inline-flex bg-green-600 text-base text-slate-100 rounded-md px-2 /* py-[0.075rem] */ ml-2;
   }
 
   .actDesc {
