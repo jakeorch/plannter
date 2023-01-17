@@ -15,6 +15,10 @@
     @apply mr-2;
   }
 
+  .testI {
+    @apply mr-2;
+  }
+
   .input {
     @apply text-lg bg-slate-100 border-slate-300 border-2 rounded-md hover:enabled:bg-slate-300 w-full text-left transition-all px-4 py-3 mb-3;
   }
@@ -60,7 +64,7 @@
   }
 
   .lev3 {
-    @apply border-2 border-yellow-500 bg-transparent hover:bg-yellow-300 text-slate-700 transition-all;
+    @apply border-2 border-yellow-500 bg-transparent hover:bg-yellow-200 text-slate-700 transition-all;
   }
 
   .lev4 {
@@ -84,6 +88,10 @@
   }
 
   .penAct {
+    @apply hover:text-slate-500 transition-all;
+  }
+
+  .penTest {
     @apply hover:text-slate-500 transition-all;
   }
 

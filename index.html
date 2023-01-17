@@ -16,8 +16,7 @@
     <script async src='https://cdn.splitbee.io/sb.js'></script>
 </head>
 
-<body
-    class='bg-slate-100 text-slate-900 text-left p-4 pt-8 md:p-14 lg:p-20 xl:p-24 px-4 md:px-20 lg:px-44 xl:px-96 font-LexendDeca'>
+<body class='bg-slate-100 text-slate-900 text-left pb-24 font-LexendDeca'>
 
     <!-- <button onclick='localStorage.clear()' class='text-3xl border-4 border-red-500 hover:bg-red-300'>CLEAR
 		EVERYTHING</button> -->
@@ -159,10 +158,10 @@
                     <option value='Literature'>Literature</option>
                     <option value='Math'>Math</option>
                     <option value='Music'>Music</option>
+                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='Science'>Science</option>
                     <option value='Technology'>Technology</option>
                     <option value='Visual Arts'>Visual Arts</option>
-                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='Volunteering'>Volunteering</option>
                     <option value='Other'>Other</option>
                 </optgroup>
@@ -192,7 +191,7 @@
 
             <h1 class='text-2xl mb-5'>Edit activity</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
+            <h2 class='text-base text-slate-400 px-2 mb-1'>Title</h2>
             <input placeholder='Activity title' id='actTitleEdit'
                 class='input text-lg p-2 pl-3 mb-4 border-slate-200 text-slate-400 cursor-not-allowed' disabled>
 
@@ -211,10 +210,10 @@
                     <option value='Literature'>Literature</option>
                     <option value='Math'>Math</option>
                     <option value='Music'>Music</option>
+                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='Science'>Science</option>
                     <option value='Technology'>Technology</option>
                     <option value='Visual Arts'>Visual Arts</option>
-                    <option value='Performing Arts'>Performing Arts</option>
                     <option value='Volunteering'>Volunteering</option>
                     <option value='Other'>Other</option>
                 </optgroup>
@@ -233,6 +232,76 @@
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
                 onclick='saveAct()'><i class='fa-solid fa-floppy-disk mr-[0.375rem]'></i>Save activity</button>
+        </div>
+    </div>
+
+    <div id='testModal'
+        class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
+        <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+                    class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
+
+            <h1 class='text-2xl mb-5'>Add test</h1>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Type</h2>
+            <select id='selTestSpecies' class='input text-lg p-2 mb-4'>
+                <optgroup label='Select a type'>
+                    <option value='ACT'>ACT</option>
+                    <option value='AP'>AP</option>
+                    <option value='IB'>IB</option>
+                    <option value='SAT'>SAT</option>
+                </optgroup>
+            </select>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>
+                Date taken <p class='inline text-sm'>(MM/YYYY)</p>
+            </h2>
+            <div class='flex'>
+                <input placeholder='Month' id='testMonth' type='number' class='input text-lg p-2 pl-3 mb-4 mr-1'>
+                <input placeholder='Year' id='testYear' type='number' class='input text-lg p-2 pl-3 mb-4 ml-1'>
+            </div>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Score</h2>
+            <input placeholder='Test score' id='testScore' type='number' class='input text-lg p-2 pl-3 mb-4'>
+
+            <button
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                onclick='addTest()'><i class='fa-solid fa-plus mr-1'></i>Add test</button>
+        </div>
+    </div>
+
+    <div id='editTestModal'
+        class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
+        <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+                    class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
+
+            <h1 class='text-2xl mb-5'>Edit test</h1>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Type</h2>
+            <select id='selTestSpeciesEdit' class='input text-lg p-2 mb-4'>
+                <optgroup label='Select a type'>
+                    <option value='ACT'>ACT</option>
+                    <option value='AP'>AP</option>
+                    <option value='IB'>IB</option>
+                    <option value='SAT'>SAT</option>
+                </optgroup>
+            </select>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>
+                Date taken <p class='inline text-sm'>(MM/YY)</p>
+            </h2>
+            <div class='flex'>
+                <input placeholder='Month' id='testMonthEdit' type='number' class='input text-lg p-2 pl-3 mb-4 mr-1'>
+                <input placeholder='Year' id='testYearEdit' type='number' class='input text-lg p-2 pl-3 mb-4 ml-1'>
+            </div>
+
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Score</h2>
+            <input placeholder='Test score' id='testScoreEdit' class='input text-lg p-2 pl-3 mb-4'>
+
+            <button
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                onclick='saveTest()'><i class='fa-solid fa-floppy-disk mr-[0.375rem]'></i>Save test</button>
         </div>
     </div>
 
@@ -256,23 +325,30 @@
         </div>
     </div>
 
-    <h1 class='text-4xl bg-green-600 text-slate-100 rounded-tl-3xl rounded-br-3xl font-extrabold shadow-sm p-5'>
-        <i class='fa-solid fa-seedling mr-3'></i>Plannter
-    </h1>
+    <div
+        class='text-3xl sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6 mb-6'>
+        <h1><i class='fa-solid fa-seedling mr-3'></i>Plannter</h1>
+        <!-- <h2 class='text-lg mt-1'>Organize your high school life to prepare for college</h2> -->
+    </div>
 
-    <div class='inline-flex mt-2 mb-12'>
-        <button class='planBtns text-xl text-slate-700 border-slate-400 border-b-2 py-4 px-5 transition-all'
+    <div class='inline-flex w-full px-4 md:px-20 lg:px-60 xl:px-96 mb-12'>
+        <button class='planBtns w-full text-xl text-slate-700 border-slate-400 border-b-2 py-4 px-5 transition-all'
             onclick='showPlan()'>
             <h1>4-year plan</h1>
         </button>
         <button
-            class='planBtns text-xl text-slate-500 border-slate-100 hover:text-slate-600 hover:border-slate-300 border-b-2 py-4 px-5 transition-all'
+            class='planBtns w-full text-xl text-slate-500 border-slate-100 hover:text-slate-600 hover:border-slate-300 border-b-2 py-4 px-5 transition-all'
             onclick='showExtra()'>
             <h1>Extracurriculars</h1>
         </button>
+        <button
+            class='planBtns w-full text-xl text-slate-500 border-slate-100 hover:text-slate-600 hover:border-slate-300 border-b-2 py-4 px-5 transition-all'
+            onclick='showTests()'>
+            <h1>Testing</h1>
+        </button>
     </div>
 
-    <div id='planDiv'>
+    <div id='planDiv' class='px-4 md:px-20 lg:px-60 xl:px-96'>
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>
@@ -282,7 +358,7 @@
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAdd(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                onclick='openAddCourse(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
         </div>
 
         <div class='px-4 mb-12'>
@@ -293,7 +369,7 @@
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAdd(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                onclick='openAddCourse(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
         </div>
 
         <div class='px-4 mb-12'>
@@ -304,7 +380,7 @@
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAdd(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                onclick='openAddCourse(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
         </div>
 
         <div class='px-4 mb-12'>
@@ -315,7 +391,7 @@
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAdd(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                onclick='openAddCourse(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
         </div>
 
         <div class='px-4 mb-12'>
@@ -326,12 +402,12 @@
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAdd(13)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                onclick='openAddCourse(13)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
         </div>
 
     </div>
 
-    <div class='hidden' id='actsDiv'>
+    <div id='actsDiv' class='hidden px-4 md:px-20 lg:px-60 xl:px-96'>
 
         <div class='px-4 mb-12'>
             <h2 class='text-xl px-3 mb-3'>Extracurriculars</h2>
@@ -339,7 +415,20 @@
             </ul>
             <button
                 class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAct()'><i class='fa-solid fa-plus mr-1'></i>Add an activity</button>
+                onclick='openAddAct()'><i class='fa-solid fa-plus mr-1'></i>Add an activity</button>
+        </div>
+
+    </div>
+
+    <div id='testsDiv' class='hidden px-4 md:px-20 lg:px-60 xl:px-96'>
+
+        <div class='px-4 mb-12'>
+            <h2 class='text-xl px-3 mb-3'>Testing</h2>
+            <ul id='listTests' class='mb-3'>
+            </ul>
+            <button
+                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                onclick='openAddTest()'><i class='fa-solid fa-plus mr-1'></i>Add a test</button>
         </div>
 
     </div>
