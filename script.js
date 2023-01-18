@@ -5,6 +5,16 @@ getCourses();
 getActs();
 calcListDiff();
 
+function toggleMenu() {
+    if (document.getElementById('menuDiv').className.includes('hidden')) {
+        document.getElementById('menuDiv').classList.remove('hidden');
+        document.getElementById('menuDiv').classList.add('block');
+    } else {
+        document.getElementById('menuDiv').classList.remove('block');
+        document.getElementById('menuDiv').classList.add('hidden');
+    }
+}
+
 function openAddCourse(num) {
     currentGrade = num;
 
@@ -35,21 +45,17 @@ buttons.forEach((planBtns) => {
     planBtns.addEventListener('click', () => {
         // add/remove classes from all buttons
         buttons.forEach((planBtns) => {
-            planBtns.classList.remove('border-slate-400');
-            planBtns.classList.remove('text-slate-700');
-            planBtns.classList.add('border-slate-100');
-            planBtns.classList.add('hover:border-slate-300');
+            planBtns.classList.remove('bg-gradient-to-r');
+            planBtns.classList.remove('text-slate-600');
             planBtns.classList.add('text-slate-500');
-            planBtns.classList.add('hover:text-slate-600');
+            planBtns.classList.add('hover:bg-slate-400/30');
         });
 
         // add/remove classes to the clicked button
-        planBtns.classList.add('border-slate-400');
-        planBtns.classList.add('text-slate-700');
+        planBtns.classList.add('bg-gradient-to-r');
+        planBtns.classList.add('text-slate-600');
         planBtns.classList.remove('text-slate-500');
-        planBtns.classList.remove('border-slate-100');
-        planBtns.classList.remove('hover:border-slate-300');
-        planBtns.classList.remove('hover:text-slate-600');
+        planBtns.classList.remove('hover:bg-slate-400/30');
     });
 });
 
@@ -57,18 +63,21 @@ function showPlan() {
     document.getElementById('planDiv').classList.remove('hidden');
     document.getElementById('actsDiv').classList.add('hidden');
     document.getElementById('testsDiv').classList.add('hidden');
+    toggleMenu();
 }
 
 function showExtra() {
     document.getElementById('actsDiv').classList.remove('hidden');
     document.getElementById('planDiv').classList.add('hidden');
     document.getElementById('testsDiv').classList.add('hidden');
+    toggleMenu();
 }
 
 function showTests() {
     document.getElementById('testsDiv').classList.remove('hidden');
     document.getElementById('planDiv').classList.add('hidden');
     document.getElementById('actsDiv').classList.add('hidden');
+    toggleMenu();
 }
 
 function addCourse() {
@@ -110,7 +119,7 @@ function addCourse() {
         course.appendChild(div);
 
         if (course.sub == 'PE') {
-            course.diff = document.getElementById('selDiff').value * 0.1;
+            course.diff = document.getElementById('selDiff').value * 0.05;
         }
 
         div = document.createElement('div');
@@ -286,8 +295,12 @@ function addTest() {
         test.appendChild(i);
 
         test.species = speciesInput;
-        test.month = monthInput;
         test.year = yearInput;
+        if (monthInput.length == 1) {
+            test.month = '0' + monthInput;
+        } else {
+            test.month = monthInput;
+        }
 
         let t = document.createTextNode(`${test.species} — ${test.month}/${test.year}`);
         test.appendChild(t);
@@ -391,7 +404,7 @@ function clickPen(c) {
     document.getElementById('selDiffEdit').value = course.diff;
 
     if (course.sub == 'PE') {
-        document.getElementById('selDiffEdit').value = course.diff / 0.1;
+        document.getElementById('selDiffEdit').value = course.diff / 0.05;
     } else {
         document.getElementById('selDiffEdit').value = course.diff;
     }
@@ -579,7 +592,11 @@ function saveTest() {
     } else {
         test = document.getElementById(test.id);
 
-        test.month = monthInput;
+        if (monthInput.length == 1) {
+            test.month = '0' + monthInput;
+        } else {
+            test.month = monthInput;
+        }
         test.year = yearInput;
         test.score = scoreInput;
         test.species = speciesInput;
@@ -700,7 +717,7 @@ function calcListDiff() { // calcs diffs of ALL lists
             sum += +course.diff;
         }
 
-        let glDiff = ((sum) + (0.15 * currentItems.length)) / 6;
+        let glDiff = ((sum) + (1.15 ** currentItems.length)) / 6;
         localStorage.setItem('list' + i + 'Diff', (Math.round((glDiff) * 100)) / 100); // round to nearest hundredth
 
         if (currentItems.length < 1 || localStorage.getItem('list' + i + 'Diff') <= 0) {

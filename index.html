@@ -326,9 +326,43 @@
     </div>
 
     <div
-        class='text-3xl sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6 mb-6'>
+        class='text-3xl flex sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6'>
+        <button class='block md:hidden hover:text-slate-300 mr-8 transition-all' onclick='toggleMenu()'><i
+                class='fa-solid fa-bars'></i></button>
         <h1><i class='fa-solid fa-seedling mr-3'></i>Plannter</h1>
         <!-- <h2 class='text-lg mt-1'>Organize your high school life to prepare for college</h2> -->
+    </div>
+
+    <div class='flex h-full md:h-auto'>
+
+        <div id='menuDiv'
+            class='bg-slate-200 hidden absolute border-r-2 border-slate-300 shadow-2xl h-full z-20 w-2/3 pt-8 pr-4 md:sticky md:top-32 md:border-0 md:shadow-none md:bg-transparent md:z-auto md:block md:w-[29%] md:p-0 md:mt-12'>
+            <button
+                class='planBtns w-full text-xl text-left text-slate-600 bg-gradient-to-r from-green-600/30 via-teal-600/30 to-sky-600/30 rounded-r-full py-4 px-8 transition-all'
+                onclick='showPlan()'>
+                <h1>4-year plan</h1>
+            </button>
+            <button
+                class='planBtns w-full text-xl text-left text-slate-500 from-green-600/30 via-teal-600/30 to-sky-600/30 hover:bg-slate-400/30 rounded-r-full py-4 px-8 transition-all'
+                onclick='showExtra()'>
+                <h1>Extracurriculars</h1>
+            </button>
+            <button
+                class='planBtns w-full text-xl text-left text-slate-500 from-green-600/30 via-teal-600/30 to-sky-600/30 hover:bg-slate-400/30 rounded-r-full py-4 px-8 transition-all'
+                onclick='showTests()'>
+                <h1>Testing</h1>
+            </button>
+        </div>
+
+
+
+
+
+
+
+        <!-- <div
+        class='text-3xl sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6 mb-6'>
+        <h1><i class='fa-solid fa-seedling mr-3'></i>Plannter</h1>
     </div>
 
     <div class='inline-flex w-full px-4 md:px-20 lg:px-60 xl:px-96 mb-12'>
@@ -346,89 +380,130 @@
             onclick='showTests()'>
             <h1>Testing</h1>
         </button>
-    </div>
+    </div> -->
 
-    <div id='planDiv' class='px-4 md:px-20 lg:px-60 xl:px-96'>
 
-        <div class='px-4 mb-12'>
-            <h2 class='text-xl px-3 mb-3'>
-                Grade 9 (Freshman) <button class='attr' id='diff9' onclick='openDiff()'></button>
-            </h2>
-            <ul id='list9' class='mb-3'>
-            </ul>
+
+
+
+
+
+
+
+        <!-- <div
+        class='text-3xl flex sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6 mb-12'>
+
+        <h1 class='flex-1 float-left '><i class='fa-solid fa-seedling mr-3'></i>Plannter</h1>
+
+        <div class='float-left justify-end -my-2'>
+            <button class='planBtns text-xl text-slate-200 border-slate-200 border-b-2 pb-3 px-5 transition-all'
+                onclick='showPlan()'>
+                <h1>4-year plan</h1>
+            </button>
             <button
-                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAddCourse(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+                class='planBtns text-xl text-slate-300 border-slate-300 hover:text-slate-600 hover:border-slate-300 border-b-2 pb-3 px-5 transition-all'
+                onclick='showExtra()'>
+                <h1>Extracurriculars</h1>
+            </button>
+            <button
+                class='planBtns text-xl text-slate-300 border-slate-300 hover:text-slate-600 hover:border-slate-300 border-b-2 pb-3 px-5 transition-all'
+                onclick='showTests()'>
+                <h1>Testing</h1>
+            </button>
         </div>
 
-        <div class='px-4 mb-12'>
-            <h2 class='text-xl px-3 mb-3'>
-                Grade 10 (Sophomore) <button class='attr' id='diff10' onclick='openDiff()'></button>
-            </h2>
-            <ul id='list10' class='mb-3'>
-            </ul>
-            <button
-                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAddCourse(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+    </div> -->
+
+
+
+
+
+
+
+
+        <div id='planDiv' class='w-full px-4 md:px-28 xl:px-60 mt-12 md:mt-20'>
+
+            <div class='px-4 mb-12'>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 9 (Freshman) <button class='attr' id='diff9' onclick='openDiff()'></button>
+                </h2>
+                <ul id='list9' class='mb-3'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAddCourse(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+            </div>
+
+            <div class='px-4 mb-12'>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 10 (Sophomore) <button class='attr' id='diff10' onclick='openDiff()'></button>
+                </h2>
+                <ul id='list10' class='mb-3'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAddCourse(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+            </div>
+
+            <div class='px-4 mb-12'>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 11 (Junior) <button class='attr' id='diff11' onclick='openDiff()'></button>
+                </h2>
+                <ul id='list11' class='mb-3'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAddCourse(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+            </div>
+
+            <div class='px-4 mb-12'>
+                <h2 class='text-xl px-3 mb-3'>
+                    Grade 12 (Senior) <button class='attr' id='diff12' onclick='openDiff()'></button>
+                </h2>
+                <ul id='list12' class='mb-3'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAddCourse(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+            </div>
+
+            <div class='px-4 mb-12'>
+                <h2 class='text-xl px-3 mb-3'>
+                    Extra Courses <button class='attr' id='diff13' onclick='openDiff()'></button>
+                </h2>
+                <ul id='list13' class='mb-3'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAddCourse(13)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+            </div>
+
         </div>
 
-        <div class='px-4 mb-12'>
-            <h2 class='text-xl px-3 mb-3'>
-                Grade 11 (Junior) <button class='attr' id='diff11' onclick='openDiff()'></button>
-            </h2>
-            <ul id='list11' class='mb-3'>
-            </ul>
-            <button
-                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAddCourse(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
+        <div id='actsDiv' class='hidden w-full px-4 md:px-28 xl:px-60 mt-12 md:mt-20'>
+
+            <div class='px-4 mb-12'>
+                <h2 class='text-xl px-3 mb-3'>Extracurriculars</h2>
+                <ul id='listActs' class='mb-3'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAddAct()'><i class='fa-solid fa-plus mr-1'></i>Add an activity</button>
+            </div>
+
         </div>
 
-        <div class='px-4 mb-12'>
-            <h2 class='text-xl px-3 mb-3'>
-                Grade 12 (Senior) <button class='attr' id='diff12' onclick='openDiff()'></button>
-            </h2>
-            <ul id='list12' class='mb-3'>
-            </ul>
-            <button
-                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAddCourse(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
-        </div>
+        <div id='testsDiv' class='hidden w-full px-4 md:px-28 xl:px-60 mt-12 md:mt-20'>
 
-        <div class='px-4 mb-12'>
-            <h2 class='text-xl px-3 mb-3'>
-                Extra Courses <button class='attr' id='diff13' onclick='openDiff()'></button>
-            </h2>
-            <ul id='list13' class='mb-3'>
-            </ul>
-            <button
-                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAddCourse(13)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
-        </div>
+            <div class='px-4 mb-12'>
+                <h2 class='text-xl px-3 mb-3'>Testing</h2>
+                <ul id='listTests' class='mb-3'>
+                </ul>
+                <button
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    onclick='openAddTest()'><i class='fa-solid fa-plus mr-1'></i>Add a test</button>
+            </div>
 
-    </div>
-
-    <div id='actsDiv' class='hidden px-4 md:px-20 lg:px-60 xl:px-96'>
-
-        <div class='px-4 mb-12'>
-            <h2 class='text-xl px-3 mb-3'>Extracurriculars</h2>
-            <ul id='listActs' class='mb-3'>
-            </ul>
-            <button
-                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAddAct()'><i class='fa-solid fa-plus mr-1'></i>Add an activity</button>
-        </div>
-
-    </div>
-
-    <div id='testsDiv' class='hidden px-4 md:px-20 lg:px-60 xl:px-96'>
-
-        <div class='px-4 mb-12'>
-            <h2 class='text-xl px-3 mb-3'>Testing</h2>
-            <ul id='listTests' class='mb-3'>
-            </ul>
-            <button
-                class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
-                onclick='openAddTest()'><i class='fa-solid fa-plus mr-1'></i>Add a test</button>
         </div>
 
     </div>
