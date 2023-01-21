@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-/** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
+/** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig } */
 
 module.exports = {
-  content: ["./**/*.{html,js}"],
+  content: ['./**/*.{html,js}'],
   theme: {
     fontFamily: {
-      'LexendDeca': ['Lexend Deca', 'sans-serif']
+      'LexendDeca': ['Lexend Deca', 'sans-serif'],
+      'Calistoga': ['Calistoga', 'sans-serif']
     },
     extend: {
 

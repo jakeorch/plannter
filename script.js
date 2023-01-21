@@ -45,14 +45,14 @@ buttons.forEach((planBtns) => {
     planBtns.addEventListener('click', () => {
         // add/remove classes from all buttons
         buttons.forEach((planBtns) => {
-            planBtns.classList.remove('bg-gradient-to-r');
+            planBtns.classList.remove('bg-green-600/30');
             planBtns.classList.remove('text-slate-600');
             planBtns.classList.add('text-slate-500');
             planBtns.classList.add('hover:bg-slate-400/30');
         });
 
         // add/remove classes to the clicked button
-        planBtns.classList.add('bg-gradient-to-r');
+        planBtns.classList.add('bg-green-600/30');
         planBtns.classList.add('text-slate-600');
         planBtns.classList.remove('text-slate-500');
         planBtns.classList.remove('hover:bg-slate-400/30');
@@ -93,11 +93,11 @@ function addCourse() {
         let course = document.createElement('li');
         course.name = input;
 
-        course.id = Math.floor(100000000 + Math.random() * 900000000);
+        course.id = 'C' + Math.floor(100000000 + Math.random() * 900000000);
 
         course.sub = document.getElementById('selSubject').value;
         let i = document.createElement('i');
-        i.id = course.name + 'SbjI'
+        i.id = course.id + 'SbjI'
         i.className = getSubjectIcon(course.sub);
         i.ariaLabel = course.sub;
         course.appendChild(i);
@@ -111,7 +111,7 @@ function addCourse() {
         course.diff = document.getElementById('selDiff').value;
 
         let div = document.createElement('div');
-        div.id = course.name + 'Diff';
+        div.id = course.id + 'Diff';
         [diffText, diffClass] = getDiff(course.diff);
         t = document.createTextNode(diffText);
         div.className = diffClass;
@@ -189,11 +189,11 @@ function addAct() {
         let activity = document.createElement('li');
         activity.name = input;
 
-        activity.id = Math.floor(100000000 + Math.random() * 900000000);
+        activity.id = 'A' + Math.floor(100000000 + Math.random() * 900000000);
 
         activity.category = document.getElementById('selActCategory').value;
         let i = document.createElement('i');
-        i.id = activity.name + 'ActI';
+        i.id = activity.id + 'ActI';
         actClass = getActIcon(activity.category);
         i.className = actClass;
         i.ariaLabel = activity.category;
@@ -207,7 +207,7 @@ function addAct() {
 
         let div = document.createElement('div');
         div.className = 'attr actPos';
-        div.id = activity.name + 'Pos';
+        div.id = activity.id + 'Pos';
         t = document.createTextNode(activity.pos);
         div.appendChild(t);
         activity.appendChild(div);
@@ -216,7 +216,7 @@ function addAct() {
 
         let h2 = document.createElement('h2');
         h2.className = 'actDesc';
-        h2.id = activity.name + 'Desc';
+        h2.id = activity.id + 'Desc';
         t = document.createTextNode(activity.desc);
         h2.appendChild(t);
         activity.appendChild(h2);
@@ -227,7 +227,7 @@ function addAct() {
         let btn = document.createElement('button');
         icon = document.createElement('i');
         icon.className = 'text-lg fa-solid fa-pen';
-        btn.className = 'opt penAct';
+        btn.className = 'opt pen';
         btn.ariaLabel = 'Edit activity';
         btn.name = 'Edit activity';
         btn.appendChild(icon);
@@ -251,10 +251,16 @@ function addAct() {
 
         document.getElementById('listActs').appendChild(activity);
 
-        let penAct = document.getElementsByClassName('penAct');
-        for (i = 0; i < penAct.length; i++) {
-            penAct[i].onclick = function () {
-                clickPenAct(this.parentElement.parentElement);
+        let pen = document.getElementsByClassName('pen');
+        for (i = 0; i < pen.length; i++) {
+            pen[i].onclick = function () {
+                if (this.parentElement.parentElement.id.startsWith('C')) {
+                    clickPen(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('A')) {
+                    clickPenAct(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('T')) {
+                    clickPenTest(this.parentElement.parentElement);
+                }
             }
         }
 
@@ -286,10 +292,10 @@ function addTest() {
         alert('Enter the test score');
     } else {
         let test = document.createElement('li');
-        test.id = Math.floor(100000000 + Math.random() * 900000000);
+        test.id = 'T' + Math.floor(100000000 + Math.random() * 900000000);
 
         let i = document.createElement('i');
-        i.id = test.id + 'testI';
+        i.id = test.id + 'TestI';
         i.className = 'testI fa-solid fa-file-lines';
         i.ariaLabel = 'Test icon';
         test.appendChild(i);
@@ -321,7 +327,7 @@ function addTest() {
         let btn = document.createElement('button');
         icon = document.createElement('i');
         icon.className = 'text-lg fa-solid fa-pen';
-        btn.className = 'opt penTest';
+        btn.className = 'opt pen';
         btn.ariaLabel = 'Edit test';
         btn.name = 'Edit test';
         btn.appendChild(icon);
@@ -338,7 +344,6 @@ function addTest() {
 
         test.appendChild(div);
 
-        localStorage.setItem(test.id + 'Name', test.name);
         localStorage.setItem(test.id + 'Species', test.species);
         localStorage.setItem(test.id + 'Month', test.month);
         localStorage.setItem(test.id + 'Year', test.year);
@@ -346,10 +351,16 @@ function addTest() {
 
         document.getElementById('listTests').appendChild(test);
 
-        let penTest = document.getElementsByClassName('penTest');
-        for (i = 0; i < penTest.length; i++) {
-            penTest[i].onclick = function () {
-                clickPenTest(this.parentElement.parentElement);
+        let pen = document.getElementsByClassName('pen');
+        for (i = 0; i < pen.length; i++) {
+            pen[i].onclick = function () {
+                if (this.parentElement.parentElement.id.startsWith('C')) {
+                    clickPen(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('A')) {
+                    clickPenAct(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('T')) {
+                    clickPenTest(this.parentElement.parentElement);
+                }
             }
         }
 
@@ -368,21 +379,13 @@ function addTest() {
 let pen = document.getElementsByClassName('pen');
 for (i = 0; i < pen.length; i++) {
     pen[i].onclick = function () {
-        clickPen(this.parentElement.parentElement);
-    }
-}
-
-let penAct = document.getElementsByClassName('penAct');
-for (i = 0; i < penAct.length; i++) {
-    penAct[i].onclick = function () {
-        clickPenAct(this.parentElement.parentElement);
-    }
-}
-
-let penTest = document.getElementsByClassName('penTest');
-for (i = 0; i < penTest.length; i++) {
-    penTest[i].onclick = function () {
-        clickPenTest(this.parentElement.parentElement);
+        if (this.parentElement.parentElement.id.startsWith('C')) {
+            clickPen(this.parentElement.parentElement);
+        } else if (this.parentElement.parentElement.id.startsWith('A')) {
+            clickPenAct(this.parentElement.parentElement);
+        } else if (this.parentElement.parentElement.id.startsWith('T')) {
+            clickPenTest(this.parentElement.parentElement);
+        }
     }
 }
 
@@ -458,22 +461,48 @@ function saveCourse() {
 
         course.remove();
     }
+
     course.name = document.getElementById('courseTitleEdit').value;
     course.sub = document.getElementById('selSubjectEdit').value;
     course.diff = document.getElementById('selDiffEdit').value;
 
-    [diffText, diffClass] = getDiff(course.diff);
-    document.getElementById(course.name + 'Diff').className = diffClass;
-    document.getElementById(course.name + 'Diff').innerText = diffText;
+    course.innerHTML = `<i id='${course.id}SbjI'></i>${course.name}<div id='${course.id}Diff'></div>`;
 
-    document.getElementById(course.name + 'SbjI').className = getSubjectIcon(course.sub);
-    document.getElementById(course.name + 'SbjI').ariaLabel = course.sub;
+    div = document.createElement('div');
+    div.className = 'optDiv';
+
+    let btn = document.createElement('button');
+    icon = document.createElement('i');
+    icon.className = 'text-lg fa-solid fa-pen';
+    btn.className = 'opt pen';
+    btn.ariaLabel = 'Edit course';
+    btn.name = 'Edit course';
+    btn.appendChild(icon);
+    div.appendChild(btn);
+
+    btn = document.createElement('button');
+    icon = document.createElement('i');
+    icon.className = 'text-lg fa-solid fa-trash';
+    btn.className = 'opt trash';
+    btn.ariaLabel = 'Remove course';
+    btn.name = 'Remove course';
+    btn.appendChild(icon);
+    div.appendChild(btn);
+
+    course.appendChild(div);
+
+    [diffText, diffClass] = getDiff(course.diff);
+    document.getElementById(course.id + 'Diff').className = diffClass;
+    document.getElementById(course.id + 'Diff').innerText = diffText;
+
+    document.getElementById(course.id + 'SbjI').className = getSubjectIcon(course.sub);
+    document.getElementById(course.id + 'SbjI').ariaLabel = course.sub;
 
     if (course.sub == 'PE') {
         course.diff = document.getElementById('selDiffEdit').value * 0.1;
     }
 
-    localStorage.setItem(course.id, course.innerHTML);
+    localStorage.setItem(course.id + 'Name', course.name);
     localStorage.setItem(course.id + 'GradeLevel', course.gradeLevel);
     localStorage.setItem(course.id + 'Sub', course.sub);
     localStorage.setItem(course.id + 'Diff', course.diff);
@@ -486,21 +515,13 @@ function saveCourse() {
     let pen = document.getElementsByClassName('pen');
     for (i = 0; i < pen.length; i++) {
         pen[i].onclick = function () {
-            clickPen(this.parentElement.parentElement);
-        }
-    }
-
-    let penAct = document.getElementsByClassName('penAct');
-    for (i = 0; i < penAct.length; i++) {
-        penAct[i].onclick = function () {
-            clickPenAct(this.parentElement.parentElement);
-        }
-    }
-
-    let penTest = document.getElementsByClassName('penTest');
-    for (i = 0; i < penTest.length; i++) {
-        penTest[i].onclick = function () {
-            clickPenTest(this.parentElement.parentElement);
+            if (this.parentElement.parentElement.id.startsWith('C')) {
+                clickPen(this.parentElement.parentElement);
+            } else if (this.parentElement.parentElement.id.startsWith('A')) {
+                clickPenAct(this.parentElement.parentElement);
+            } else if (this.parentElement.parentElement.id.startsWith('T')) {
+                clickPenTest(this.parentElement.parentElement);
+            }
         }
     }
 
@@ -528,13 +549,38 @@ function saveAct() {
         activity.category = document.getElementById('selActCategoryEdit').value;
         activity.pos = posInput;
 
-        document.getElementById(activity.name + 'ActI').className = getActIcon(activity.category);
-        document.getElementById(activity.name + 'ActI').ariaLabel = activity.category;
+        activity.innerHTML = `<i id='${activity.id}ActI' aria-label='Activity icon'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div><h2 class='actDesc' id='${activity.id}Desc'></h2>`;
 
-        document.getElementById(activity.name + 'Desc').innerText = activity.desc;
-        document.getElementById(activity.name + 'Pos').innerText = activity.pos;
+        div = document.createElement('div');
+        div.className = 'optDiv';
 
-        localStorage.setItem(activity.id, activity.innerHTML);
+        let btn = document.createElement('button');
+        icon = document.createElement('i');
+        icon.className = 'text-lg fa-solid fa-pen';
+        btn.className = 'opt pen';
+        btn.ariaLabel = 'Edit activity';
+        btn.name = 'Edit activity';
+        btn.appendChild(icon);
+        div.appendChild(btn);
+
+        btn = document.createElement('button');
+        icon = document.createElement('i');
+        icon.className = 'text-lg fa-solid fa-trash';
+        btn.className = 'opt trash';
+        btn.ariaLabel = 'Remove activity';
+        btn.name = 'Remove activity';
+        btn.appendChild(icon);
+        div.appendChild(btn);
+
+        activity.appendChild(div);
+
+        document.getElementById(activity.id + 'ActI').className = getActIcon(activity.category);
+        document.getElementById(activity.id + 'ActI').ariaLabel = activity.category;
+
+        document.getElementById(activity.id + 'Desc').innerText = activity.desc;
+        document.getElementById(activity.id + 'Pos').innerText = activity.pos;
+
+        localStorage.setItem(activity.id + 'Name', activity.name);
         localStorage.setItem(activity.id + 'Desc', activity.desc);
         localStorage.setItem(activity.id + 'Category', activity.category);
         localStorage.setItem(activity.id + 'Pos', activity.pos);
@@ -546,21 +592,13 @@ function saveAct() {
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
-                clickPen(this.parentElement.parentElement);
-            }
-        }
-
-        let penAct = document.getElementsByClassName('penAct');
-        for (i = 0; i < penAct.length; i++) {
-            penAct[i].onclick = function () {
-                clickPenAct(this.parentElement.parentElement);
-            }
-        }
-
-        let penTest = document.getElementsByClassName('penTest');
-        for (i = 0; i < penTest.length; i++) {
-            penTest[i].onclick = function () {
-                clickPenTest(this.parentElement.parentElement);
+                if (this.parentElement.parentElement.id.startsWith('C')) {
+                    clickPen(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('A')) {
+                    clickPenAct(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('T')) {
+                    clickPenTest(this.parentElement.parentElement);
+                }
             }
         }
 
@@ -601,7 +639,7 @@ function saveTest() {
         test.score = scoreInput;
         test.species = speciesInput;
 
-        test.innerHTML = `<i id='${test.id}testI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -609,7 +647,7 @@ function saveTest() {
         let btn = document.createElement('button');
         icon = document.createElement('i');
         icon.className = 'text-lg fa-solid fa-pen';
-        btn.className = 'opt penTest';
+        btn.className = 'opt pen';
         btn.ariaLabel = 'Edit test';
         btn.name = 'Edit test';
         btn.appendChild(icon);
@@ -638,21 +676,13 @@ function saveTest() {
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
-                clickPen(this.parentElement.parentElement);
-            }
-        }
-
-        let penAct = document.getElementsByClassName('penAct');
-        for (i = 0; i < penAct.length; i++) {
-            penAct[i].onclick = function () {
-                clickPenAct(this.parentElement.parentElement);
-            }
-        }
-
-        let penTest = document.getElementsByClassName('penTest');
-        for (i = 0; i < penTest.length; i++) {
-            penTest[i].onclick = function () {
-                clickPenTest(this.parentElement.parentElement);
+                if (this.parentElement.parentElement.id.startsWith('C')) {
+                    clickPen(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('A')) {
+                    clickPenAct(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('T')) {
+                    clickPenTest(this.parentElement.parentElement);
+                }
             }
         }
 
@@ -698,7 +728,6 @@ function getTests() { // gets all stored info of activities
 
     for (let j = 0; j < currentItems.length; j++) {
         test = currentItems[j];
-        test.name = localStorage.getItem(test.id + 'Name');
         test.species = localStorage.getItem(test.id + 'Species');
         test.month = localStorage.getItem(test.id + 'Month');
         test.year = localStorage.getItem(test.id + 'Year');

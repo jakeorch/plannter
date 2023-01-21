@@ -10,7 +10,8 @@
     <script src='https://kit.fontawesome.com/57c0dd6a0a.js' crossorigin='anonymous'></script>
     <link rel='preconnect' href='https://fonts.googleapis.com'>
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-    <link href='https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap' rel='stylesheet'>
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+    <link href='https://fonts.googleapis.com/css2?family=Calistoga&family=Lexend+Deca&display=swap' rel='stylesheet'>
     <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/tota11y/0.1.6/tota11y.min.js' crossorigin='anonymous'
 		referrerpolicy='no-referrer'></script> -->
     <script async src='https://cdn.splitbee.io/sb.js'></script>
@@ -19,7 +20,7 @@
 <body class='bg-slate-100 text-slate-900 text-left pb-24 font-LexendDeca'>
 
     <!-- <button onclick='localStorage.clear()' class='text-3xl border-4 border-red-500 hover:bg-red-300'>CLEAR
-		EVERYTHING</button> -->
+        EVERYTHING</button> -->
 
     <div id='courseModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
@@ -84,9 +85,8 @@
 
             <h1 class='text-2xl mb-5'>Edit course</h1>
 
-            <h2 class='text-base text-slate-400 px-2 mb-1'>Title</h2>
-            <input placeholder='Course title' id='courseTitleEdit'
-                class='input text-lg p-2 pl-3 mb-4 border-slate-200 text-slate-400 cursor-not-allowed' disabled>
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
+            <input placeholder='Course title' id='courseTitleEdit' class='input text-lg p-2 pl-3 mb-4'>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
             <select id='selGradeLevEdit' class='input text-lg p-2 mb-4'>
@@ -191,9 +191,8 @@
 
             <h1 class='text-2xl mb-5'>Edit activity</h1>
 
-            <h2 class='text-base text-slate-400 px-2 mb-1'>Title</h2>
-            <input placeholder='Activity title' id='actTitleEdit'
-                class='input text-lg p-2 pl-3 mb-4 border-slate-200 text-slate-400 cursor-not-allowed' disabled>
+            <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
+            <input placeholder='Activity title' id='actTitleEdit' class='input text-lg p-2 pl-3 mb-4'>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Description <p class='inline text-sm'>(optional)</p>
             </h2>
@@ -247,9 +246,11 @@
             <select id='selTestSpecies' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a type'>
                     <option value='ACT'>ACT</option>
+                    <option value='PreACT'>PreACT</option>
+                    <option value='SAT'>SAT</option>
+                    <option value='PSAT'>PSAT</option>
                     <option value='AP'>AP</option>
                     <option value='IB'>IB</option>
-                    <option value='SAT'>SAT</option>
                 </optgroup>
             </select>
 
@@ -282,14 +283,16 @@
             <select id='selTestSpeciesEdit' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a type'>
                     <option value='ACT'>ACT</option>
+                    <option value='PreACT'>PreACT</option>
+                    <option value='SAT'>SAT</option>
+                    <option value='PSAT'>PSAT</option>
                     <option value='AP'>AP</option>
                     <option value='IB'>IB</option>
-                    <option value='SAT'>SAT</option>
                 </optgroup>
             </select>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>
-                Date taken <p class='inline text-sm'>(MM/YY)</p>
+                Date taken <p class='inline text-sm'>(MM/YYYY)</p>
             </h2>
             <div class='flex'>
                 <input placeholder='Month' id='testMonthEdit' type='number' class='input text-lg p-2 pl-3 mb-4 mr-1'>
@@ -326,7 +329,7 @@
     </div>
 
     <div
-        class='text-3xl flex sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6'>
+        class='font-Calistoga tracking-wide text-3xl flex sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6'>
         <button class='block md:hidden hover:text-slate-300 mr-8 transition-all' onclick='toggleMenu()'><i
                 class='fa-solid fa-bars'></i></button>
         <h1><i class='fa-solid fa-seedling mr-3'></i>Plannter</h1>
@@ -336,21 +339,21 @@
     <div class='flex h-full md:h-auto'>
 
         <div id='menuDiv'
-            class='bg-slate-200 hidden absolute border-r-2 border-slate-300 shadow-2xl h-full z-20 w-2/3 pt-8 pr-4 md:sticky md:top-32 md:border-0 md:shadow-none md:bg-transparent md:z-auto md:block md:w-[29%] md:p-0 md:mt-12'>
+            class='hidden bg-slate-200 absolute font-Calistoga text-xl border-r-2 border-slate-300 shadow-2xl h-full z-20 w-2/3 pt-8 pr-4 md:sticky md:top-32 md:border-0 md:shadow-none md:bg-transparent md:z-auto md:block md:w-[29%] md:p-0 md:mt-12'>
             <button
-                class='planBtns w-full text-xl text-left text-slate-600 bg-gradient-to-r from-green-600/30 via-teal-600/30 to-sky-600/30 rounded-r-full py-4 px-8 transition-all'
+                class='planBtns w-full text-left text-slate-600 bg-green-600/30 rounded-r-full py-4 px-8 transition-all'
                 onclick='showPlan()'>
-                <h1>4-year plan</h1>
+                <h1 class='tracking-wide'>4-year plan</h1>
             </button>
             <button
-                class='planBtns w-full text-xl text-left text-slate-500 from-green-600/30 via-teal-600/30 to-sky-600/30 hover:bg-slate-400/30 rounded-r-full py-4 px-8 transition-all'
+                class='planBtns w-full text-left text-slate-500 hover:bg-slate-400/30 rounded-r-full py-4 px-8 transition-all'
                 onclick='showExtra()'>
-                <h1>Extracurriculars</h1>
+                <h1 class='tracking-wide'>Extracurriculars</h1>
             </button>
             <button
-                class='planBtns w-full text-xl text-left text-slate-500 from-green-600/30 via-teal-600/30 to-sky-600/30 hover:bg-slate-400/30 rounded-r-full py-4 px-8 transition-all'
+                class='planBtns w-full text-left text-slate-500 hover:bg-slate-400/30 rounded-r-full py-4 px-8 transition-all'
                 onclick='showTests()'>
-                <h1>Testing</h1>
+                <h1 class='tracking-wide'>Testing</h1>
             </button>
         </div>
 
@@ -421,7 +424,7 @@
 
 
 
-        <div id='planDiv' class='w-full px-4 md:px-28 xl:px-60 mt-12 md:mt-20'>
+        <div id='planDiv' class='w-full px-4 md:px-14 lg:px-32 xl:px-52 mt-12 md:mt-20'>
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
@@ -480,7 +483,7 @@
 
         </div>
 
-        <div id='actsDiv' class='hidden w-full px-4 md:px-28 xl:px-60 mt-12 md:mt-20'>
+        <div id='actsDiv' class='hidden w-full px-4 md:px-14 lg:px-32 xl:px-52 mt-12 md:mt-20'>
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>Extracurriculars</h2>
@@ -493,7 +496,7 @@
 
         </div>
 
-        <div id='testsDiv' class='hidden w-full px-4 md:px-28 xl:px-60 mt-12 md:mt-20'>
+        <div id='testsDiv' class='hidden w-full px-4 md:px-14 lg:px-32 xl:px-52 mt-12 md:mt-20'>
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>Testing</h2>
