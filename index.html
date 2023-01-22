@@ -31,7 +31,10 @@
             <h1 class='text-2xl mb-5'>Add course</h1>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
-            <input placeholder='Course title' id='courseTitle' class='input text-lg p-2 pl-3 mb-4'>
+            <input placeholder='Course title' id='courseTitle' class='input text-lg p-2 pl-3 m-0 mb-4'>
+            <h3 class='hidden text-sm text-green-700 px-2 mt-1 mb-4' id='diffTip'><b class='font-extrabold'>Tip:</b>
+                Instead of including the
+                difficulty of your course in the title, set it in the Difficulty section</h3>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
             <select id='selGradeLev' class='input text-lg p-2 mb-4'>
@@ -86,7 +89,9 @@
             <h1 class='text-2xl mb-5'>Edit course</h1>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
-            <input placeholder='Course title' id='courseTitleEdit' class='input text-lg p-2 pl-3 mb-4'>
+            <input placeholder='Course title' id='courseTitleEdit' class='input text-lg p-2 pl-3 m-0 mb-4'>
+            <h3 class='hidden text-sm text-green-700 px-2 mt-1 mb-4' id='diffTipE'>Tip: Instead of including the
+                difficulty of your course in the title, set it in the Difficulty section</h3>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
             <select id='selGradeLevEdit' class='input text-lg p-2 mb-4'>
@@ -300,7 +305,7 @@
             </div>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Score</h2>
-            <input placeholder='Test score' id='testScoreEdit' class='input text-lg p-2 pl-3 mb-4'>
+            <input placeholder='Test score' id='testScoreEdit' type='number' class='input text-lg p-2 pl-3 mb-4'>
 
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
@@ -319,6 +324,25 @@
             <h2 class='text-lg'>
                 Grade level difficulty is calculated using the difficulty of individual courses, the number of courses,
                 and comparing it to the average number of courses taken.
+            </h2>
+
+            <!-- <h2 class='text-base mt-4'>
+                This score is meant to guide you to the amount of challenge you are comfortable with.
+            </h2> -->
+
+        </div>
+    </div>
+
+    <div id='diffPercentModal'
+        class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
+        <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
+            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+                    class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
+
+            <h1 class='text-2xl mb-5'>About grade level difficulty percent</h1>
+
+            <h2 class='text-lg'>
+                Grade level difficulty percent is the percentage of the ratio of advanced classes to total classes.
             </h2>
 
             <!-- <h2 class='text-base mt-4'>
@@ -428,7 +452,8 @@
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 9 (Freshman) <button class='attr' id='diff9' onclick='openDiff()'></button>
+                    Grade 9 (Freshman) <button class='attr' id='diff9' onclick='openDiff()'></button> <button
+                        class='attr listPercent' id='diffPercent9' onclick='openDiffPercent()'></button>
                 </h2>
                 <ul id='list9' class='mb-3'>
                 </ul>
@@ -439,7 +464,8 @@
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 10 (Sophomore) <button class='attr' id='diff10' onclick='openDiff()'></button>
+                    Grade 10 (Sophomore) <button class='attr' id='diff10' onclick='openDiff()'></button> <button
+                        class='attr listPercent' id='diffPercent10' onclick='openDiffPercent()'></button>
                 </h2>
                 <ul id='list10' class='mb-3'>
                 </ul>
@@ -450,7 +476,8 @@
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 11 (Junior) <button class='attr' id='diff11' onclick='openDiff()'></button>
+                    Grade 11 (Junior) <button class='attr' id='diff11' onclick='openDiff()'></button> <button
+                        class='attr listPercent' id='diffPercent11' onclick='openDiffPercent()'></button>
                 </h2>
                 <ul id='list11' class='mb-3'>
                 </ul>
@@ -461,7 +488,8 @@
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
-                    Grade 12 (Senior) <button class='attr' id='diff12' onclick='openDiff()'></button>
+                    Grade 12 (Senior) <button class='attr' id='diff12' onclick='openDiff()'></button> <button
+                        class='attr listPercent' id='diffPercent12' onclick='openDiffPercent()'></button>
                 </h2>
                 <ul id='list12' class='mb-3'>
                 </ul>
@@ -472,7 +500,8 @@
 
             <div class='px-4 mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
-                    Extra Courses <button class='attr' id='diff13' onclick='openDiff()'></button>
+                    Extra Courses <button class='attr' id='diff13' onclick='openDiff()'></button> <button
+                        class='attr listPercent' id='diffPercent13' onclick='openDiffPercent()'></button>
                 </h2>
                 <ul id='list13' class='mb-3'>
                 </ul>

@@ -5,6 +5,28 @@ getCourses();
 getActs();
 calcListDiff();
 
+input = document.getElementById('courseTitle');
+input.addEventListener('keyup', function () {
+    if (input.value.includes('advance') || input.value.includes('accel') || input.value.includes('honor') || input.value.includes('ap') || input.value.includes('ib')) {
+        document.getElementById('diffTip').classList.remove('hidden');
+        input.classList.remove('mb-4');
+    } else {
+        document.getElementById('diffTip').classList.add('hidden');
+        input.classList.add('mb-4');
+    }
+});
+
+inputE = document.getElementById('courseTitleEdit');
+inputE.addEventListener('keyup', function () {
+    if (inputE.value.includes('advance') || inputE.value.includes('accel') || inputE.value.includes('honor') || inputE.value.includes('ap') || inputE.value.includes('ib')) {
+        document.getElementById('diffTipE').classList.remove('hidden');
+        inputE.classList.remove('mb-4');
+    } else {
+        document.getElementById('diffTipE').classList.add('hidden');
+        inputE.classList.add('mb-4');
+    }
+});
+
 function toggleMenu() {
     if (document.getElementById('menuDiv').className.includes('hidden')) {
         document.getElementById('menuDiv').classList.remove('hidden');
@@ -37,6 +59,11 @@ function openAddTest() {
 function openDiff() {
     document.getElementById('diffModal').classList.remove('fadeIn');
     document.getElementById('diffModal').classList.add('fadeOut');
+}
+
+function openDiffPercent() {
+    document.getElementById('diffPercentModal').classList.remove('fadeIn');
+    document.getElementById('diffPercentModal').classList.add('fadeOut');
 }
 
 let buttons = document.querySelectorAll('.planBtns');
@@ -288,6 +315,8 @@ function addTest() {
         alert('Enter a valid month 1-12');
     } else if (yearInput < 1926 || yearInput > currentYear + 4) {
         alert('Enter a valid year');
+    } else if (scoreInput > 1600) {
+        alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
     } else {
@@ -625,6 +654,8 @@ function saveTest() {
         alert('Enter a valid month 1-12');
     } else if (yearInput < 1926 || yearInput > currentYear + 4) {
         alert('Enter a valid year');
+    } else if (scoreInput > 1600) {
+        alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
     } else {
@@ -739,6 +770,10 @@ function calcListDiff() { // calcs diffs of ALL lists
     for (let i = 9; i <= 13; i++) {
         let sum = 0;
         let currentItems = document.getElementById('list' + i).getElementsByTagName('li');
+        let advItems = document.getElementById('list' + i).getElementsByClassName('adv').length
+            + document.getElementById('list' + i).getElementsByClassName('hon').length
+            + document.getElementById('list' + i).getElementsByClassName('ap').length
+            + document.getElementById('list' + i).getElementsByClassName('ib').length;
 
         for (let j = 0; j < currentItems.length; j++) {
             course = currentItems[j];
@@ -769,6 +804,12 @@ function calcListDiff() { // calcs diffs of ALL lists
         } else if (localStorage.getItem('list' + i + 'Diff') >= 5) {
             document.getElementById('diff' + i).innerText = localStorage.getItem('list' + i + 'Diff') + ' - Extreme';
             document.getElementById('diff' + i).className = 'attr lev6';
+        }
+
+        if (advItems > 0) {
+            let advPercent = (advItems / currentItems.length) * 100;
+            localStorage.setItem('list' + i + 'DiffPercent', Math.round(advPercent));
+            document.getElementById('diffPercent' + i).innerText = localStorage.getItem('list' + i + 'DiffPercent') + '%';
         }
     }
 }
@@ -870,7 +911,8 @@ window.onclick = function (event) {
         || event.target == document.getElementById('editActModal')
         || event.target == document.getElementById('testModal')
         || event.target == document.getElementById('editTestModal')
-        || event.target == document.getElementById('diffModal')) {
+        || event.target == document.getElementById('diffModal')
+        || event.target == document.getElementById('diffPercentModal')) {
         hide();
     }
 }
@@ -878,17 +920,19 @@ window.onclick = function (event) {
 function hide() {
     document.getElementById('courseModal').classList.add('fadeIn');
     document.getElementById('courseModal').classList.remove('fadeOut');
-
     document.getElementById('courseTitle').value = '';
     document.getElementById('selSubject').value = 'History';
     document.getElementById('selDiff').value = '1';
+    document.getElementById('diffTip').classList.add('hidden');
+    input.classList.add('mb-4');
 
     document.getElementById('editCourseModal').classList.add('fadeIn');
     document.getElementById('editCourseModal').classList.remove('fadeOut');
+    document.getElementById('diffTipE').classList.add('hidden');
+    inputE.classList.add('mb-4');
 
     document.getElementById('actModal').classList.add('fadeIn');
     document.getElementById('actModal').classList.remove('fadeOut');
-
     document.getElementById('actTitle').value = '';
     document.getElementById('actDesc').value = '';
     document.getElementById('selActCategory').value = 'Athletics';
@@ -899,7 +943,6 @@ function hide() {
 
     document.getElementById('testModal').classList.add('fadeIn');
     document.getElementById('testModal').classList.remove('fadeOut');
-
     document.getElementById('selTestSpecies').value = 'ACT';
     document.getElementById('testMonth').value = '';
     document.getElementById('testYear').value = '';
@@ -910,4 +953,7 @@ function hide() {
 
     document.getElementById('diffModal').classList.add('fadeIn');
     document.getElementById('diffModal').classList.remove('fadeOut');
+
+    document.getElementById('diffPercentModal').classList.add('fadeIn');
+    document.getElementById('diffPercentModal').classList.remove('fadeOut');
 }
