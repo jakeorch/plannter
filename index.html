@@ -33,8 +33,7 @@
             <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
             <input placeholder='Course title' id='courseTitle' class='input text-lg p-2 pl-3 m-0 mb-4'>
             <h3 class='hidden text-sm text-green-700 px-2 mt-1 mb-4' id='diffTip'><b class='font-extrabold'>Tip:</b>
-                Instead of including the
-                difficulty of your course in the title, set it in the Difficulty section</h3>
+                Instead of including the difficulty of your course in the title, set it in the Difficulty section</h3>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
             <select id='selGradeLev' class='input text-lg p-2 mb-4'>
@@ -90,8 +89,8 @@
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
             <input placeholder='Course title' id='courseTitleEdit' class='input text-lg p-2 pl-3 m-0 mb-4'>
-            <h3 class='hidden text-sm text-green-700 px-2 mt-1 mb-4' id='diffTipE'>Tip: Instead of including the
-                difficulty of your course in the title, set it in the Difficulty section</h3>
+            <h3 class='hidden text-sm text-green-700 px-2 mt-1 mb-4' id='diffTipE'><b class='font-extrabold'>Tip:</b>
+                Instead of including the difficulty of your course in the title, set it in the Difficulty section</h3>
 
             <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
             <select id='selGradeLevEdit' class='input text-lg p-2 mb-4'>
@@ -323,7 +322,8 @@
 
             <h2 class='text-lg'>
                 Grade level difficulty is calculated using the difficulty of individual courses, the number of courses,
-                and comparing it to the average number of courses taken.
+                and comparing it to the average number of courses taken. <br><br> It does not take the subjects of
+                individual courses into account.
             </h2>
 
             <!-- <h2 class='text-base mt-4'>
@@ -343,6 +343,7 @@
 
             <h2 class='text-lg'>
                 Grade level difficulty percent is the percentage of the ratio of advanced classes to total classes.
+                <br><br> It does not take the difficulty of individual courses into account.
             </h2>
 
             <!-- <h2 class='text-base mt-4'>
@@ -363,7 +364,7 @@
     <div class='flex h-full md:h-auto'>
 
         <div id='menuDiv'
-            class='hidden bg-slate-200 absolute font-Calistoga text-xl border-r-2 border-slate-300 shadow-2xl h-full z-20 w-2/3 pt-8 pr-4 md:sticky md:top-32 md:border-0 md:shadow-none md:bg-transparent md:z-auto md:block md:w-[29%] md:p-0 md:mt-12'>
+            class='hidden bg-slate-200 absolute font-Calistoga text-xl border-r-2 border-slate-300 shadow-2xl h-full z-20 w-2/3 pt-8 pr-4 md:sticky md:top-32 md:border-0 md:shadow-none md:bg-transparent md:z-auto md:block md:w-[30%] md:p-0 md:mt-12'>
             <button
                 class='planBtns w-full text-left text-slate-600 bg-green-600/30 rounded-r-full py-4 px-8 transition-all'
                 onclick='showPlan()'>
@@ -381,76 +382,9 @@
             </button>
         </div>
 
-
-
-
-
-
-
-        <!-- <div
-        class='text-3xl sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6 mb-6'>
-        <h1><i class='fa-solid fa-seedling mr-3'></i>Plannter</h1>
-    </div>
-
-    <div class='inline-flex w-full px-4 md:px-20 lg:px-60 xl:px-96 mb-12'>
-        <button class='planBtns w-full text-xl text-slate-700 border-slate-400 border-b-2 py-4 px-5 transition-all'
-            onclick='showPlan()'>
-            <h1>4-year plan</h1>
-        </button>
-        <button
-            class='planBtns w-full text-xl text-slate-500 border-slate-100 hover:text-slate-600 hover:border-slate-300 border-b-2 py-4 px-5 transition-all'
-            onclick='showExtra()'>
-            <h1>Extracurriculars</h1>
-        </button>
-        <button
-            class='planBtns w-full text-xl text-slate-500 border-slate-100 hover:text-slate-600 hover:border-slate-300 border-b-2 py-4 px-5 transition-all'
-            onclick='showTests()'>
-            <h1>Testing</h1>
-        </button>
-    </div> -->
-
-
-
-
-
-
-
-
-
-        <!-- <div
-        class='text-3xl flex sticky top-0 z-10 bg-gradient-to-r from-green-600 via-teal-600 to-sky-600 text-slate-100 shadow-sm font-extrabold p-6 mb-12'>
-
-        <h1 class='flex-1 float-left '><i class='fa-solid fa-seedling mr-3'></i>Plannter</h1>
-
-        <div class='float-left justify-end -my-2'>
-            <button class='planBtns text-xl text-slate-200 border-slate-200 border-b-2 pb-3 px-5 transition-all'
-                onclick='showPlan()'>
-                <h1>4-year plan</h1>
-            </button>
-            <button
-                class='planBtns text-xl text-slate-300 border-slate-300 hover:text-slate-600 hover:border-slate-300 border-b-2 pb-3 px-5 transition-all'
-                onclick='showExtra()'>
-                <h1>Extracurriculars</h1>
-            </button>
-            <button
-                class='planBtns text-xl text-slate-300 border-slate-300 hover:text-slate-600 hover:border-slate-300 border-b-2 pb-3 px-5 transition-all'
-                onclick='showTests()'>
-                <h1>Testing</h1>
-            </button>
-        </div>
-
-    </div> -->
-
-
-
-
-
-
-
-
         <div id='planDiv' class='w-full px-4 md:px-14 lg:px-32 xl:px-52 mt-12 md:mt-20'>
 
-            <div class='px-4 mb-12'>
+            <div class='mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
                     Grade 9 (Freshman) <button class='attr' id='diff9' onclick='openDiff()'></button> <button
                         class='attr listPercent' id='diffPercent9' onclick='openDiffPercent()'></button>
@@ -462,7 +396,7 @@
                     onclick='openAddCourse(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
-            <div class='px-4 mb-12'>
+            <div class='mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
                     Grade 10 (Sophomore) <button class='attr' id='diff10' onclick='openDiff()'></button> <button
                         class='attr listPercent' id='diffPercent10' onclick='openDiffPercent()'></button>
@@ -474,7 +408,7 @@
                     onclick='openAddCourse(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
-            <div class='px-4 mb-12'>
+            <div class='mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
                     Grade 11 (Junior) <button class='attr' id='diff11' onclick='openDiff()'></button> <button
                         class='attr listPercent' id='diffPercent11' onclick='openDiffPercent()'></button>
@@ -486,7 +420,7 @@
                     onclick='openAddCourse(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
-            <div class='px-4 mb-12'>
+            <div class='mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
                     Grade 12 (Senior) <button class='attr' id='diff12' onclick='openDiff()'></button> <button
                         class='attr listPercent' id='diffPercent12' onclick='openDiffPercent()'></button>
@@ -498,7 +432,7 @@
                     onclick='openAddCourse(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
-            <div class='px-4 mb-12'>
+            <div class='mb-12'>
                 <h2 class='text-xl px-3 mb-3'>
                     Extra Courses <button class='attr' id='diff13' onclick='openDiff()'></button> <button
                         class='attr listPercent' id='diffPercent13' onclick='openDiffPercent()'></button>
@@ -514,7 +448,7 @@
 
         <div id='actsDiv' class='hidden w-full px-4 md:px-14 lg:px-32 xl:px-52 mt-12 md:mt-20'>
 
-            <div class='px-4 mb-12'>
+            <div class='mb-12'>
                 <h2 class='text-xl px-3 mb-3'>Extracurriculars</h2>
                 <ul id='listActs' class='mb-3'>
                 </ul>
@@ -527,7 +461,7 @@
 
         <div id='testsDiv' class='hidden w-full px-4 md:px-14 lg:px-32 xl:px-52 mt-12 md:mt-20'>
 
-            <div class='px-4 mb-12'>
+            <div class='mb-12'>
                 <h2 class='text-xl px-3 mb-3'>Testing</h2>
                 <ul id='listTests' class='mb-3'>
                 </ul>

@@ -7,7 +7,7 @@ calcListDiff();
 
 input = document.getElementById('courseTitle');
 input.addEventListener('keyup', function () {
-    if (input.value.includes('advance') || input.value.includes('accel') || input.value.includes('honor') || input.value.includes('ap') || input.value.includes('ib')) {
+    if (input.value.toLowerCase().includes('advance') || input.value.toLowerCase().includes('accel') || input.value.toLowerCase().includes('honor') || input.value.toLowerCase().includes('ap') || input.value.toLowerCase().includes('ib')) {
         document.getElementById('diffTip').classList.remove('hidden');
         input.classList.remove('mb-4');
     } else {
@@ -18,7 +18,7 @@ input.addEventListener('keyup', function () {
 
 inputE = document.getElementById('courseTitleEdit');
 inputE.addEventListener('keyup', function () {
-    if (inputE.value.includes('advance') || inputE.value.includes('accel') || inputE.value.includes('honor') || inputE.value.includes('ap') || inputE.value.includes('ib')) {
+    if (inputE.value.toLowerCase().includes('advance') || inputE.value.toLowerCase().includes('accel') || inputE.value.toLowerCase().includes('honor') || inputE.value.toLowerCase().includes('ap') || inputE.value.toLowerCase().includes('ib')) {
         document.getElementById('diffTipE').classList.remove('hidden');
         inputE.classList.remove('mb-4');
     } else {
@@ -179,10 +179,28 @@ function addCourse() {
 
         document.getElementById('list' + currentGrade).appendChild(course);
 
+        /* document.querySelectorAll('.item').forEach(function (el) {
+            el.addEventListener('click', function () {
+                if (el.id.startsWith('C')) {
+                    clickPen(el);
+                } else if (el.id.startsWith('A')) {
+                    clickPenAct(el);
+                } else if (el.id.startsWith('T')) {
+                    clickPenTest(el);
+                }
+            });
+        }); */
+
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
-                clickPen(this.parentElement.parentElement);
+                if (this.parentElement.parentElement.id.startsWith('C')) {
+                    clickPen(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('A')) {
+                    clickPenAct(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('T')) {
+                    clickPenTest(this.parentElement.parentElement);
+                }
             }
         }
 
@@ -277,6 +295,18 @@ function addAct() {
         localStorage.setItem(activity.id + 'Pos', activity.pos);
 
         document.getElementById('listActs').appendChild(activity);
+
+        /* document.querySelectorAll('.item').forEach(function (el) {
+            el.addEventListener('click', function () {
+                if (el.id.startsWith('C')) {
+                    clickPen(el);
+                } else if (el.id.startsWith('A')) {
+                    clickPenAct(el);
+                } else if (el.id.startsWith('T')) {
+                    clickPenTest(el);
+                }
+            });
+        }); */
 
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
@@ -380,6 +410,18 @@ function addTest() {
 
         document.getElementById('listTests').appendChild(test);
 
+        /* document.querySelectorAll('.item').forEach(function (el) {
+            el.addEventListener('click', function () {
+                if (el.id.startsWith('C')) {
+                    clickPen(el);
+                } else if (el.id.startsWith('A')) {
+                    clickPenAct(el);
+                } else if (el.id.startsWith('T')) {
+                    clickPenTest(el);
+                }
+            });
+        }); */
+
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -404,6 +446,18 @@ function addTest() {
         hide();
     }
 }
+
+/* document.querySelectorAll('.item').forEach(function (el) {
+    el.addEventListener('click', function () {
+        if (el.id.startsWith('C')) {
+            clickPen(el);
+        } else if (el.id.startsWith('A')) {
+            clickPenAct(el);
+        } else if (el.id.startsWith('T')) {
+            clickPenTest(el);
+        }
+    });
+}); */
 
 let pen = document.getElementsByClassName('pen');
 for (i = 0; i < pen.length; i++) {
@@ -541,6 +595,18 @@ function saveCourse() {
     getCourses();
     calcListDiff();
 
+    /* document.querySelectorAll('.item').forEach(function (el) {
+        el.addEventListener('click', function () {
+            if (el.id.startsWith('C')) {
+                clickPen(el);
+            } else if (el.id.startsWith('A')) {
+                clickPenAct(el);
+            } else if (el.id.startsWith('T')) {
+                clickPenTest(el);
+            }
+        });
+    }); */
+
     let pen = document.getElementsByClassName('pen');
     for (i = 0; i < pen.length; i++) {
         pen[i].onclick = function () {
@@ -617,6 +683,18 @@ function saveAct() {
         saveLists();
         getLists();
         getActs();
+
+        /* document.querySelectorAll('.item').forEach(function (el) {
+            el.addEventListener('click', function () {
+                if (el.id.startsWith('C')) {
+                    clickPen(el);
+                } else if (el.id.startsWith('A')) {
+                    clickPenAct(el);
+                } else if (el.id.startsWith('T')) {
+                    clickPenTest(el);
+                }
+            });
+        }); */
 
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
@@ -704,6 +782,18 @@ function saveTest() {
         getLists();
         getTests();
 
+        /* document.querySelectorAll('.item').forEach(function (el) {
+            el.addEventListener('click', function () {
+                if (el.id.startsWith('C')) {
+                    clickPen(el);
+                } else if (el.id.startsWith('A')) {
+                    clickPenAct(el);
+                } else if (el.id.startsWith('T')) {
+                    clickPenTest(el);
+                }
+            });
+        }); */
+
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -782,7 +872,7 @@ function calcListDiff() { // calcs diffs of ALL lists
         }
 
         let glDiff = ((sum) + (1.15 ** currentItems.length)) / 6;
-        localStorage.setItem('list' + i + 'Diff', (Math.round((glDiff) * 100)) / 100); // round to nearest hundredth
+        localStorage.setItem('list' + i + 'Diff', (Math.round((glDiff) * 100)) / 100);
 
         if (currentItems.length < 1 || localStorage.getItem('list' + i + 'Diff') <= 0) {
             document.getElementById('diff' + i).innerText = '';
@@ -810,6 +900,9 @@ function calcListDiff() { // calcs diffs of ALL lists
             let advPercent = (advItems / currentItems.length) * 100;
             localStorage.setItem('list' + i + 'DiffPercent', Math.round(advPercent));
             document.getElementById('diffPercent' + i).innerText = localStorage.getItem('list' + i + 'DiffPercent') + '%';
+            document.getElementById('diffPercent' + i).classList.remove('hidden');
+        } else {
+            document.getElementById('diffPercent' + i).classList.add('hidden');
         }
     }
 }
@@ -838,11 +931,11 @@ function getSubjectIcon(sub) {
     if (sub == 'English') {
         return 'sbjI fa-solid fa-pencil';
     } else if (sub == 'History') {
-        return 'sbjI fa-solid fa-landmark'; // landmark-dome
+        return 'sbjI fa-solid fa-landmark';
     } else if (sub == 'Math') {
-        return 'sbjI fa-solid fa-plus-minus'; // square-root-variable
+        return 'sbjI fa-solid fa-plus-minus';
     } else if (sub == 'Science') {
-        return 'sbjI fa-solid fa-atom'; // flask
+        return 'sbjI fa-solid fa-atom';
     } else if (sub == 'Foreign Language') {
         return 'sbjI fa-solid fa-globe';
     } else if (sub == 'Technology') {
