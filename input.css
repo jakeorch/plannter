@@ -4,7 +4,19 @@
 
 @layer components {
   .item {
-    @apply relative text-lg odd:bg-slate-200 border-slate-300 border-4 border-t-0 first:border-t-2 border-b-0 last:border-b-2 first:rounded-t-md last:rounded-b-md hover:bg-slate-300 w-full text-left break-words transition-all px-4 py-3;
+    @apply relative text-lg border-slate-300 border-t-0 first:border-t-2 border-b-0 last:border-b-2 /* hover:bg-slate-300 */ w-full text-left break-words transition-all px-4 py-3;
+  }
+
+  .course {
+    @apply odd:bg-slate-200 border-4 border-y-0 first:rounded-t-md last:rounded-b-md last:mb-3;
+  }
+
+  .activity {
+    @apply [&:nth-child(4n)]:bg-slate-200 [&:nth-child(4n+1)]:bg-slate-200 odd:border-l-4 even:border-r-4 [&:nth-child(2)]:border-t-2 last:odd:border-r-4 [&:nth-last-child(2)]:[&:nth-child(4n)]:border-b-slate-100 [&:nth-last-child(2)]:even:border-b-slate-200 [&:nth-last-child(2)]:border-b-2 only:rounded-tr-md first:rounded-tl-md [&:nth-child(2)]:rounded-tr-md [&:nth-last-child(2)]:rounded-br-none [&:nth-last-child(2)]:odd:rounded-bl-md last:odd:rounded-bl-md last:odd:[grid-column:1/-1] last:rounded-br-md last:odd:mb-3 last:even:mb-3 [&:nth-last-child(2)]:odd:mb-3;
+  }
+
+  .test {
+    @apply [&:nth-child(4n)]:bg-slate-200 [&:nth-child(4n+1)]:bg-slate-200 odd:border-l-4 even:border-r-4 [&:nth-child(2)]:border-t-2 last:odd:border-r-4 [&:nth-last-child(2)]:[&:nth-child(4n)]:border-b-slate-100 [&:nth-last-child(2)]:even:border-b-slate-200 [&:nth-last-child(2)]:border-b-2 only:rounded-tr-md first:rounded-tl-md [&:nth-child(2)]:rounded-tr-md [&:nth-last-child(2)]:rounded-br-none [&:nth-last-child(2)]:odd:rounded-bl-md last:odd:rounded-bl-md last:odd:[grid-column:1/-1] last:rounded-br-md last:odd:mb-3 last:even:mb-3 [&:nth-last-child(2)]:odd:mb-3;
   }
 
   .sbjI {
@@ -24,11 +36,11 @@
   }
 
   .optDiv {
-    @apply block absolute top-3 right-4 text-right md:inline-block md:float-right;
+    @apply block absolute top-3 right-4 text-right float-right;
   }
 
   .opt {
-    @apply text-xl ml-3;
+    @apply inline-block text-xl ml-3;
   }
 
   .attr {
@@ -36,7 +48,7 @@
   }
 
   .actDesc {
-    @apply text-slate-600 text-base;
+    @apply text-slate-600 text-base break-words;
   }
 
   .ib {

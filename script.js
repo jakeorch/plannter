@@ -1,8 +1,10 @@
 let currentGrade = 0;
 
 getLists();
+saveLists();
 getCourses();
 getActs();
+getTests();
 calcListDiff();
 
 input = document.getElementById('courseTitle');
@@ -28,13 +30,8 @@ inputE.addEventListener('keyup', function () {
 });
 
 function toggleMenu() {
-    if (document.getElementById('menuDiv').className.includes('hidden')) {
-        document.getElementById('menuDiv').classList.remove('hidden');
-        document.getElementById('menuDiv').classList.add('block');
-    } else {
-        document.getElementById('menuDiv').classList.remove('block');
-        document.getElementById('menuDiv').classList.add('hidden');
-    }
+    document.getElementById('menuDiv').classList.toggle('hidden');
+    document.getElementById('menuDiv').classList.toggle('block');
 }
 
 function openAddCourse(num) {
@@ -54,6 +51,11 @@ function openAddAct() {
 function openAddTest() {
     document.getElementById('testModal').classList.remove('fadeIn');
     document.getElementById('testModal').classList.add('fadeOut');
+}
+
+function openCountdown() {
+    document.getElementById('countdownModal').classList.remove('fadeIn');
+    document.getElementById('countdownModal').classList.add('fadeOut');
 }
 
 function openDiff() {
@@ -179,18 +181,6 @@ function addCourse() {
 
         document.getElementById('list' + currentGrade).appendChild(course);
 
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
-
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -257,15 +247,6 @@ function addAct() {
         div.appendChild(t);
         activity.appendChild(div);
 
-        activity.desc = descInput;
-
-        let h2 = document.createElement('h2');
-        h2.className = 'actDesc';
-        h2.id = activity.id + 'Desc';
-        t = document.createTextNode(activity.desc);
-        h2.appendChild(t);
-        activity.appendChild(h2);
-
         div = document.createElement('div');
         div.className = 'optDiv';
 
@@ -289,24 +270,21 @@ function addAct() {
 
         activity.appendChild(div);
 
+        activity.desc = descInput;
+
+        let h2 = document.createElement('h2');
+        h2.className = 'actDesc';
+        h2.id = activity.id + 'Desc';
+        t = document.createTextNode(activity.desc);
+        h2.appendChild(t);
+        activity.appendChild(h2);
+
         localStorage.setItem(activity.id + 'Name', activity.name);
         localStorage.setItem(activity.id + 'Desc', activity.desc);
         localStorage.setItem(activity.id + 'Category', activity.category);
         localStorage.setItem(activity.id + 'Pos', activity.pos);
 
         document.getElementById('listActs').appendChild(activity);
-
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
 
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
@@ -345,7 +323,7 @@ function addTest() {
         alert('Enter a valid month 1-12');
     } else if (yearInput < 1926 || yearInput > currentYear + 4) {
         alert('Enter a valid year');
-    } else if (scoreInput > 1600) {
+    } else if ((scoreInput < 0) || (scoreInput > 36 && speciesInput == 'ACT') || (scoreInput > 35 && speciesInput == 'PreACT') || (scoreInput > 2400 && speciesInput == 'SAT') || (scoreInput > 1520 && speciesInput == 'PSAT') || (scoreInput > 5 && speciesInput == 'AP') || (scoreInput > 45 && speciesInput == 'IB')) {
         alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
@@ -410,18 +388,6 @@ function addTest() {
 
         document.getElementById('listTests').appendChild(test);
 
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
-
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -446,18 +412,6 @@ function addTest() {
         hide();
     }
 }
-
-/* document.querySelectorAll('.item').forEach(function (el) {
-    el.addEventListener('click', function () {
-        if (el.id.startsWith('C')) {
-            clickPen(el);
-        } else if (el.id.startsWith('A')) {
-            clickPenAct(el);
-        } else if (el.id.startsWith('T')) {
-            clickPenTest(el);
-        }
-    });
-}); */
 
 let pen = document.getElementsByClassName('pen');
 for (i = 0; i < pen.length; i++) {
@@ -595,18 +549,6 @@ function saveCourse() {
     getCourses();
     calcListDiff();
 
-    /* document.querySelectorAll('.item').forEach(function (el) {
-        el.addEventListener('click', function () {
-            if (el.id.startsWith('C')) {
-                clickPen(el);
-            } else if (el.id.startsWith('A')) {
-                clickPenAct(el);
-            } else if (el.id.startsWith('T')) {
-                clickPenTest(el);
-            }
-        });
-    }); */
-
     let pen = document.getElementsByClassName('pen');
     for (i = 0; i < pen.length; i++) {
         pen[i].onclick = function () {
@@ -684,18 +626,6 @@ function saveAct() {
         getLists();
         getActs();
 
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
-
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -732,7 +662,7 @@ function saveTest() {
         alert('Enter a valid month 1-12');
     } else if (yearInput < 1926 || yearInput > currentYear + 4) {
         alert('Enter a valid year');
-    } else if (scoreInput > 1600) {
+    } else if ((scoreInput < 0) || (scoreInput > 36 && speciesInput == 'ACT') || (scoreInput > 35 && speciesInput == 'PreACT') || (scoreInput > 2400 && speciesInput == 'SAT') || (scoreInput > 1520 && speciesInput == 'PSAT') || (scoreInput > 5 && speciesInput == 'AP') || (scoreInput > 45 && speciesInput == 'IB')) {
         alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
@@ -781,18 +711,6 @@ function saveTest() {
         saveLists();
         getLists();
         getTests();
-
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
 
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
@@ -871,7 +789,7 @@ function calcListDiff() { // calcs diffs of ALL lists
             sum += +course.diff;
         }
 
-        let glDiff = ((sum) + (1.15 ** currentItems.length)) / 6;
+        let glDiff = ((sum) + (1.2 ** currentItems.length)) / 6;
         localStorage.setItem('list' + i + 'Diff', (Math.round((glDiff) * 100)) / 100);
 
         if (currentItems.length < 1 || localStorage.getItem('list' + i + 'Diff') <= 0) {
@@ -1005,7 +923,9 @@ window.onclick = function (event) {
         || event.target == document.getElementById('testModal')
         || event.target == document.getElementById('editTestModal')
         || event.target == document.getElementById('diffModal')
-        || event.target == document.getElementById('diffPercentModal')) {
+        || event.target == document.getElementById('diffPercentModal')
+        || event.target == document.getElementById('countdownModal')
+        || event.target == document.getElementById('countdownModal')) {
         hide();
     }
 }
@@ -1049,4 +969,7 @@ function hide() {
 
     document.getElementById('diffPercentModal').classList.add('fadeIn');
     document.getElementById('diffPercentModal').classList.remove('fadeOut');
+
+    document.getElementById('countdownModal').classList.add('fadeIn');
+    document.getElementById('countdownModal').classList.remove('fadeOut');
 }
