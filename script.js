@@ -795,6 +795,8 @@ function getCD() {
         let countdown = Math.round(Math.abs((gradDate - currentDate) / oneDay));
         document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
         document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
+    } else {
+        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>Edit countdown`;
     }
 }
 
