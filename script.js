@@ -1,9 +1,11 @@
 let currentGrade = 0;
 
-getLists();
-getCourses();
-getActs();
-calcListDiff();
+const currentYear = new Date().getFullYear();
+const currentMonth = Number(String(new Date().getMonth() + 1).padStart(2, '0'));
+const currentDay = Number(String(new Date().getDate()).padStart(2, '0'));
+const currentDate = new Date(currentYear, currentMonth - 1, currentDay);
+
+const oneDay = 24 * 60 * 60 * 1000; // hours * mins * secs * millisecs
 
 input = document.getElementById('courseTitle');
 input.addEventListener('keyup', function () {
@@ -27,14 +29,17 @@ inputE.addEventListener('keyup', function () {
     }
 });
 
+getLists();
+saveLists();
+getCourses();
+getActs();
+getTests();
+getCD();
+calcListDiff();
+
 function toggleMenu() {
-    if (document.getElementById('menuDiv').className.includes('hidden')) {
-        document.getElementById('menuDiv').classList.remove('hidden');
-        document.getElementById('menuDiv').classList.add('block');
-    } else {
-        document.getElementById('menuDiv').classList.remove('block');
-        document.getElementById('menuDiv').classList.add('hidden');
-    }
+    document.getElementById('menuDiv').classList.toggle('hidden');
+    document.getElementById('menuDiv').classList.toggle('block');
 }
 
 function openAddCourse(num) {
@@ -66,8 +71,16 @@ function openDiffPercent() {
     document.getElementById('diffPercentModal').classList.add('fadeOut');
 }
 
-let buttons = document.querySelectorAll('.planBtns');
+function openCD() {
+    document.getElementById('countdownModal').classList.remove('fadeIn');
+    document.getElementById('countdownModal').classList.add('fadeOut');
 
+    document.getElementById('gradDay').value = gradDay;
+    document.getElementById('gradMonth').value = gradMonth;
+    document.getElementById('gradYear').value = gradYear;
+}
+
+let buttons = document.querySelectorAll('.planBtns');
 buttons.forEach((planBtns) => {
     planBtns.addEventListener('click', () => {
         // add/remove classes from all buttons
@@ -179,18 +192,6 @@ function addCourse() {
 
         document.getElementById('list' + currentGrade).appendChild(course);
 
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
-
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -257,15 +258,6 @@ function addAct() {
         div.appendChild(t);
         activity.appendChild(div);
 
-        activity.desc = descInput;
-
-        let h2 = document.createElement('h2');
-        h2.className = 'actDesc';
-        h2.id = activity.id + 'Desc';
-        t = document.createTextNode(activity.desc);
-        h2.appendChild(t);
-        activity.appendChild(h2);
-
         div = document.createElement('div');
         div.className = 'optDiv';
 
@@ -289,24 +281,21 @@ function addAct() {
 
         activity.appendChild(div);
 
+        activity.desc = descInput;
+
+        let h2 = document.createElement('h2');
+        h2.className = 'actDesc';
+        h2.id = activity.id + 'Desc';
+        t = document.createTextNode(activity.desc);
+        h2.appendChild(t);
+        activity.appendChild(h2);
+
         localStorage.setItem(activity.id + 'Name', activity.name);
         localStorage.setItem(activity.id + 'Desc', activity.desc);
         localStorage.setItem(activity.id + 'Category', activity.category);
         localStorage.setItem(activity.id + 'Pos', activity.pos);
 
         document.getElementById('listActs').appendChild(activity);
-
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
 
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
@@ -339,13 +328,11 @@ function addTest() {
     let scoreInput = document.getElementById('testScore').value.trim();
     let speciesInput = document.getElementById('selTestSpecies').value.trim();
 
-    let currentYear = new Date().getFullYear();
-
     if (monthInput < 1 || monthInput > 12) {
         alert('Enter a valid month 1-12');
     } else if (yearInput < 1926 || yearInput > currentYear + 4) {
         alert('Enter a valid year');
-    } else if (scoreInput > 1600) {
+    } else if ((scoreInput < 0) || (scoreInput > 36 && speciesInput == 'ACT') || (scoreInput > 35 && speciesInput == 'PreACT') || (scoreInput > 2400 && speciesInput == 'SAT') || (scoreInput > 1520 && speciesInput == 'PSAT') || (scoreInput > 5 && speciesInput == 'AP') || (scoreInput > 45 && speciesInput == 'IB')) {
         alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
@@ -410,18 +397,6 @@ function addTest() {
 
         document.getElementById('listTests').appendChild(test);
 
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
-
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -446,18 +421,6 @@ function addTest() {
         hide();
     }
 }
-
-/* document.querySelectorAll('.item').forEach(function (el) {
-    el.addEventListener('click', function () {
-        if (el.id.startsWith('C')) {
-            clickPen(el);
-        } else if (el.id.startsWith('A')) {
-            clickPenAct(el);
-        } else if (el.id.startsWith('T')) {
-            clickPenTest(el);
-        }
-    });
-}); */
 
 let pen = document.getElementsByClassName('pen');
 for (i = 0; i < pen.length; i++) {
@@ -595,18 +558,6 @@ function saveCourse() {
     getCourses();
     calcListDiff();
 
-    /* document.querySelectorAll('.item').forEach(function (el) {
-        el.addEventListener('click', function () {
-            if (el.id.startsWith('C')) {
-                clickPen(el);
-            } else if (el.id.startsWith('A')) {
-                clickPenAct(el);
-            } else if (el.id.startsWith('T')) {
-                clickPenTest(el);
-            }
-        });
-    }); */
-
     let pen = document.getElementsByClassName('pen');
     for (i = 0; i < pen.length; i++) {
         pen[i].onclick = function () {
@@ -684,18 +635,6 @@ function saveAct() {
         getLists();
         getActs();
 
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
-
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -726,13 +665,11 @@ function saveTest() {
     let scoreInput = document.getElementById('testScoreEdit').value.trim();
     let speciesInput = document.getElementById('selTestSpeciesEdit').value.trim();
 
-    let currentYear = new Date().getFullYear();
-
     if (monthInput < 1 || monthInput > 12) {
         alert('Enter a valid month 1-12');
     } else if (yearInput < 1926 || yearInput > currentYear + 4) {
         alert('Enter a valid year');
-    } else if (scoreInput > 1600) {
+    } else if ((scoreInput < 0) || (scoreInput > 36 && speciesInput == 'ACT') || (scoreInput > 35 && speciesInput == 'PreACT') || (scoreInput > 2400 && speciesInput == 'SAT') || (scoreInput > 1520 && speciesInput == 'PSAT') || (scoreInput > 5 && speciesInput == 'AP') || (scoreInput > 45 && speciesInput == 'IB')) {
         alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
@@ -782,18 +719,6 @@ function saveTest() {
         getLists();
         getTests();
 
-        /* document.querySelectorAll('.item').forEach(function (el) {
-            el.addEventListener('click', function () {
-                if (el.id.startsWith('C')) {
-                    clickPen(el);
-                } else if (el.id.startsWith('A')) {
-                    clickPenAct(el);
-                } else if (el.id.startsWith('T')) {
-                    clickPenTest(el);
-                }
-            });
-        }); */
-
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
             pen[i].onclick = function () {
@@ -815,6 +740,55 @@ function saveTest() {
         }
 
         hide();
+    }
+}
+
+function saveCD() {
+    gradDay = Number(document.getElementById('gradDay').value);
+    gradMonth = Number(document.getElementById('gradMonth').value);
+    gradYear = Number(document.getElementById('gradYear').value);
+    gradDate = new Date(gradYear, gradMonth - 1, gradDay);
+
+    if (gradDay < 1 || gradDay > 31) {
+        alert('Enter a valid day 1-31');
+    } else if (gradMonth < 1 || gradMonth > 12) {
+        alert('Enter a valid month 1-12');
+    } else if (gradYear > currentYear + 8) {
+        alert('Enter a valid year');
+    } else if (gradDate < currentDate) {
+        alert('Enter a date in the future');
+    } else if (gradDay == currentDay && gradMonth == currentMonth && gradYear == currentYear) {
+        document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i> Happy graduation!`;
+        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i> Happy graduation!`;
+        hide();
+    } else {
+        localStorage.setItem('gradDate', gradDate);
+        localStorage.setItem('gradDay', gradDay);
+        localStorage.setItem('gradMonth', gradMonth);
+        localStorage.setItem('gradYear', gradYear);
+
+        let countdown = Math.round(Math.abs((gradDate - currentDate) / oneDay));
+        document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
+        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
+
+        hide();
+    }
+}
+
+function getCD() {
+    gradDay = Number(localStorage.getItem('gradDay', gradDay));
+    gradMonth = Number(localStorage.getItem('gradMonth', gradMonth));
+    gradYear = Number(localStorage.getItem('gradYear', gradYear));
+    gradDate = new Date(localStorage.getItem('gradDate'));
+
+    if (gradDay == currentDay && gradMonth == currentMonth && gradYear == currentYear) {
+        document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i> Happy graduation!`;
+        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i> Happy graduation!`;
+        hide();
+    } else if ((gradDate !== NaN || gradDate !== null) && gradDate > currentDate) {
+        let countdown = Math.round(Math.abs((gradDate - currentDate) / oneDay));
+        document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
+        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
     }
 }
 
@@ -871,7 +845,7 @@ function calcListDiff() { // calcs diffs of ALL lists
             sum += +course.diff;
         }
 
-        let glDiff = ((sum) + (1.15 ** currentItems.length)) / 6;
+        let glDiff = ((sum) + (1.2 ** currentItems.length)) / 6;
         localStorage.setItem('list' + i + 'Diff', (Math.round((glDiff) * 100)) / 100);
 
         if (currentItems.length < 1 || localStorage.getItem('list' + i + 'Diff') <= 0) {
@@ -1005,7 +979,9 @@ window.onclick = function (event) {
         || event.target == document.getElementById('testModal')
         || event.target == document.getElementById('editTestModal')
         || event.target == document.getElementById('diffModal')
-        || event.target == document.getElementById('diffPercentModal')) {
+        || event.target == document.getElementById('diffPercentModal')
+        || event.target == document.getElementById('countdownModal')
+        || event.target == document.getElementById('countdownModal')) {
         hide();
     }
 }
@@ -1049,4 +1025,7 @@ function hide() {
 
     document.getElementById('diffPercentModal').classList.add('fadeIn');
     document.getElementById('diffPercentModal').classList.remove('fadeOut');
+
+    document.getElementById('countdownModal').classList.add('fadeIn');
+    document.getElementById('countdownModal').classList.remove('fadeOut');
 }
