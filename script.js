@@ -75,9 +75,15 @@ function openCD() {
     document.getElementById('countdownModal').classList.remove('fadeIn');
     document.getElementById('countdownModal').classList.add('fadeOut');
 
-    document.getElementById('gradDay').value = gradDay;
-    document.getElementById('gradMonth').value = gradMonth;
-    document.getElementById('gradYear').value = gradYear;
+    if (gradDay !== NaN && gradDay !== null && gradDay !== 0) {
+        document.getElementById('gradDay').value = gradDay;
+    }
+    if (gradMonth !== NaN && gradMonth !== null && gradMonth !== 0) {
+        document.getElementById('gradMonth').value = gradMonth;
+    }
+    if (gradYear !== NaN && gradYear !== null && gradYear !== 0) {
+        document.getElementById('gradYear').value = gradYear;
+    }
 }
 
 let buttons = document.querySelectorAll('.planBtns');
@@ -785,7 +791,7 @@ function getCD() {
         document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i> Happy graduation!`;
         document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i> Happy graduation!`;
         hide();
-    } else if ((gradDate !== NaN || gradDate !== null) && gradDate > currentDate) {
+    } else if (gradDate !== NaN && gradDate !== null && gradDate > currentDate) {
         let countdown = Math.round(Math.abs((gradDate - currentDate) / oneDay));
         document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
         document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'></i>${countdown} days`;
