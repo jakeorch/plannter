@@ -88,11 +88,11 @@
   }
 
   .lev6 {
-    @apply bg-pink-300 hover:bg-pink-300 text-slate-700 transition-all;
+    @apply bg-pink-300 hover:bg-pink-400 text-slate-700 transition-all;
   }
 
   .trash {
-    @apply hover:text-red-600 transition-all;
+    @apply hover:text-red-500 transition-all;
   }
 
   .pen {

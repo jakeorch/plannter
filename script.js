@@ -165,7 +165,7 @@ function addCourse() {
         course.appendChild(div);
 
         if (course.sub == 'PE') {
-            course.diff = document.getElementById('selDiff').value * 0.05;
+            course.diff = document.getElementById('selDiff').value * 0.01;
         }
 
         div = document.createElement('div');
@@ -849,12 +849,32 @@ function calcListDiff() { // calcs diffs of ALL lists
 
         for (let j = 0; j < currentItems.length; j++) {
             course = currentItems[j];
-            course.diff = localStorage.getItem(course.id + 'Diff');
+
+            if (document.getElementById(course.id + 'Diff').innerText == 'IB') {
+                course.diff = 5;
+            } else if (document.getElementById(course.id + 'Diff').innerText == 'AP') {
+                course.diff = 4;
+            } else if (document.getElementById(course.id + 'Diff').innerText == 'Honors') {
+                course.diff = 3;
+            } else if (document.getElementById(course.id + 'Diff').innerText == 'Advanced') {
+                course.diff = 2;
+            } else {
+                course.diff = 1;
+            }
+
+            if (course.sub == 'PE') {
+                course.diff = document.getElementById('selDiff').value * 0.01;
+            }
+
+            localStorage.setItem(course.id + 'Diff', course.diff);
+
             sum += +course.diff;
         }
 
-        let glDiff = ((sum) + (1.2 ** currentItems.length)) / 6;
+        let glDiff = ((sum) + (1.175 ** currentItems.length)) / 6;
         localStorage.setItem('list' + i + 'Diff', (Math.round((glDiff) * 100)) / 100);
+
+        console.table({ list: i, sum: sum, numberItems: currentItems.length });
 
         if (currentItems.length < 1 || localStorage.getItem('list' + i + 'Diff') <= 0) {
             document.getElementById('diff' + i).innerText = '';
@@ -966,13 +986,13 @@ function getActIcon(act) {
 }
 
 function getDiff(diff) {
-    if (diff == '4.75') {
+    if (diff == '5') {
         return ['IB', 'attr ib'];
-    } else if (diff == '3.75') {
+    } else if (diff == '4') {
         return ['AP', 'attr ap'];
-    } else if (diff == '2.75') {
+    } else if (diff == '3') {
         return ['Honors', 'attr hon'];
-    } else if (diff == '1.75') {
+    } else if (diff == '2') {
         return ['Advanced', 'attr adv'];
     } else {
         return ['', 'attr none'];
