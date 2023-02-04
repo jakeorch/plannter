@@ -51,6 +51,10 @@
     @apply text-[0.93rem] ml-0 rounded-l-none border-l-2 border-slate-100;
   }
 
+  .actDesc {
+    @apply text-slate-600 text-base break-words;
+  }
+
   .desc {
     @apply text-slate-600 text-base break-words;
   }

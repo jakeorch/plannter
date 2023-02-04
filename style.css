@@ -649,6 +649,14 @@ video {
   font-size: 0.93rem;
 }
 
+.actDesc {
+  overflow-wrap: break-word;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity));
+}
+
 .desc {
   overflow-wrap: break-word;
   font-size: 1rem;
