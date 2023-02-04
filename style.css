@@ -633,7 +633,23 @@ video {
   color: rgb(241 245 249 / var(--tw-text-opacity));
 }
 
-.actDesc {
+.testReadScore {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 0.93rem;
+}
+
+.testMathScore {
+  margin-left: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(241 245 249 / var(--tw-border-opacity));
+  font-size: 0.93rem;
+}
+
+.desc {
   overflow-wrap: break-word;
   font-size: 1rem;
   line-height: 1.5rem;

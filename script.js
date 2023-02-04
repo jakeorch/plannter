@@ -43,18 +43,28 @@ function toggleMenu() {
 }
 
 function selTestSpecies() {
+    document.getElementById('testSubSpecies').classList.add('hidden');
+    document.getElementById('readingTestScore').classList.add('hidden');
+    document.getElementById('mathTestScore').classList.add('hidden');
+
     if (document.getElementById('selTestSpecies').value == 'AP') {
         document.getElementById('testSubSpecies').classList.remove('hidden');
-    } else {
-        document.getElementById('testSubSpecies').classList.add('hidden');
+    } else if (document.getElementById('selTestSpecies').value == 'SAT' || document.getElementById('selTestSpecies').value == 'PSAT') {
+        document.getElementById('readingTestScore').classList.remove('hidden');
+        document.getElementById('mathTestScore').classList.remove('hidden');
     }
 }
 
 function selTestSpeciesEdit() {
+    document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    document.getElementById('readingTestScoreEdit').classList.add('hidden');
+    document.getElementById('mathTestScoreEdit').classList.add('hidden');
+
     if (document.getElementById('selTestSpeciesEdit').value == 'AP') {
         document.getElementById('testSubSpeciesEdit').classList.remove('hidden');
-    } else {
-        document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    } else if (document.getElementById('selTestSpeciesEdit').value == 'SAT' || document.getElementById('selTestSpeciesEdit').value == 'PSAT') {
+        document.getElementById('readingTestScoreEdit').classList.remove('hidden');
+        document.getElementById('mathTestScoreEdit').classList.remove('hidden');
     }
 }
 
@@ -318,7 +328,7 @@ function addAct() {
         activity.desc = descInput;
 
         let h2 = document.createElement('h2');
-        h2.className = 'actDesc';
+        h2.className = 'desc';
         h2.id = activity.id + 'Desc';
         t = document.createTextNode(activity.desc);
         h2.appendChild(t);
@@ -359,22 +369,24 @@ function addAct() {
 function addTest() {
     let monthInput = document.getElementById('testMonth').value.trim();
     let yearInput = document.getElementById('testYear').value.trim();
-    let scoreInput = document.getElementById('testScore').value.trim();
     let speciesInput = document.getElementById('selTestSpecies').value.trim();
     let subSpeciesInput = document.getElementById('testSubSpecies').value.trim();
+    let scoreInput = document.getElementById('testScore').value.trim();
+    let readingScoreInput = document.getElementById('readingTestScore').value.trim();
+    let mathScoreInput = document.getElementById('mathTestScore').value.trim();
 
     if (monthInput < 1 || monthInput > 12) {
         alert('Enter a valid month 1-12');
-    } else if (yearInput < 1926 || yearInput > currentYear + 4) {
+    } else if (yearInput < 1900 || yearInput > currentYear + 10) {
         alert('Enter a valid year');
-    } else if ((scoreInput < 0) || (scoreInput > 36 && speciesInput == 'ACT') || (scoreInput > 35 && speciesInput == 'PreACT') || (scoreInput > 2400 && speciesInput == 'SAT') || (scoreInput > 1520 && speciesInput == 'PSAT') || (scoreInput > 5 && speciesInput == 'AP') || (scoreInput > 45 && speciesInput == 'IB')) {
+    } else if (scoreInput < 0 || scoreInput > 2400 || readingScoreInput < 0 || mathScoreInput < 0 || ((speciesInput == 'SAT' || speciesInput == 'PSAT') && (readingScoreInput !== '' && mathScoreInput !== '' && +readingScoreInput + +mathScoreInput !== +scoreInput))) {
         alert('Score not possible');
-    } else if (scoreInput == '') {
+    } else if (scoreInput == '' || (readingScoreInput == '' && mathScoreInput !== '') || (readingScoreInput !== '' && mathScoreInput == '')) {
         alert('Enter the test score');
     } else if (subSpeciesInput.length > 30) {
         alert('Subject title is too long');
-    } else if (subSpeciesInput.length == '') {
-        alert('Enter the subject');
+    } else if (subSpeciesInput == '' && speciesInput == 'AP') {
+        alert('Enter the course');
     } else {
         let test = document.createElement('li');
         test.id = 'T' + Math.floor(100000000 + Math.random() * 900000000);
@@ -400,8 +412,11 @@ function addTest() {
         }
         test.appendChild(t);
         test.className = 'item test';
+        test.name = t;
 
         test.score = scoreInput;
+        test.readScore = readingScoreInput;
+        test.mathScore = mathScoreInput;
 
         let div = document.createElement('div');
         div.className = 'attr testScore';
@@ -409,6 +424,24 @@ function addTest() {
         t = document.createTextNode(test.score);
         div.appendChild(t);
         test.appendChild(div);
+
+        if (test.species == 'SAT' || test.species == 'PSAT') {
+            if (readingScoreInput !== '' && mathScoreInput !== '') {
+                div = document.createElement('div');
+                div.className = 'attr testReadScore';
+                div.id = test.id + 'ReadScore';
+                t = document.createTextNode('Reading: ' + test.readScore);
+                div.appendChild(t);
+                test.appendChild(div);
+
+                div = document.createElement('div');
+                div.className = 'attr testMathScore';
+                div.id = test.id + 'MathScore';
+                t = document.createTextNode('Math: ' + test.mathScore);
+                div.appendChild(t);
+                test.appendChild(div);
+            }
+        }
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -438,6 +471,8 @@ function addTest() {
         localStorage.setItem(test.id + 'Month', test.month);
         localStorage.setItem(test.id + 'Year', test.year);
         localStorage.setItem(test.id + 'Score', test.score);
+        localStorage.setItem(test.id + 'ReadingScore', test.readScore);
+        localStorage.setItem(test.id + 'MathScore', test.mathScore);
 
         document.getElementById('listTests').appendChild(test);
 
@@ -535,11 +570,14 @@ function clickPenTest(t) {
     document.getElementById('testMonthEdit').value = test.month;
     document.getElementById('testYearEdit').value = test.year;
     document.getElementById('testScoreEdit').value = test.score;
+    document.getElementById('readingTestScoreEdit').value = test.readScore;
+    document.getElementById('mathTestScoreEdit').value = test.mathScore;
 
-    if (test.species == 'AP') {
+    if (document.getElementById('selTestSpeciesEdit').value == 'AP') {
         document.getElementById('testSubSpeciesEdit').classList.remove('hidden');
-    } else {
-        document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    } else if (document.getElementById('selTestSpeciesEdit').value == 'SAT' || document.getElementById('selTestSpeciesEdit').value == 'PSAT') {
+        document.getElementById('readingTestScoreEdit').classList.remove('hidden');
+        document.getElementById('mathTestScoreEdit').classList.remove('hidden');
     }
 
     document.getElementById('editTestModal').classList.remove('fadeIn');
@@ -652,7 +690,7 @@ function saveAct() {
         activity.category = document.getElementById('selActCategoryEdit').value;
         activity.pos = posInput;
 
-        activity.innerHTML = `<i id='${activity.id}ActI' aria-label='Activity icon'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div><h2 class='actDesc' id='${activity.id}Desc'></h2>`;
+        activity.innerHTML = `<i id='${activity.id}ActI' aria-label='Activity icon'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div><h2 class='desc' id='${activity.id}Desc'></h2>`;
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -719,22 +757,24 @@ function saveAct() {
 function saveTest() {
     let monthInput = document.getElementById('testMonthEdit').value.trim();
     let yearInput = document.getElementById('testYearEdit').value.trim();
-    let scoreInput = document.getElementById('testScoreEdit').value.trim();
     let speciesInput = document.getElementById('selTestSpeciesEdit').value.trim();
     let subSpeciesInput = document.getElementById('testSubSpeciesEdit').value.trim();
+    let scoreInput = document.getElementById('testScoreEdit').value.trim();
+    let readingScoreInput = document.getElementById('readingTestScoreEdit').value.trim();
+    let mathScoreInput = document.getElementById('mathTestScoreEdit').value.trim();
 
     if (monthInput < 1 || monthInput > 12) {
         alert('Enter a valid month 1-12');
-    } else if (yearInput < 1926 || yearInput > currentYear + 4) {
+    } else if (yearInput < 1900 || yearInput > currentYear + 10) {
         alert('Enter a valid year');
-    } else if ((scoreInput < 0) || (scoreInput > 36 && speciesInput == 'ACT') || (scoreInput > 35 && speciesInput == 'PreACT') || (scoreInput > 2400 && speciesInput == 'SAT') || (scoreInput > 1520 && speciesInput == 'PSAT') || (scoreInput > 5 && speciesInput == 'AP') || (scoreInput > 45 && speciesInput == 'IB')) {
+    } else if (scoreInput < 0 || scoreInput > 2400 || readingScoreInput < 0 || mathScoreInput < 0 || ((speciesInput == 'SAT' || speciesInput == 'PSAT') && (readingScoreInput !== '' && mathScoreInput !== '' && +readingScoreInput + +mathScoreInput !== +scoreInput))) {
         alert('Score not possible');
-    } else if (scoreInput == '') {
+    } else if (scoreInput == '' || (readingScoreInput == '' && mathScoreInput !== '') || (readingScoreInput !== '' && mathScoreInput == '')) {
         alert('Enter the test score');
     } else if (subSpeciesInput.length > 30) {
         alert('Subject title is too long');
-    } else if (subSpeciesInput.length == '') {
-        alert('Enter the subject');
+    } else if (subSpeciesInput == '' && speciesInput == 'AP') {
+        alert('Enter the course');
     } else {
         test = document.getElementById(test.id);
 
@@ -745,12 +785,19 @@ function saveTest() {
         }
         test.year = yearInput;
         test.score = scoreInput;
+        test.readScore = readingScoreInput;
+        test.mathScore = mathScoreInput;
         test.species = speciesInput;
         test.subSpecies = subSpeciesInput;
 
         test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
         if (test.species == 'AP') {
             test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+        } else if (test.species == 'SAT' || test.species == 'PSAT') {
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div><div class='attr testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='attr testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
+            if (readingScoreInput == '' && mathScoreInput == '') {
+                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+            }
         }
 
         div = document.createElement('div');
@@ -781,6 +828,8 @@ function saveTest() {
         localStorage.setItem(test.id + 'Month', test.month);
         localStorage.setItem(test.id + 'Year', test.year);
         localStorage.setItem(test.id + 'Score', test.score);
+        localStorage.setItem(test.id + 'ReadingScore', test.readScore);
+        localStorage.setItem(test.id + 'MathScore', test.mathScore);
 
         saveLists();
         getLists();
@@ -908,6 +957,8 @@ function getTests() { // gets all stored info of activities
         test.month = localStorage.getItem(test.id + 'Month');
         test.year = localStorage.getItem(test.id + 'Year');
         test.score = localStorage.getItem(test.id + 'Score');
+        test.readScore = localStorage.getItem(test.id + 'ReadingScore');
+        test.mathScore = localStorage.getItem(test.id + 'MathScore');
     }
 }
 
@@ -1118,9 +1169,19 @@ function hide() {
     document.getElementById('testMonth').value = '';
     document.getElementById('testYear').value = '';
     document.getElementById('testScore').value = '';
+    document.getElementById('readingTestScore').value = '';
+    document.getElementById('mathTestScore').value = '';
+    document.getElementById('testSubSpecies').classList.add('hidden');
+    document.getElementById('readingTestScore').classList.add('hidden');
+    document.getElementById('mathTestScore').classList.add('hidden');
 
     document.getElementById('editTestModal').classList.add('fadeIn');
     document.getElementById('editTestModal').classList.remove('fadeOut');
+    document.getElementById('readingTestScoreEdit').value = '';
+    document.getElementById('mathTestScoreEdit').value = '';
+    document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    document.getElementById('readingTestScoreEdit').classList.add('hidden');
+    document.getElementById('mathTestScoreEdit').classList.add('hidden');
 
     document.getElementById('diffModal').classList.add('fadeIn');
     document.getElementById('diffModal').classList.remove('fadeOut');

@@ -43,7 +43,15 @@
     @apply inline-flex bg-slate-500 text-base text-slate-100 rounded-md px-2 /* py-[0.075rem] */ ml-2;
   }
 
-  .actDesc {
+  .testReadScore {
+    @apply text-[0.93rem] rounded-r-none;
+  }
+
+  .testMathScore {
+    @apply text-[0.93rem] ml-0 rounded-l-none border-l-2 border-slate-100;
+  }
+
+  .desc {
     @apply text-slate-600 text-base break-words;
   }
 
