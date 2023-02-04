@@ -25,17 +25,17 @@
     <div id='courseModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add course</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Title</h2>
             <input placeholder='Course title' id='courseTitle' class='input text-lg p-2 pl-3 m-0 mb-4'>
             <h3 class='hidden text-sm text-teal-700 px-2 mt-1 mb-4' id='diffTip'><b class='font-extrabold'>Tip:</b>
                 Instead of including the difficulty of your course in the title, set it in the Difficulty section</h3>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Grade level</h2>
             <select id='selGradeLev' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a grade level'>
                     <option value='9'>9</option>
@@ -46,7 +46,7 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Subject</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Subject</h2>
             <select id='selSubject' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a subject'>
                     <option value='History'>History</option>
@@ -62,7 +62,7 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Difficulty</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Difficulty</h2>
             <select id='selDiff' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a difficulty'>
                     <option value='1'>None</option>
@@ -82,17 +82,17 @@
     <div id='editCourseModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit course</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Title</h2>
             <input placeholder='Course title' id='courseTitleEdit' class='input text-lg p-2 pl-3 m-0 mb-4'>
             <h3 class='hidden text-sm text-teal-700 px-2 mt-1 mb-4' id='diffTipE'><b class='font-extrabold'>Tip:</b>
                 Instead of including the difficulty of your course in the title, set it in the Difficulty section</h3>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Grade level</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Grade level</h2>
             <select id='selGradeLevEdit' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a grade level'>
                     <option value='9'>9</option>
@@ -103,7 +103,7 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Subject</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Subject</h2>
             <select id='selSubjectEdit' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a subject'>
                     <option value='History'>History</option>
@@ -119,7 +119,7 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Difficulty</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Difficulty</h2>
             <select id='selDiffEdit' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a difficulty'>
                     <option value='1'>None</option>
@@ -139,19 +139,19 @@
     <div id='actModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add activity</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Title</h2>
             <input placeholder='Activity title' id='actTitle' class='input text-lg p-2 pl-3 mb-4'>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Description <p class='inline text-sm'>(optional)</p>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Description <p class='inline text-sm'>(optional)</p>
             </h2>
             <input placeholder='Activity description' id='actDesc' class='input text-lg p-2 pl-3 mb-4'>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Category</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Category</h2>
             <select id='selActCategory' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a category'>
                     <option value='Athletics'>Athletics</option>
@@ -171,14 +171,14 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Position <p class='inline text-sm'>(optional)</p>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Position <p class='inline text-sm'>(optional)</p>
             </h2>
             <input placeholder='Activity position' id='actPosition' class='input text-lg p-2 pl-3 mb-4'>
 
-            <!-- <h2 class='text-base text-slate-600 px-2 mb-1'>Hours spent per week</h2>
+            <!-- <h2 class='text-base text-slate-500 px-2 mb-1'>Hours spent per week</h2>
             <input placeholder='Time spent' type='number' id='actTime' class='input text-lg p-2 pl-3 mb-4'>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Weeks spent per year</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Weeks spent per year</h2>
             <input placeholder='Time spent' type='number' id='actTime' class='input text-lg p-2 pl-3 mb-4'> -->
 
             <button
@@ -190,19 +190,19 @@
     <div id='editActModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit activity</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Title</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Title</h2>
             <input placeholder='Activity title' id='actTitleEdit' class='input text-lg p-2 pl-3 mb-4'>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Description <p class='inline text-sm'>(optional)</p>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Description <p class='inline text-sm'>(optional)</p>
             </h2>
             <input placeholder='Activity description' id='actDescEdit' class='input text-lg p-2 pl-3 mb-4'>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Category</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Category</h2>
             <select id='selActCategoryEdit' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select a category'>
                     <option value='Athletics'>Athletics</option>
@@ -222,14 +222,14 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Position <p class='inline text-sm'>(optional)</p>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Position <p class='inline text-sm'>(optional)</p>
             </h2>
             <input placeholder='Activity position' id='actPositionEdit' class='input text-lg p-2 pl-3 mb-4'>
 
-            <!-- <h2 class='text-base text-slate-600 px-2 mb-1'>Hours spent per week</h2>
+            <!-- <h2 class='text-base text-slate-500 px-2 mb-1'>Hours spent per week</h2>
             <input placeholder='Time spent' type='number' id='actTimeHEdit' class='input text-lg p-2 pl-3 mb-4'>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Weeks spent per year</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Weeks spent per year</h2>
             <input placeholder='Time spent' type='number' id='actTimeWEdit' class='input text-lg p-2 pl-3 mb-4'> -->
 
             <button
@@ -241,13 +241,13 @@
     <div id='testModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add test</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Type</h2>
-            <select id='selTestSpecies' class='input text-lg p-2 mb-4'>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Type</h2>
+            <select id='selTestSpecies' class='input text-lg p-2 mb-4' onchange='selTestSpecies()'>
                 <optgroup label='Select a type'>
                     <option value='ACT'>ACT</option>
                     <option value='PreACT'>PreACT</option>
@@ -258,7 +258,9 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>
+            <input placeholder='Course' id='testSubSpecies' class='input hidden text-lg p-2 pl-3 mb-4'>
+
+            <h2 class='text-base text-slate-500 px-2 mb-1'>
                 Date taken <p class='inline text-sm'>(MM/YYYY)</p>
             </h2>
             <div class='flex'>
@@ -266,7 +268,7 @@
                 <input placeholder='Year' id='testYear' type='number' class='input text-lg p-2 pl-3 mb-4'>
             </div>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Score</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Score</h2>
             <input placeholder='Test score' id='testScore' type='number' class='input text-lg p-2 pl-3 mb-4'>
 
             <button
@@ -278,13 +280,13 @@
     <div id='editTestModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit test</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Type</h2>
-            <select id='selTestSpeciesEdit' class='input text-lg p-2 mb-4'>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Type</h2>
+            <select id='selTestSpeciesEdit' class='input text-lg p-2 mb-4' onchange='selTestSpeciesEdit()'>
                 <optgroup label='Select a type'>
                     <option value='ACT'>ACT</option>
                     <option value='PreACT'>PreACT</option>
@@ -295,7 +297,9 @@
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>
+            <input placeholder='Course' id='testSubSpeciesEdit' class='input hidden text-lg p-2 pl-3 mb-4'>
+
+            <h2 class='text-base text-slate-500 px-2 mb-1'>
                 Date taken <p class='inline text-sm'>(MM/YYYY)</p>
             </h2>
             <div class='flex'>
@@ -303,7 +307,7 @@
                 <input placeholder='Year' id='testYearEdit' type='number' class='input text-lg p-2 pl-3 mb-4 ml-1'>
             </div>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>Score</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Score</h2>
             <input placeholder='Test score' id='testScoreEdit' type='number' class='input text-lg p-2 pl-3 mb-4'>
 
             <button
@@ -315,7 +319,7 @@
     <div id='diffModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>About grade level difficulty</h1>
@@ -335,7 +339,7 @@
     <div id='diffPercentModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>About grade level difficulty percent</h1>
@@ -355,12 +359,12 @@
     <div id='countdownModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-600 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit graduation countdown</h1>
 
-            <h2 class='text-base text-slate-600 px-2 mb-1'>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>
                 Graduation date <p class='inline text-sm'>(DD/MM/YYYY)</p>
             </h2>
             <div class='flex'>

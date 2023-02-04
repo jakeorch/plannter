@@ -42,11 +42,29 @@ function toggleMenu() {
     document.getElementById('menuDiv').classList.toggle('block');
 }
 
+function selTestSpecies() {
+    if (document.getElementById('selTestSpecies').value == 'AP') {
+        document.getElementById('testSubSpecies').classList.remove('hidden');
+    } else {
+        document.getElementById('testSubSpecies').classList.add('hidden');
+    }
+}
+
+function selTestSpeciesEdit() {
+    if (document.getElementById('selTestSpeciesEdit').value == 'AP') {
+        document.getElementById('testSubSpeciesEdit').classList.remove('hidden');
+    } else {
+        document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    }
+}
+
 function openAddCourse(num) {
     currentGrade = num;
 
     document.getElementById('courseModal').classList.remove('fadeIn');
     document.getElementById('courseModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 
     document.getElementById('selGradeLev').value = currentGrade;
 }
@@ -54,26 +72,36 @@ function openAddCourse(num) {
 function openAddAct() {
     document.getElementById('actModal').classList.remove('fadeIn');
     document.getElementById('actModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 }
 
 function openAddTest() {
     document.getElementById('testModal').classList.remove('fadeIn');
     document.getElementById('testModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 }
 
 function openDiff() {
     document.getElementById('diffModal').classList.remove('fadeIn');
     document.getElementById('diffModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 }
 
 function openDiffPercent() {
     document.getElementById('diffPercentModal').classList.remove('fadeIn');
     document.getElementById('diffPercentModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 }
 
 function openCD() {
     document.getElementById('countdownModal').classList.remove('fadeIn');
     document.getElementById('countdownModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 
     if (gradDay !== NaN && gradDay !== null && gradDay !== 0) {
         document.getElementById('gradDay').value = gradDay;
@@ -333,6 +361,7 @@ function addTest() {
     let yearInput = document.getElementById('testYear').value.trim();
     let scoreInput = document.getElementById('testScore').value.trim();
     let speciesInput = document.getElementById('selTestSpecies').value.trim();
+    let subSpeciesInput = document.getElementById('testSubSpecies').value.trim();
 
     if (monthInput < 1 || monthInput > 12) {
         alert('Enter a valid month 1-12');
@@ -342,6 +371,10 @@ function addTest() {
         alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
+    } else if (subSpeciesInput.length > 30) {
+        alert('Subject title is too long');
+    } else if (subSpeciesInput.length == '') {
+        alert('Enter the subject');
     } else {
         let test = document.createElement('li');
         test.id = 'T' + Math.floor(100000000 + Math.random() * 900000000);
@@ -353,6 +386,7 @@ function addTest() {
         test.appendChild(i);
 
         test.species = speciesInput;
+        test.subSpecies = subSpeciesInput;
         test.year = yearInput;
         if (monthInput.length == 1) {
             test.month = '0' + monthInput;
@@ -360,7 +394,10 @@ function addTest() {
             test.month = monthInput;
         }
 
-        let t = document.createTextNode(`${test.species} — ${test.month}/${test.year}`);
+        t = document.createTextNode(`${test.species} — ${test.month}/${test.year}`);
+        if (test.species == 'AP') {
+            t = document.createTextNode(`${test.species} ${test.subSpecies} — ${test.month}/${test.year}`);
+        }
         test.appendChild(t);
         test.className = 'item test';
 
@@ -397,6 +434,7 @@ function addTest() {
         test.appendChild(div);
 
         localStorage.setItem(test.id + 'Species', test.species);
+        localStorage.setItem(test.id + 'SubSpecies', test.subSpecies);
         localStorage.setItem(test.id + 'Month', test.month);
         localStorage.setItem(test.id + 'Year', test.year);
         localStorage.setItem(test.id + 'Score', test.score);
@@ -459,13 +497,15 @@ function clickPen(c) {
     document.getElementById('selDiffEdit').value = course.diff;
 
     if (course.sub == 'PE') {
-        document.getElementById('selDiffEdit').value = course.diff / 0.05;
+        document.getElementById('selDiffEdit').value = course.diff / 0.01;
     } else {
         document.getElementById('selDiffEdit').value = course.diff;
     }
 
     document.getElementById('editCourseModal').classList.remove('fadeIn');
     document.getElementById('editCourseModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 }
 
 function clickPenAct(a) {
@@ -481,6 +521,8 @@ function clickPenAct(a) {
 
     document.getElementById('editActModal').classList.remove('fadeIn');
     document.getElementById('editActModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 }
 
 function clickPenTest(t) {
@@ -489,12 +531,21 @@ function clickPenTest(t) {
     test = t;
 
     document.getElementById('selTestSpeciesEdit').value = test.species;
+    document.getElementById('testSubSpeciesEdit').value = test.subSpecies;
     document.getElementById('testMonthEdit').value = test.month;
     document.getElementById('testYearEdit').value = test.year;
     document.getElementById('testScoreEdit').value = test.score;
 
+    if (test.species == 'AP') {
+        document.getElementById('testSubSpeciesEdit').classList.remove('hidden');
+    } else {
+        document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    }
+
     document.getElementById('editTestModal').classList.remove('fadeIn');
     document.getElementById('editTestModal').classList.add('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 }
 
 function clickTrash(el) {
@@ -670,6 +721,7 @@ function saveTest() {
     let yearInput = document.getElementById('testYearEdit').value.trim();
     let scoreInput = document.getElementById('testScoreEdit').value.trim();
     let speciesInput = document.getElementById('selTestSpeciesEdit').value.trim();
+    let subSpeciesInput = document.getElementById('testSubSpeciesEdit').value.trim();
 
     if (monthInput < 1 || monthInput > 12) {
         alert('Enter a valid month 1-12');
@@ -679,6 +731,10 @@ function saveTest() {
         alert('Score not possible');
     } else if (scoreInput == '') {
         alert('Enter the test score');
+    } else if (subSpeciesInput.length > 30) {
+        alert('Subject title is too long');
+    } else if (subSpeciesInput.length == '') {
+        alert('Enter the subject');
     } else {
         test = document.getElementById(test.id);
 
@@ -690,8 +746,12 @@ function saveTest() {
         test.year = yearInput;
         test.score = scoreInput;
         test.species = speciesInput;
+        test.subSpecies = subSpeciesInput;
 
         test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+        if (test.species == 'AP') {
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+        }
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -717,6 +777,7 @@ function saveTest() {
         test.appendChild(div);
 
         localStorage.setItem(test.id + 'Species', test.species);
+        localStorage.setItem(test.id + 'SubSpecies', test.subSpecies);
         localStorage.setItem(test.id + 'Month', test.month);
         localStorage.setItem(test.id + 'Year', test.year);
         localStorage.setItem(test.id + 'Score', test.score);
@@ -755,7 +816,18 @@ function saveCD() {
     gradYear = Number(document.getElementById('gradYear').value);
     gradDate = new Date(gradYear, gradMonth - 1, gradDay);
 
-    if (gradDay < 1 || gradDay > 31) {
+    if (gradDay == '' && gradMonth == '' && gradYear == '') {
+        localStorage.setItem('gradDate', gradDate);
+        localStorage.setItem('gradDay', gradDay);
+        localStorage.setItem('gradMonth', gradMonth);
+        localStorage.setItem('gradYear', gradYear);
+
+        document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half'></i>`;
+        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half'></i>`;
+
+        hide();
+
+    } else if (gradDay < 1 || gradDay > 31) {
         alert('Enter a valid day 1-31');
     } else if (gradMonth < 1 || gradMonth > 12) {
         alert('Enter a valid month 1-12');
@@ -832,6 +904,7 @@ function getTests() { // gets all stored info of activities
     for (let j = 0; j < currentItems.length; j++) {
         test = currentItems[j];
         test.species = localStorage.getItem(test.id + 'Species');
+        test.subSpecies = localStorage.getItem(test.id + 'SubSpecies');
         test.month = localStorage.getItem(test.id + 'Month');
         test.year = localStorage.getItem(test.id + 'Year');
         test.score = localStorage.getItem(test.id + 'Score');
@@ -863,7 +936,7 @@ function calcListDiff() { // calcs diffs of ALL lists
             }
 
             if (course.sub == 'PE') {
-                course.diff = document.getElementById('selDiff').value * 0.01;
+                course.diff = course.diff * 0.01;
             }
 
             localStorage.setItem(course.id + 'Diff', course.diff);
@@ -874,7 +947,7 @@ function calcListDiff() { // calcs diffs of ALL lists
         let glDiff = ((sum) + (1.175 ** currentItems.length)) / 6;
         localStorage.setItem('list' + i + 'Diff', (Math.round((glDiff) * 100)) / 100);
 
-        console.table({ list: i, sum: sum, numberItems: currentItems.length });
+        // console.table({ list: i, sum: sum, numberItems: currentItems.length });
 
         if (currentItems.length < 1 || localStorage.getItem('list' + i + 'Diff') <= 0) {
             document.getElementById('diff' + i).innerText = '';
@@ -1041,6 +1114,7 @@ function hide() {
     document.getElementById('testModal').classList.add('fadeIn');
     document.getElementById('testModal').classList.remove('fadeOut');
     document.getElementById('selTestSpecies').value = 'ACT';
+    document.getElementById('testSubSpecies').value = '';
     document.getElementById('testMonth').value = '';
     document.getElementById('testYear').value = '';
     document.getElementById('testScore').value = '';
@@ -1056,4 +1130,6 @@ function hide() {
 
     document.getElementById('countdownModal').classList.add('fadeIn');
     document.getElementById('countdownModal').classList.remove('fadeOut');
+
+    document.getElementsByTagName('body')[0].classList.remove('overflow-hidden');
 }
