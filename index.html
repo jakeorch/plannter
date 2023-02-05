@@ -25,7 +25,7 @@
     <div id='courseModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add course</h1>
@@ -58,13 +58,13 @@
                     <option value='Visual Arts'>Visual Arts</option>
                     <option value='Performing Arts'>Performing Arts</option>
                     <option value='PE'>Physical Education</option>
-                    <option value='Other/Elective'>Other/Elective</option>
+                    <option value='Other'>Other</option>
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-500 px-2 mb-1'>Difficulty</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Advancement level</h2>
             <select id='selDiff' class='input text-lg p-2 mb-4'>
-                <optgroup label='Select a difficulty'>
+                <optgroup label='Select an advancement level'>
                     <option value='1'>None</option>
                     <option value='2'>Advanced/Accelerated</option>
                     <option value='3'>Honors</option>
@@ -74,7 +74,27 @@
             </select>
 
             <button
-                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                class='block w-full text-base text-left text-slate-600 hover:text-slate-500 active:text-slate-400 transition-all px-2 mt-2 mb-4'
+                onclick='toggleAdvOptions("addC")'><i class='fa-solid fa-chevron-right mr-2 transition-all'
+                    id='advOptAddCI'></i>Advanced options</button>
+
+            <div id='advOptionsAddC' class='hidden'>
+                <h2 class='text-base text-slate-500 px-2 mb-1'>Difficulty <p class='inline text-sm'>(optional)</p>
+                </h2>
+                <select id='selDiff2' class='input text-lg p-2 mb-4'>
+                    <optgroup label='Select a difficulty'>
+                        <option value='0.25'>Effortless</option>
+                        <option value='0.5'>Easy</option>
+                        <option value='1' selected>Normal</option>
+                        <option value='1.5'>Hard</option>
+                        <option value='2'>Difficult</option>
+                        <option value='3'>Challenging</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <button
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
                 onclick='addCourse()'><i class='fa-solid fa-plus mr-1'></i>Add course</button>
         </div>
     </div>
@@ -82,7 +102,7 @@
     <div id='editCourseModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit course</h1>
@@ -115,13 +135,13 @@
                     <option value='Visual Arts'>Visual Arts</option>
                     <option value='Performing Arts'>Performing Arts</option>
                     <option value='PE'>Physical Education</option>
-                    <option value='Other/Elective'>Other/Elective</option>
+                    <option value='Other'>Other</option>
                 </optgroup>
             </select>
 
-            <h2 class='text-base text-slate-500 px-2 mb-1'>Difficulty</h2>
+            <h2 class='text-base text-slate-500 px-2 mb-1'>Advancement level</h2>
             <select id='selDiffEdit' class='input text-lg p-2 mb-4'>
-                <optgroup label='Select a difficulty'>
+                <optgroup label='Select an advancement level'>
                     <option value='1'>None</option>
                     <option value='2'>Advanced/Accelerated</option>
                     <option value='3'>Honors</option>
@@ -131,7 +151,27 @@
             </select>
 
             <button
-                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                class='block w-full text-base text-left text-slate-600 hover:text-slate-500 active:text-slate-400 transition-all px-2 mt-2 mb-4'
+                onclick='toggleAdvOptions("editC")'><i class='fa-solid fa-chevron-right mr-2 transition-all'
+                    id='advOptEditCI'></i>Advanced options</button>
+
+            <div id='advOptionsEditC' class='hidden'>
+                <h2 class='text-base text-slate-500 px-2 mb-1'>Difficulty <p class='inline text-sm'>(optional)</p>
+                </h2>
+                <select id='selDiff2Edit' class='input text-lg p-2 mb-4'>
+                    <optgroup label='Select a difficulty'>
+                        <option value='0.25'>Effortless</option>
+                        <option value='0.5'>Easy</option>
+                        <option value='1' selected>Normal</option>
+                        <option value='1.5'>Hard</option>
+                        <option value='2'>Difficult</option>
+                        <option value='2.5'>Challenging</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <button
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
                 onclick='saveCourse()'><i class='fa-solid fa-floppy-disk mr-[0.375rem]'></i>Save course</button>
         </div>
     </div>
@@ -139,7 +179,7 @@
     <div id='actModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add activity</h1>
@@ -182,7 +222,7 @@
             <input placeholder='Time spent' type='number' id='actTime' class='input text-lg p-2 pl-3 mb-4'> -->
 
             <button
-                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
                 onclick='addAct()'><i class='fa-solid fa-plus mr-1'></i>Add activity</button>
         </div>
     </div>
@@ -190,7 +230,7 @@
     <div id='editActModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit activity</h1>
@@ -233,7 +273,7 @@
             <input placeholder='Time spent' type='number' id='actTimeWEdit' class='input text-lg p-2 pl-3 mb-4'> -->
 
             <button
-                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
                 onclick='saveAct()'><i class='fa-solid fa-floppy-disk mr-[0.375rem]'></i>Save activity</button>
         </div>
     </div>
@@ -241,7 +281,7 @@
     <div id='testModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Add test</h1>
@@ -276,7 +316,7 @@
             <input placeholder='Math score' id='mathTestScore' type='number' class='input hidden text-lg p-2 pl-3 mb-4'>
 
             <button
-                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
                 onclick='addTest()'><i class='fa-solid fa-plus mr-1'></i>Add test</button>
         </div>
     </div>
@@ -284,7 +324,7 @@
     <div id='editTestModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit test</h1>
@@ -320,7 +360,7 @@
                 class='input hidden text-lg p-2 pl-3 mb-4'>
 
             <button
-                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
                 onclick='saveTest()'><i class='fa-solid fa-floppy-disk mr-[0.375rem]'></i>Save test</button>
         </div>
     </div>
@@ -328,19 +368,15 @@
     <div id='diffModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>About grade level difficulty</h1>
 
             <h2 class='text-lg'>
-                Grade level difficulty is calculated using the difficulty of individual courses, the number of courses,
-                and comparing it to the average number of courses taken.
+                Grade level difficulty is calculated using the advancement level and difficulty of individual courses,
+                the number of courses, and compares it to the average number of courses taken.
             </h2>
-
-            <!-- <h2 class='text-base mt-4'>
-                This score is meant to guide you to the amount of challenge you are comfortable with.
-            </h2> -->
 
         </div>
     </div>
@@ -348,19 +384,15 @@
     <div id='diffPercentModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>About grade level difficulty percent</h1>
 
             <h2 class='text-lg'>
                 Grade level difficulty percent is the percentage of the ratio of advanced classes to total classes.
-                <br><br> It does not take the difficulty of individual courses into account.
+                <br><br> It does not take the advancement level or difficulty of individual courses into account.
             </h2>
-
-            <!-- <h2 class='text-base mt-4'>
-                This score is meant to guide you to the amount of challenge you are comfortable with.
-            </h2> -->
 
         </div>
     </div>
@@ -368,7 +400,7 @@
     <div id='countdownModal'
         class='fadeIn bg-black/40 flex justify-center items-center fixed top-0 left-0 z-30 w-full h-full overflow-auto'>
         <div class='bg-slate-100 relative rounded-lg w-11/12 md:max-w-xl shadow-md px-11 py-9'>
-            <button class='absolute top-6 right-6 hover:text-slate-500 transition-all' onclick='hide()'><i
+            <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
             <h1 class='text-2xl mb-5'>Edit graduation countdown</h1>
@@ -383,7 +415,7 @@
             </div>
 
             <button
-                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 text-left transition-all px-3 py-2 mt-4'
+                class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
                 onclick='saveCD()'><i class='fa-solid fa-floppy-disk mr-[0.375rem]'></i>Save date</button>
         </div>
     </div>
@@ -397,7 +429,7 @@
         <!-- <h2 class='text-lg mt-1'>Manage all of your high school accomplishments</h2> -->
 
         <button
-            class='hidden md:block font-LexendDeca text-2xl hover:bg-slate-100 hover:text-sky-600 rounded-md tracking-wide px-3 py-1 ml-auto transition-all'
+            class='hidden md:block font-LexendDeca text-2xl hover:bg-slate-100 active:bg-slate-200 hover:text-sky-600 rounded-md tracking-wide px-3 py-1 ml-auto transition-all'
             onclick='openCD()' id='countdown'><i class='fa-solid fa-hourglass-half'
                 aria-label='Edit countdown'></i></button>
     </div>
@@ -412,12 +444,12 @@
                 <h1 class='tracking-wide'>4-year plan</h1>
             </button>
             <button
-                class='planBtns w-full text-left text-slate-500 hover:bg-slate-400/30 rounded-r-full px-8 py-4 transition-all'
+                class='planBtns w-full text-left text-slate-500 hover:bg-slate-400/30 active:bg-slate-400/50 rounded-r-full px-8 py-4 transition-all'
                 onclick='showExtra()'>
                 <h1 class='tracking-wide'>Extracurriculars</h1>
             </button>
             <button
-                class='planBtns w-full text-left text-slate-500 hover:bg-slate-400/30 rounded-r-full px-8 py-4 transition-all'
+                class='planBtns w-full text-left text-slate-500 hover:bg-slate-400/30 active:bg-slate-400/50 rounded-r-full px-8 py-4 transition-all'
                 onclick='showTests()'>
                 <h1 class='tracking-wide'>Testing</h1>
             </button>
@@ -438,7 +470,7 @@
                 <ul id='list9'>
                 </ul>
                 <button
-                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent w-full text-left transition-all px-3 py-2'
                     onclick='openAddCourse(9)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
@@ -450,7 +482,7 @@
                 <ul id='list10'>
                 </ul>
                 <button
-                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent w-full text-left transition-all px-3 py-2'
                     onclick='openAddCourse(10)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
@@ -462,7 +494,7 @@
                 <ul id='list11'>
                 </ul>
                 <button
-                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent w-full text-left transition-all px-3 py-2'
                     onclick='openAddCourse(11)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
@@ -474,7 +506,7 @@
                 <ul id='list12'>
                 </ul>
                 <button
-                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent w-full text-left transition-all px-3 py-2'
                     onclick='openAddCourse(12)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
@@ -486,7 +518,7 @@
                 <ul id='list13'>
                 </ul>
                 <button
-                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent w-full text-left transition-all px-3 py-2'
                     onclick='openAddCourse(13)'><i class='fa-solid fa-plus mr-1'></i>Add a course</button>
             </div>
 
@@ -499,7 +531,7 @@
                 <ul id='listActs'> <!-- class='grid grid-cols-2' -->
                 </ul>
                 <button
-                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent w-full text-left transition-all px-3 py-2'
                     id='addActBtn' onclick='openAddAct()'><i class='fa-solid fa-plus mr-1'></i>Add an activity</button>
             </div>
 
@@ -512,7 +544,7 @@
                 <ul id='listTests'> <!-- class='grid grid-cols-2' -->
                 </ul>
                 <button
-                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 w-full text-left transition-all px-3 py-2'
+                    class='text-lg text-slate-500 border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent w-full text-left transition-all px-3 py-2'
                     id='addTestBtn' onclick='openAddTest()'><i class='fa-solid fa-plus mr-1'></i>Add a test</button>
             </div>
 
