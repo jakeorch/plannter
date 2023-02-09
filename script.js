@@ -1136,8 +1136,9 @@ function updateAllItems() {
             document.getElementById(activity.id + 'Desc').remove();
         }
 
-        if (document.getElementById(activity.id + 'Desc') && document.getElementById(activity.id + 'Desc').classList.contains('actDesc')) {
+        if (document.getElementById(activity.id + 'Desc')) {
             document.getElementById(activity.id + 'Desc').classList.remove('actDesc');
+            document.getElementById(activity.id + 'Desc').classList.add('desc');
         }
 
         /* if (activity.draggable == false) {
