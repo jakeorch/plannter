@@ -614,6 +614,8 @@ video {
   float: right;
   display: block;
   text-align: right;
+  --tw-text-opacity: 1;
+  color: rgb(100 116 139 / var(--tw-text-opacity));
 }
 
 .opt {
@@ -637,24 +639,41 @@ video {
   color: rgb(241 245 249 / var(--tw-text-opacity));
 }
 
+.testScore {
+  margin: 0px;
+  margin-left: 0.5rem;
+  display: inline-flex;
+  overflow-wrap: break-word;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+  padding: 0px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(241 245 249 / var(--tw-text-opacity));
+}
+
 .testReadScore {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-  font-size: 0.93rem;
+  margin: 0px;
+  margin-top: 0.25rem;
+  display: block;
+  background-color: transparent;
+  padding: 0px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity));
 }
 
 .testMathScore {
-  margin-left: 0px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-left-width: 2px;
-  --tw-border-opacity: 1;
-  border-color: rgb(241 245 249 / var(--tw-border-opacity));
-  font-size: 0.93rem;
-}
-
-.actDesc {
-  overflow-wrap: break-word;
+  margin: 0px;
+  margin-top: 0.25rem;
+  display: block;
+  background-color: transparent;
+  padding: 0px;
   font-size: 1rem;
   line-height: 1.5rem;
   --tw-text-opacity: 1;
@@ -662,6 +681,7 @@ video {
 }
 
 .desc {
+  margin-top: 0.25rem;
   overflow-wrap: break-word;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -682,6 +702,11 @@ video {
 .hon {
   --tw-bg-opacity: 1;
   background-color: rgb(249 115 22 / var(--tw-bg-opacity));
+}
+
+.cp {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 158 11 / var(--tw-bg-opacity));
 }
 
 .adv {
@@ -802,7 +827,12 @@ video {
 
 .trash:hover {
   --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity));
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.trash:active {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
 }
 
 .pen {
@@ -813,7 +843,12 @@ video {
 
 .pen:hover {
   --tw-text-opacity: 1;
-  color: rgb(100 116 139 / var(--tw-text-opacity));
+  color: rgb(71 85 105 / var(--tw-text-opacity));
+}
+
+.pen:active {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity));
 }
 
 .fadeIn {
@@ -930,10 +965,6 @@ video {
 
 .ml-auto {
   margin-left: auto;
-}
-
-.mr-2\.5 {
-  margin-right: 0.625rem;
 }
 
 .mt-12 {
@@ -1256,6 +1287,11 @@ video {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.item:hover > .optDiv {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity));
 }
 
 .hover\:bg-red-300:hover {

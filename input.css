@@ -36,7 +36,7 @@
   }
 
   .optDiv {
-    @apply block absolute top-3 right-4 text-right float-right;
+    @apply block absolute top-3 right-4 text-right float-right text-slate-500;
   }
 
   .opt {
@@ -47,20 +47,20 @@
     @apply inline-flex bg-slate-500 text-base text-slate-100 rounded-md px-2 /* py-[0.075rem] */ ml-2;
   }
 
+  .testScore {
+    @apply inline-flex bg-slate-500 text-base text-slate-100 rounded-md break-words p-0 px-2 m-0 ml-2;
+  }
+
   .testReadScore {
-    @apply text-[0.93rem] rounded-r-none;
+    @apply block bg-transparent text-slate-600 text-base p-0 m-0 mt-1;
   }
 
   .testMathScore {
-    @apply text-[0.93rem] ml-0 rounded-l-none border-l-2 border-slate-100;
-  }
-
-  .actDesc {
-    @apply text-slate-600 text-base break-words;
+    @apply block bg-transparent text-slate-600 text-base p-0 m-0 mt-1;
   }
 
   .desc {
-    @apply text-slate-600 text-base break-words;
+    @apply text-slate-600 text-base break-words mt-1;
   }
 
   .ib {
@@ -73,6 +73,10 @@
 
   .hon {
     @apply bg-orange-500;
+  }
+
+  .cp {
+    @apply bg-amber-500;
   }
 
   .adv {
@@ -108,11 +112,11 @@
   }
 
   .trash {
-    @apply hover:text-red-500 transition-all;
+    @apply hover:text-red-600 active:text-red-700 transition-all;
   }
 
   .pen {
-    @apply hover:text-slate-500 transition-all;
+    @apply hover:text-slate-600 active:text-slate-700 transition-all;
   }
 
   .penAct {
@@ -130,4 +134,8 @@
   .fadeOut {
     @apply visible opacity-100 transition-all;
   }
+}
+
+.item:hover > .optDiv {
+  @apply text-slate-900;
 }

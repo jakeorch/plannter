@@ -1,5 +1,3 @@
-let currentGrade = 0;
-
 const currentYear = new Date().getFullYear();
 const currentMonth = Number(String(new Date().getMonth() + 1).padStart(2, '0'));
 const currentDay = Number(String(new Date().getDate()).padStart(2, '0'));
@@ -36,7 +34,7 @@ getActs();
 getTests();
 getCD();
 calcListDiff();
-// updateAllItems();
+updateAllItems();
 
 function toggleMenu() {
     document.getElementById('menuDiv').classList.toggle('hidden');
@@ -45,6 +43,7 @@ function toggleMenu() {
 
 function selTestSpecies() {
     document.getElementById('testSubSpecies').classList.add('hidden');
+    document.getElementById('testSpeciesOther').classList.add('hidden');
     document.getElementById('readingTestScore').classList.add('hidden');
     document.getElementById('mathTestScore').classList.add('hidden');
 
@@ -53,11 +52,14 @@ function selTestSpecies() {
     } else if (document.getElementById('selTestSpecies').value == 'SAT' || document.getElementById('selTestSpecies').value == 'PSAT') {
         document.getElementById('readingTestScore').classList.remove('hidden');
         document.getElementById('mathTestScore').classList.remove('hidden');
+    } else if (document.getElementById('selTestSpecies').value == 'Other') {
+        document.getElementById('testSpeciesOther').classList.remove('hidden');
     }
 }
 
 function selTestSpeciesEdit() {
-    document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    document.getElementById('testSubSpeciesdit').classList.add('hidden');
+    document.getElementById('testSpeciesOtherEdit').classList.add('hidden');
     document.getElementById('readingTestScoreEdit').classList.add('hidden');
     document.getElementById('mathTestScoreEdit').classList.add('hidden');
 
@@ -66,18 +68,18 @@ function selTestSpeciesEdit() {
     } else if (document.getElementById('selTestSpeciesEdit').value == 'SAT' || document.getElementById('selTestSpeciesEdit').value == 'PSAT') {
         document.getElementById('readingTestScoreEdit').classList.remove('hidden');
         document.getElementById('mathTestScoreEdit').classList.remove('hidden');
+    } else if (document.getElementById('selTestSpeciesEdit').value == 'Other') {
+        document.getElementById('testSubSpeciesEdit').classList.remove('hidden');
     }
 }
 
 function openAddCourse(num) {
-    currentGrade = num;
-
     document.getElementById('courseModal').classList.remove('fadeIn');
     document.getElementById('courseModal').classList.add('fadeOut');
 
     document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
 
-    document.getElementById('selGradeLev').value = currentGrade;
+    document.getElementById('selGradeLev').value = num;
 }
 
 function openAddAct() {
@@ -167,23 +169,19 @@ function showTests() {
     toggleMenu();
 }
 
-function addCourse() {
-    let input = document.getElementById('courseTitle').value.trim();
-
-    if (input.length > 60) {
+function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff) {
+    if (cName.length > 60) {
         alert('Course title is too long');
-    } else if (input == '') {
+    } else if (cName == '') {
         alert('Enter the title of your course');
     } else {
-        currentGrade = document.getElementById('selGradeLev').value;
-
         let course = document.createElement('li');
-        course.name = input;
+        course.name = cName;
         // course.draggable = true;
 
         course.id = 'C' + Math.floor(100000000 + Math.random() * 900000000);
 
-        course.sub = document.getElementById('selSubject').value;
+        course.sub = cSub;
         let i = document.createElement('i');
         i.id = course.id + 'SbjI'
         i.className = getSubjectIcon(course.sub);
@@ -194,10 +192,10 @@ function addCourse() {
         course.appendChild(t);
         course.className = 'item course';
 
-        course.gradeLevel = currentGrade;
+        course.gradeLevel = cGradeLevel;
 
-        course.diff = document.getElementById('selDiff').value;
-        course.diff2 = document.getElementById('selDiff2').value;
+        course.diff = cAdvLevel;
+        course.diff2 = cDiff;
         course.diffFull = course.diff * course.diff2;
 
         let div = document.createElement('div');
@@ -226,7 +224,7 @@ function addCourse() {
         icon.className = 'text-lg fa-solid fa-pen';
         btn.className = 'opt pen';
         btn.ariaLabel = 'Edit course';
-        btn.name = 'Edit course';
+        btn.title = 'Edit course';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -235,7 +233,7 @@ function addCourse() {
         icon.className = 'text-lg fa-solid fa-trash';
         btn.className = 'opt trash';
         btn.ariaLabel = 'Remove course';
-        btn.name = 'Remove course';
+        btn.title = 'Remove course';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -248,7 +246,7 @@ function addCourse() {
         localStorage.setItem(course.id + 'Diff2', course.diff2);
         localStorage.setItem(course.id + 'DiffFull', course.diffFull);
 
-        document.getElementById('list' + currentGrade).appendChild(course);
+        document.getElementById('list' + cGradeLevel).appendChild(course);
 
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
@@ -276,26 +274,22 @@ function addCourse() {
     }
 }
 
-function addAct() {
-    let input = document.getElementById('actTitle').value.trim();
-    let descInput = document.getElementById('actDesc').value.trim();
-    let posInput = document.getElementById('actPosition').value.trim();
-
-    if (input.length > 60) {
+function addAct(aName, aDesc, aCategory, aPos) {
+    if (aName.length > 60) {
         alert('Actvity title is too long');
-    } else if (descInput.length > 160) {
+    } else if (aDesc.length > 160) {
         alert('Actvity description is too long');
-    } else if (posInput.length > 20) {
+    } else if (aPos.length > 20) {
         alert('Position title is too long');
-    } else if (input == '') {
+    } else if (aName == '') {
         alert('Enter the title of your activity');
     } else {
         let activity = document.createElement('li');
-        activity.name = input;
+        activity.name = aName;
 
         activity.id = 'A' + Math.floor(100000000 + Math.random() * 900000000);
 
-        activity.category = document.getElementById('selActCategory').value;
+        activity.category = aCategory;
         let i = document.createElement('i');
         i.id = activity.id + 'ActI';
         actClass = getActIcon(activity.category);
@@ -307,7 +301,7 @@ function addAct() {
         activity.appendChild(t);
         activity.className = 'item activity';
 
-        activity.pos = posInput;
+        activity.pos = aPos;
 
         let div = document.createElement('div');
         div.className = 'attr actPos';
@@ -324,7 +318,7 @@ function addAct() {
         icon.className = 'text-lg fa-solid fa-pen';
         btn.className = 'opt pen';
         btn.ariaLabel = 'Edit activity';
-        btn.name = 'Edit activity';
+        btn.title = 'Edit activity';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -333,20 +327,22 @@ function addAct() {
         icon.className = 'text-lg fa-solid fa-trash';
         btn.className = 'opt trash';
         btn.ariaLabel = 'Remove activity';
-        btn.name = 'Remove activity';
+        btn.title = 'Remove activity';
         btn.appendChild(icon);
         div.appendChild(btn);
 
         activity.appendChild(div);
 
-        activity.desc = descInput;
+        activity.desc = aDesc;
 
-        let h2 = document.createElement('h2');
-        h2.className = 'desc';
-        h2.id = activity.id + 'Desc';
-        t = document.createTextNode(activity.desc);
-        h2.appendChild(t);
-        activity.appendChild(h2);
+        if (activity.desc != '') {
+            let h2 = document.createElement('h2');
+            h2.className = 'desc';
+            h2.id = activity.id + 'Desc';
+            t = document.createTextNode(activity.desc);
+            h2.appendChild(t);
+            activity.appendChild(h2);
+        }
 
         localStorage.setItem(activity.id + 'Name', activity.name);
         localStorage.setItem(activity.id + 'Desc', activity.desc);
@@ -380,27 +376,23 @@ function addAct() {
     }
 }
 
-function addTest() {
-    let monthInput = document.getElementById('testMonth').value.trim();
-    let yearInput = document.getElementById('testYear').value.trim();
-    let speciesInput = document.getElementById('selTestSpecies').value.trim();
-    let subSpeciesInput = document.getElementById('testSubSpecies').value.trim();
-    let scoreInput = document.getElementById('testScore').value.trim();
-    let readingScoreInput = document.getElementById('readingTestScore').value.trim();
-    let mathScoreInput = document.getElementById('mathTestScore').value.trim();
-
-    if (monthInput < 1 || monthInput > 12) {
+function addTest(tSpecies, tSubSpecies, tSpeciesOther, tMonth, tYear, tScore, tReadScore, tMathScore) {
+    if (tMonth < 1 || tMonth > 12) {
         alert('Enter a valid month 1-12');
-    } else if (yearInput < 1900 || yearInput > currentYear + 10) {
+    } else if (tYear < 1900 || tYear > currentYear + 10) {
         alert('Enter a valid year');
-    } else if (scoreInput < 0 || scoreInput > 2400 || readingScoreInput < 0 || mathScoreInput < 0 || ((speciesInput == 'SAT' || speciesInput == 'PSAT') && (readingScoreInput != '' && mathScoreInput != '' && +readingScoreInput + +mathScoreInput != +scoreInput))) {
+    } else if (tScore < 0 || tScore > 9999 || tReadScore < 0 || tMathScore < 0 || ((tSpecies == 'SAT' || tSpecies == 'PSAT') && (tReadScore != '' && tMathScore != '' && +tReadScore + +tMathScore != +tScore))) {
         alert('Score not possible');
-    } else if (scoreInput == '' || (readingScoreInput == '' && mathScoreInput != '') || (readingScoreInput != '' && mathScoreInput == '')) {
+    } else if (tScore == '' || (tReadScore == '' && tMathScore != '') || (tReadScore != '' && tMathScore == '')) {
         alert('Enter the test score');
-    } else if (subSpeciesInput.length > 30) {
+    } else if (tSubSpecies.length > 30) {
         alert('Subject title is too long');
-    } else if (subSpeciesInput == '' && speciesInput == 'AP') {
+    } else if (tSubSpecies == '' && tSpecies == 'AP') {
         alert('Enter the course');
+    } else if (tSpeciesOther.length > 30) {
+        alert('Test name is too long');
+    } else if (tSpeciesOther == '' && tSpecies == 'Other') {
+        alert('Enter the test name');
     } else {
         let test = document.createElement('li');
         test.id = 'T' + Math.floor(100000000 + Math.random() * 900000000);
@@ -411,45 +403,49 @@ function addTest() {
         i.ariaLabel = 'Test icon';
         test.appendChild(i);
 
-        test.species = speciesInput;
-        test.subSpecies = subSpeciesInput;
-        test.year = yearInput;
-        if (monthInput.length == 1) {
-            test.month = '0' + monthInput;
+        test.species = tSpecies;
+        test.subSpecies = tSubSpecies;
+        test.speciesOther = tSpeciesOther;
+
+        test.year = tYear;
+        if (tMonth.length == 1) {
+            test.month = '0' + tMonth;
         } else {
-            test.month = monthInput;
+            test.month = tMonth;
         }
 
-        t = document.createTextNode(`${test.species} — ${test.month}/${test.year}`);
+        t = `${test.species} — ${test.month}/${test.year}`;
         if (test.species == 'AP') {
-            t = document.createTextNode(`${test.species} ${test.subSpecies} — ${test.month}/${test.year}`);
+            t = `${test.species} ${test.subSpecies} — ${test.month}/${test.year}`;
+        } else if (test.species == 'Other') {
+            t = `${test.speciesOther} — ${test.month}/${test.year}`;
         }
-        test.appendChild(t);
+        test.appendChild(document.createTextNode(t));
         test.className = 'item test';
         test.name = t;
 
-        test.score = scoreInput;
-        test.readScore = readingScoreInput;
-        test.mathScore = mathScoreInput;
+        test.score = tScore;
+        test.readScore = tReadScore;
+        test.mathScore = tMathScore;
 
         let div = document.createElement('div');
-        div.className = 'attr testScore';
+        div.className = 'testScore';
         div.id = test.id + 'Score';
         t = document.createTextNode(test.score);
         div.appendChild(t);
         test.appendChild(div);
 
         if (test.species == 'SAT' || test.species == 'PSAT') {
-            if (readingScoreInput != '' && mathScoreInput != '') {
+            if (test.readScore != '' && test.mathScore != '') {
                 div = document.createElement('div');
-                div.className = 'attr testReadScore';
+                div.className = 'testReadScore';
                 div.id = test.id + 'ReadScore';
                 t = document.createTextNode('Reading: ' + test.readScore);
                 div.appendChild(t);
                 test.appendChild(div);
 
                 div = document.createElement('div');
-                div.className = 'attr testMathScore';
+                div.className = 'testMathScore';
                 div.id = test.id + 'MathScore';
                 t = document.createTextNode('Math: ' + test.mathScore);
                 div.appendChild(t);
@@ -465,7 +461,7 @@ function addTest() {
         icon.className = 'text-lg fa-solid fa-pen';
         btn.className = 'opt pen';
         btn.ariaLabel = 'Edit test';
-        btn.name = 'Edit test';
+        btn.title = 'Edit test';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -474,7 +470,7 @@ function addTest() {
         icon.className = 'text-lg fa-solid fa-trash';
         btn.className = 'opt trash';
         btn.ariaLabel = 'Remove test';
-        btn.name = 'Remove test';
+        btn.title = 'Remove test';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -482,11 +478,13 @@ function addTest() {
 
         localStorage.setItem(test.id + 'Species', test.species);
         localStorage.setItem(test.id + 'SubSpecies', test.subSpecies);
+        localStorage.setItem(test.id + 'SpeciesOther', test.speciesOther);
         localStorage.setItem(test.id + 'Month', test.month);
         localStorage.setItem(test.id + 'Year', test.year);
         localStorage.setItem(test.id + 'Score', test.score);
         localStorage.setItem(test.id + 'ReadingScore', test.readScore);
         localStorage.setItem(test.id + 'MathScore', test.mathScore);
+        localStorage.setItem(test.id + 'Name', test.name);
 
         document.getElementById('listTests').appendChild(test);
 
@@ -581,6 +579,7 @@ function clickPenTest(t) {
 
     document.getElementById('selTestSpeciesEdit').value = test.species;
     document.getElementById('testSubSpeciesEdit').value = test.subSpecies;
+    document.getElementById('testSpeciesOtherEdit').value = test.speciesOther;
     document.getElementById('testMonthEdit').value = test.month;
     document.getElementById('testYearEdit').value = test.year;
     document.getElementById('testScoreEdit').value = test.score;
@@ -592,6 +591,8 @@ function clickPenTest(t) {
     } else if (document.getElementById('selTestSpeciesEdit').value == 'SAT' || document.getElementById('selTestSpeciesEdit').value == 'PSAT') {
         document.getElementById('readingTestScoreEdit').classList.remove('hidden');
         document.getElementById('mathTestScoreEdit').classList.remove('hidden');
+    } else if (document.getElementById('selTestSpeciesEdit').value == 'Other') {
+        document.getElementById('testSpeciesOtherEdit').classList.remove('hidden');
     }
 
     document.getElementById('editTestModal').classList.remove('fadeIn');
@@ -601,6 +602,10 @@ function clickPenTest(t) {
 }
 
 function clickTrash(el) {
+    getCourses();
+    getActs();
+    getTests();
+
     if (confirm('Are you sure you want to remove \"' + el.name + '\"?')) {
         el.remove();
 
@@ -637,7 +642,7 @@ function saveCourse() {
     icon.className = 'text-lg fa-solid fa-pen';
     btn.className = 'opt pen';
     btn.ariaLabel = 'Edit course';
-    btn.name = 'Edit course';
+    btn.title = 'Edit course';
     btn.appendChild(icon);
     div.appendChild(btn);
 
@@ -646,7 +651,7 @@ function saveCourse() {
     icon.className = 'text-lg fa-solid fa-trash';
     btn.className = 'opt trash';
     btn.ariaLabel = 'Remove course';
-    btn.name = 'Remove course';
+    btn.title = 'Remove course';
     btn.appendChild(icon);
     div.appendChild(btn);
 
@@ -719,7 +724,11 @@ function saveAct() {
         activity.category = document.getElementById('selActCategoryEdit').value;
         activity.pos = posInput;
 
-        activity.innerHTML = `<i id='${activity.id}ActI' aria-label='Activity icon'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div><h2 class='desc' id='${activity.id}Desc'></h2>`;
+        if (activity.desc != '') {
+            activity.innerHTML = `<i id='${activity.id}ActI' class='${getActIcon(activity.category)}' aria-label='${activity.category}'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div><h2 class='desc' id='${activity.id}Desc'>${activity.desc}</h2>`;
+        } else {
+            activity.innerHTML = `<i id='${activity.id}ActI' class='${getActIcon(activity.category)}' aria-label='${activity.category}'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div>`;
+        }
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -729,7 +738,7 @@ function saveAct() {
         icon.className = 'text-lg fa-solid fa-pen';
         btn.className = 'opt pen';
         btn.ariaLabel = 'Edit activity';
-        btn.name = 'Edit activity';
+        btn.title = 'Edit activity';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -738,17 +747,11 @@ function saveAct() {
         icon.className = 'text-lg fa-solid fa-trash';
         btn.className = 'opt trash';
         btn.ariaLabel = 'Remove activity';
-        btn.name = 'Remove activity';
+        btn.title = 'Remove activity';
         btn.appendChild(icon);
         div.appendChild(btn);
 
         activity.appendChild(div);
-
-        document.getElementById(activity.id + 'ActI').className = getActIcon(activity.category);
-        document.getElementById(activity.id + 'ActI').ariaLabel = activity.category;
-
-        document.getElementById(activity.id + 'Desc').innerText = activity.desc;
-        document.getElementById(activity.id + 'Pos').innerText = activity.pos;
 
         localStorage.setItem(activity.id + 'Name', activity.name);
         localStorage.setItem(activity.id + 'Desc', activity.desc);
@@ -788,6 +791,7 @@ function saveTest() {
     let yearInput = document.getElementById('testYearEdit').value.trim();
     let speciesInput = document.getElementById('selTestSpeciesEdit').value.trim();
     let subSpeciesInput = document.getElementById('testSubSpeciesEdit').value.trim();
+    let speciesOtherInput = document.getElementById('testSpeciesOtherEdit').value.trim();
     let scoreInput = document.getElementById('testScoreEdit').value.trim();
     let readingScoreInput = document.getElementById('readingTestScoreEdit').value.trim();
     let mathScoreInput = document.getElementById('mathTestScoreEdit').value.trim();
@@ -796,7 +800,7 @@ function saveTest() {
         alert('Enter a valid month 1-12');
     } else if (yearInput < 1900 || yearInput > currentYear + 10) {
         alert('Enter a valid year');
-    } else if (scoreInput < 0 || scoreInput > 2400 || readingScoreInput < 0 || mathScoreInput < 0 || ((speciesInput == 'SAT' || speciesInput == 'PSAT') && (readingScoreInput != '' && mathScoreInput != '' && +readingScoreInput + +mathScoreInput != +scoreInput))) {
+    } else if (scoreInput < 0 || scoreInput > 9999 || readingScoreInput < 0 || mathScoreInput < 0 || ((speciesInput == 'SAT' || speciesInput == 'PSAT') && (readingScoreInput != '' && mathScoreInput != '' && +readingScoreInput + +mathScoreInput != +scoreInput))) {
         alert('Score not possible');
     } else if (scoreInput == '' || (readingScoreInput == '' && mathScoreInput != '') || (readingScoreInput != '' && mathScoreInput == '')) {
         alert('Enter the test score');
@@ -804,6 +808,10 @@ function saveTest() {
         alert('Subject title is too long');
     } else if (subSpeciesInput == '' && speciesInput == 'AP') {
         alert('Enter the course');
+    } else if (speciesOtherInput.length > 30) {
+        alert('Test name is too long');
+    } else if (speciesOtherInput == '' && tSpecies == 'Other') {
+        alert('Enter the test name');
     } else {
         test = document.getElementById(test.id);
 
@@ -818,15 +826,25 @@ function saveTest() {
         test.mathScore = mathScoreInput;
         test.species = speciesInput;
         test.subSpecies = subSpeciesInput;
+        test.speciesOther = speciesOtherInput;
 
-        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
         if (test.species == 'AP') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
         } else if (test.species == 'SAT' || test.species == 'PSAT') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div><div class='attr testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='attr testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div><div class='testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
             if (readingScoreInput == '' && mathScoreInput == '') {
-                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'>${test.score}</div>`;
+                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
             }
+        } else if (test.species == 'Other') {
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.speciesOther} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+        }
+
+        test.name = `${test.species} — ${test.month}/${test.year}`;
+        if (test.species == 'AP') {
+            test.name = `${test.species} ${test.subSpecies} — ${test.month}/${test.year}`;
+        } else if (test.species == 'Other') {
+            test.name = `${test.speciesOther} — ${test.month}/${test.year}`;
         }
 
         div = document.createElement('div');
@@ -837,7 +855,7 @@ function saveTest() {
         icon.className = 'text-lg fa-solid fa-pen';
         btn.className = 'opt pen';
         btn.ariaLabel = 'Edit test';
-        btn.name = 'Edit test';
+        btn.title = 'Edit test';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -846,7 +864,7 @@ function saveTest() {
         icon.className = 'text-lg fa-solid fa-trash';
         btn.className = 'opt trash';
         btn.ariaLabel = 'Remove test';
-        btn.name = 'Remove test';
+        btn.title = 'Remove test';
         btn.appendChild(icon);
         div.appendChild(btn);
 
@@ -854,11 +872,13 @@ function saveTest() {
 
         localStorage.setItem(test.id + 'Species', test.species);
         localStorage.setItem(test.id + 'SubSpecies', test.subSpecies);
+        localStorage.setItem(test.id + 'SpeciesOther', test.speciesOther);
         localStorage.setItem(test.id + 'Month', test.month);
         localStorage.setItem(test.id + 'Year', test.year);
         localStorage.setItem(test.id + 'Score', test.score);
         localStorage.setItem(test.id + 'ReadingScore', test.readScore);
         localStorage.setItem(test.id + 'MathScore', test.mathScore);
+        localStorage.setItem(test.id + 'Name', test.name);
 
         saveLists();
         getLists();
@@ -986,11 +1006,13 @@ function getTests() { // gets all stored info of activities
         test = currentItems[j];
         test.species = localStorage.getItem(test.id + 'Species');
         test.subSpecies = localStorage.getItem(test.id + 'SubSpecies');
+        test.speciesOther = localStorage.getItem(test.id + 'SpeciesOther');
         test.month = localStorage.getItem(test.id + 'Month');
         test.year = localStorage.getItem(test.id + 'Year');
         test.score = localStorage.getItem(test.id + 'Score');
         test.readScore = localStorage.getItem(test.id + 'ReadingScore');
         test.mathScore = localStorage.getItem(test.id + 'MathScore');
+        test.name = localStorage.getItem(test.id + 'Name');
     }
 }
 
@@ -1012,6 +1034,8 @@ function calcListDiff() { // calcs diffs of ALL lists
                 course.diff = 4;
             } else if (document.getElementById(course.id + 'Diff').innerText == 'Honors') {
                 course.diff = 3;
+            } else if (document.getElementById(course.id + 'Diff').innerText == 'CP') {
+                course.diff = 2.5;
             } else if (document.getElementById(course.id + 'Diff').innerText == 'Advanced') {
                 course.diff = 2;
             } else {
@@ -1026,11 +1050,9 @@ function calcListDiff() { // calcs diffs of ALL lists
             }
 
             if (document.getElementById(course.id + 'Diff2').className == 'challenging') {
-                course.diff2 = 2.5;
+                course.diff2 = 3;
             } else if (document.getElementById(course.id + 'Diff2').className == 'difficult') {
                 course.diff2 = 2;
-            } else if (document.getElementById(course.id + 'Diff2').className == 'hard') {
-                course.diff2 = 1.5;
             } else if (document.getElementById(course.id + 'Diff2').className == 'easy') {
                 course.diff2 = 0.5;
             } else if (document.getElementById(course.id + 'Diff2').className == 'effortless') {
@@ -1090,8 +1112,8 @@ function calcListDiff() { // calcs diffs of ALL lists
     }
 }
 
-/* function updateAllItems() {
-    for (let i = 9; i <= 13; i++) {
+function updateAllItems() {
+    /* for (let i = 9; i <= 13; i++) {
         currentItems = document.getElementById('list' + i).getElementsByTagName('li');
 
         for (let j = 0; j < currentItems.length; j++) {
@@ -1102,25 +1124,95 @@ function calcListDiff() { // calcs diffs of ALL lists
             }
         }
     }
+    */
 
     currentItems = document.getElementById('listActs').getElementsByTagName('li');
     for (let j = 0; j < currentItems.length; j++) {
         activity = currentItems[j];
 
-        if (activity.draggable == false) {
-            activity.draggable = true;
+        /*   2 / 8 / 2023   */
+
+        if (activity.desc == '' && document.getElementById(activity.id + 'Desc')) {
+            document.getElementById(activity.id + 'Desc').remove();
         }
+
+        if (document.getElementById(activity.id + 'Desc') && document.getElementById(activity.id + 'Desc').classList.contains('actDesc')) {
+            document.getElementById(activity.id + 'Desc').classList.remove('actDesc');
+        }
+
+        /* if (activity.draggable == false) {
+            activity.draggable = true;
+        } */
     }
 
     currentItems = document.getElementById('listTests').getElementsByTagName('li');
     for (let j = 0; j < currentItems.length; j++) {
         test = currentItems[j];
 
-        if (test.draggable == false) {
-            test.draggable = true;
+        /*   2 / 8 / 2023   */
+
+        test.species = localStorage.getItem(test.id + 'Species');
+        test.subSpecies = localStorage.getItem(test.id + 'SubSpecies');
+        test.speciesOther = localStorage.getItem(test.id + 'SpeciesOther');
+        test.month = localStorage.getItem(test.id + 'Month');
+        test.year = localStorage.getItem(test.id + 'Year');
+
+        test.name = `${test.species} — ${test.month}/${test.year}`;
+        if (test.species == 'AP') {
+            test.name = `${test.species} ${test.subSpecies} — ${test.month}/${test.year}`;
+        } else if (test.species == 'Other') {
+            test.name = `${test.speciesOther} — ${test.month}/${test.year}`;
         }
+
+        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+        if (test.species == 'AP') {
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+        } else if (test.species == 'SAT' || test.species == 'PSAT') {
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div><div class='testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
+            if (test.readScore == '' && test.mathScore == '') {
+                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+            }
+        } else if (test.species == 'Other') {
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.speciesOther} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+
+        }
+
+        div = document.createElement('div');
+        div.className = 'optDiv';
+
+        let btn = document.createElement('button');
+        icon = document.createElement('i');
+        icon.className = 'text-lg fa-solid fa-pen';
+        btn.className = 'opt pen';
+        btn.ariaLabel = 'Edit test';
+        btn.title = 'Edit test';
+        btn.appendChild(icon);
+        div.appendChild(btn);
+
+        btn = document.createElement('button');
+        icon = document.createElement('i');
+        icon.className = 'text-lg fa-solid fa-trash';
+        btn.className = 'opt trash';
+        btn.ariaLabel = 'Remove test';
+        btn.title = 'Remove test';
+        btn.appendChild(icon);
+        div.appendChild(btn);
+
+        test.appendChild(div);
+
+        document.getElementById(test.id + 'Score').classList.remove('attr');
+        if (document.getElementById(test.id + 'ReadScore')) {
+            document.getElementById(test.id + 'ReadScore').classList.remove('attr');
+        }
+        if (document.getElementById(test.id + 'MathScore')) {
+            document.getElementById(test.id + 'MathScore').classList.remove('attr');
+        }
+
+        /* if (test.draggable == false) {
+            test.draggable = true;
+        } */
     }
-} */
+}
 
 function saveLists() {
     localStorage.setItem('list9', document.getElementById('list9').innerHTML);
@@ -1205,6 +1297,8 @@ function getDiff(diff) {
         return ['AP', 'attr ap'];
     } else if (diff == '3') {
         return ['Honors', 'attr hon'];
+    } else if (diff == '2.5') {
+        return ['CP', 'attr cp'];
     } else if (diff == '2') {
         return ['Advanced', 'attr adv'];
     } else {
@@ -1213,12 +1307,10 @@ function getDiff(diff) {
 }
 
 function getDiff2(diff2) {
-    if (diff2 == '2.5') {
+    if (diff2 == '3') {
         return 'challenging';
     } else if (diff2 == '2') {
         return 'difficult';
-    } else if (diff2 == '1.5') {
-        return 'hard';
     } else if (diff2 == '0.5') {
         return 'easy';
     } else if (diff2 == '0.25') {
@@ -1373,20 +1465,25 @@ function hide() {
     document.getElementById('testModal').classList.remove('fadeOut');
     document.getElementById('selTestSpecies').value = 'ACT';
     document.getElementById('testSubSpecies').value = '';
+    document.getElementById('testSpeciesOther').value = '';
     document.getElementById('testMonth').value = '';
     document.getElementById('testYear').value = '';
     document.getElementById('testScore').value = '';
     document.getElementById('readingTestScore').value = '';
     document.getElementById('mathTestScore').value = '';
     document.getElementById('testSubSpecies').classList.add('hidden');
+    document.getElementById('testSpeciesOther').classList.add('hidden');
     document.getElementById('readingTestScore').classList.add('hidden');
     document.getElementById('mathTestScore').classList.add('hidden');
 
     document.getElementById('editTestModal').classList.add('fadeIn');
     document.getElementById('editTestModal').classList.remove('fadeOut');
+    document.getElementById('testSubSpeciesEdit').value = '';
+    document.getElementById('testSpeciesOtherEdit').value = '';
     document.getElementById('readingTestScoreEdit').value = '';
     document.getElementById('mathTestScoreEdit').value = '';
     document.getElementById('testSubSpeciesEdit').classList.add('hidden');
+    document.getElementById('testSpeciesOtherEdit').classList.add('hidden');
     document.getElementById('readingTestScoreEdit').classList.add('hidden');
     document.getElementById('mathTestScoreEdit').classList.add('hidden');
 

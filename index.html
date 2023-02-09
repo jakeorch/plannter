@@ -68,6 +68,7 @@
                 <optgroup label='Select an advancement level'>
                     <option value='1'>None</option>
                     <option value='2'>Advanced/Accelerated</option>
+                    <option value='2.5'>College Prep (CP)</option>
                     <option value='3'>Honors</option>
                     <option value='4'>Advanced Placement (AP)</option>
                     <option value='5'>International Baccalaureate (IB)</option>
@@ -88,7 +89,6 @@
                         <option value='0.25'>Effortless</option>
                         <option value='0.5'>Easy</option>
                         <option value='1' selected>Normal</option>
-                        <option value='1.5'>Hard</option>
                         <option value='2'>Difficult</option>
                         <option value='3'>Challenging</option>
                     </optgroup>
@@ -97,7 +97,8 @@
 
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
-                onclick='addCourse()'><i class='fa-solid fa-plus mr-1'></i>Add course</button>
+                onclick='addCourse(document.getElementById("courseTitle").value.trim(), document.getElementById("selGradeLev").value, document.getElementById("selSubject").value, document.getElementById("selDiff").value, document.getElementById("selDiff2").value)'><i
+                    class='fa-solid fa-plus mr-1'></i>Add course</button>
         </div>
     </div>
 
@@ -147,6 +148,7 @@
                 <optgroup label='Select an advancement level'>
                     <option value='1'>None</option>
                     <option value='2'>Advanced/Accelerated</option>
+                    <option value='2.5'>College Prep (CP)</option>
                     <option value='3'>Honors</option>
                     <option value='4'>Advanced Placement (AP)</option>
                     <option value='5'>International Baccalaureate (IB)</option>
@@ -167,9 +169,8 @@
                         <option value='0.25'>Effortless</option>
                         <option value='0.5'>Easy</option>
                         <option value='1' selected>Normal</option>
-                        <option value='1.5'>Hard</option>
                         <option value='2'>Difficult</option>
-                        <option value='2.5'>Challenging</option>
+                        <option value='3'>Challenging</option>
                     </optgroup>
                 </select>
             </div>
@@ -227,7 +228,8 @@
 
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
-                onclick='addAct()'><i class='fa-solid fa-plus mr-1'></i>Add activity</button>
+                onclick='addAct(document.getElementById("actTitle").value.trim(), document.getElementById("actDesc").value.trim(), document.getElementById("selActCategory").value, document.getElementById("actPosition").value.trim())'><i
+                    class='fa-solid fa-plus mr-1'></i>Add activity</button>
         </div>
     </div>
 
@@ -299,10 +301,12 @@
                     <option value='PSAT'>PSAT</option>
                     <option value='AP'>AP</option>
                     <option value='IB'>IB</option>
+                    <option value='Other'>Other</option>
                 </optgroup>
             </select>
 
             <input placeholder='Course' id='testSubSpecies' class='input hidden text-lg p-2 pl-3 mb-4'>
+            <input placeholder='Test name' id='testSpeciesOther' class='input hidden text-lg p-2 pl-3 mb-4'>
 
             <h2 class='text-base text-slate-500 px-2 mb-1'>
                 Date taken <p class='inline text-sm'>(MM/YYYY)</p>
@@ -321,7 +325,8 @@
 
             <button
                 class='text-lg border-slate-300 border-2 rounded-md hover:bg-slate-300 active:bg-slate-400/60 active:border-transparent text-left transition-all px-3 py-2 mt-4'
-                onclick='addTest()'><i class='fa-solid fa-plus mr-1'></i>Add test</button>
+                onclick='addTest(document.getElementById("selTestSpecies").value, document.getElementById("testSubSpecies").value.trim(), document.getElementById("testSpeciesOther").value.trim(), document.getElementById("testMonth").value, document.getElementById("testYear").value, document.getElementById("testScore").value, document.getElementById("readingTestScore").value, document.getElementById("mathTestScore").value)'><i
+                    class='fa-solid fa-plus mr-1'></i>Add test</button>
         </div>
     </div>
 
@@ -342,10 +347,12 @@
                     <option value='PSAT'>PSAT</option>
                     <option value='AP'>AP</option>
                     <option value='IB'>IB</option>
+                    <option value='Other'>Other</option>
                 </optgroup>
             </select>
 
             <input placeholder='Course' id='testSubSpeciesEdit' class='input hidden text-lg p-2 pl-3 mb-4'>
+            <input placeholder='Test name' id='testSpeciesOtherEdit' class='input hidden text-lg p-2 pl-3 mb-4'>
 
             <h2 class='text-base text-slate-500 px-2 mb-1'>
                 Date taken <p class='inline text-sm'>(MM/YYYY)</p>
@@ -391,11 +398,11 @@
             <button class='absolute top-6 right-7 hover:text-slate-500 transition-all' onclick='hide()'><i
                     class='fa-solid fa-xmark' aria-label='Close' title='Close'></i></button>
 
-            <h1 class='text-2xl mb-5'>About grade level difficulty percent</h1>
+            <h1 class='text-2xl mb-5'>About grade level advancement percent</h1>
 
             <h2 class='text-lg'>
-                Grade level difficulty percent is the percentage of the ratio of advanced classes to total classes.
-                <br><br> It does not take the advancement level or difficulty of individual courses into account.
+                Grade level advancement percent is the percentage of the ratio of advanced classes to total classes.
+                <br><br> It does not take the difficulty of individual courses into account.
             </h2>
 
         </div>
