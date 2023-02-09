@@ -810,7 +810,7 @@ function saveTest() {
         alert('Enter the course');
     } else if (speciesOtherInput.length > 30) {
         alert('Test name is too long');
-    } else if (speciesOtherInput == '' && tSpecies == 'Other') {
+    } else if (speciesOtherInput == '' && speciesInput == 'Other') {
         alert('Enter the test name');
     } else {
         test = document.getElementById(test.id);
