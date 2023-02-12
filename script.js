@@ -41,6 +41,27 @@ function toggleMenu() {
     document.getElementById('menuDiv').classList.toggle('block');
 }
 
+// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+    localStorage.theme = 'dark';
+} else {
+    document.documentElement.classList.remove('dark')
+    localStorage.theme = 'light';
+}
+
+function toggleDark() {
+    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+    if (localStorage.theme === 'dark') {
+        document.documentElement.classList.remove('dark')
+        localStorage.theme = 'light';
+
+    } else {
+        document.documentElement.classList.add('dark')
+        localStorage.theme = 'dark';
+    }
+}
+
 function selTestSpecies() {
     document.getElementById('testSubSpecies').classList.add('hidden');
     document.getElementById('testSpeciesOther').classList.add('hidden');
@@ -133,18 +154,24 @@ buttons.forEach((planBtns) => {
         // add/remove classes from all buttons
         buttons.forEach((planBtns) => {
             planBtns.classList.remove('bg-green-600/30');
-            planBtns.classList.remove('text-slate-600');
-            planBtns.classList.add('text-slate-500');
-            planBtns.classList.add('hover:bg-slate-400/30');
-            planBtns.classList.add('active:bg-slate-400/50');
+            planBtns.classList.remove('text-gray-600');
+            planBtns.classList.remove('dark:text-gray-400');
+            planBtns.classList.add('text-gray-500');
+            planBtns.classList.add('hover:bg-gray-400/30');
+            planBtns.classList.add('dark:hover:bg-gray-600/30');
+            planBtns.classList.add('active:bg-gray-400/50');
+            planBtns.classList.add('dark:active:bg-gray-600/50');
         });
 
         // add/remove classes to the clicked button
         planBtns.classList.add('bg-green-600/30');
-        planBtns.classList.add('text-slate-600');
-        planBtns.classList.remove('text-slate-500');
-        planBtns.classList.remove('hover:bg-slate-400/30');
-        planBtns.classList.remove('active:bg-slate-400/50');
+        planBtns.classList.add('text-gray-600');
+        planBtns.classList.add('dark:text-gray-400');
+        planBtns.classList.remove('text-gray-500');
+        planBtns.classList.remove('hover:bg-gray-400/30');
+        planBtns.classList.remove('dark:hover:bg-gray-600/30');
+        planBtns.classList.remove('active:bg-gray-400/50');
+        planBtns.classList.remove('dark:active:bg-gray-600/50');
     });
 });
 
@@ -921,7 +948,7 @@ function saveCD() {
         localStorage.setItem('gradYear', gradYear);
 
         document.getElementById('countdown').innerHTML = `<i class='fa-solid fa-hourglass-half'></i>`;
-        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half'></i>`;
+        document.getElementById('countdownSm').innerHTML = `<i class='fa-solid fa-hourglass-half mr-2'>Edit countdown</i>`;
 
         hide();
 
