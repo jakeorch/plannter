@@ -1048,6 +1048,7 @@ function calcListDiff() { // calcs diffs of ALL lists
         let sum = 0;
         let currentItems = document.getElementById('list' + i).getElementsByTagName('li');
         let advItems = document.getElementById('list' + i).getElementsByClassName('adv').length
+            + document.getElementById('list' + i).getElementsByClassName('cp').length
             + document.getElementById('list' + i).getElementsByClassName('hon').length
             + document.getElementById('list' + i).getElementsByClassName('ap').length
             + document.getElementById('list' + i).getElementsByClassName('ib').length;

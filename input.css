@@ -44,19 +44,19 @@
   }
 
   .attr {
-    @apply inline-flex bg-green-600 text-base text-gray-100 dark:text-gray-900 rounded-md px-2 /* py-[0.075rem] */ ml-2;
+    @apply inline-flex bg-teal-600 text-base text-gray-100 dark:text-gray-900 rounded-md px-2 /* py-[0.075rem] */ ml-2;
   }
 
   .testScore {
-    @apply inline-flex bg-green-600 text-base text-gray-100 dark:text-gray-900 rounded-md break-words p-0 px-2 m-0 ml-2;
+    @apply inline-flex bg-teal-600 text-base text-gray-100 dark:text-gray-900 rounded-md break-words p-0 px-2 m-0 ml-2;
   }
 
   .testReadScore {
-    @apply block bg-transparent text-gray-600 text-base p-0 m-0 mt-1;
+    @apply block text-gray-600 dark:text-gray-400 text-base p-0 m-0 mt-1;
   }
 
   .testMathScore {
-    @apply block bg-transparent text-gray-600 text-base p-0 m-0 mt-1;
+    @apply block text-gray-600 dark:text-gray-400 text-base p-0 m-0 mt-1;
   }
 
   .desc {
