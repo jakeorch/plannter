@@ -1221,16 +1221,16 @@ function updateAllItems() {
             course = currentItems[j];
 
             document.getElementById(course.id + 'Diff2').classList.add('hidden');
-            if (document.getElementById(course.id + 'Grade').innerText.includes('%')) {
+            if (document.getElementById(course.id + 'Grade') && document.getElementById(course.id + 'Grade').innerText.includes('%')) {
                 letter = getLetter(Number(document.getElementById(course.id + 'Grade').innerText.replace('%', '').replace('Grade: ', '').replace('A ', '').replace('B ', '').replace('C ', '').replace('D ', '').replace('F ', '')));
                 //console.log(Number(document.getElementById(course.id + 'Grade').innerText.replace('%', '').replace('Grade: ', '')));
                 console.log(document.getElementById(course.id + 'Grade').innerText);
                 document.getElementById(course.id + 'Grade').innerHTML = 'Grade: ' + letter + ' ' + document.getElementById(course.id + 'Grade').innerText.replace('%', '').replace('Grade: ', '').replace('A ', '').replace('B ', '').replace('C ', '').replace('D ', '').replace('F ', '') + '%';
             }
-            if (!document.getElementById(course.id + 'Grade').innerText.includes('Grade')) {
+            if (document.getElementById(course.id + 'Grade') && !document.getElementById(course.id + 'Grade').innerText.includes('Grade')) {
                 document.getElementById(course.id + 'Grade').innerHTML = 'Grade: ' + document.getElementById(course.id + 'Grade').innerText;
             }
-            if (document.getElementById(course.id + 'Grade').className.includes('desc')) {
+            if (document.getElementById(course.id + 'Grade') && document.getElementById(course.id + 'Grade').className.includes('desc')) {
                 document.getElementById(course.id + 'Grade').classList.remove('desc');
                 document.getElementById(course.id + 'Grade').classList.add('attr');
             }
