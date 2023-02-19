@@ -252,7 +252,8 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPe
         course.appendChild(div);
 
         if (cLetterGrade == 'Use percent') {
-            course.grade = cPercentGrade + '%';
+            letter = getLetter(cPercentGrade);
+            course.grade = letter + ' ' + cPercentGrade + '%';
         } else {
             course.grade = cLetterGrade;
         }
@@ -260,7 +261,7 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPe
         div = document.createElement('div');
         div.id = course.id + 'Grade';
         [diffText, diffClass] = getDiff(course.diff);
-        t = document.createTextNode(course.grade);
+        t = document.createTextNode('Grade: ' + course.grade);
         div.className = 'attr grade';
         if (course.grade == 'none') {
             div.classList.add('hidden');
@@ -609,7 +610,7 @@ function clickPen(c) {
 
     if (course.grade && course.grade.includes('%')) {
         document.getElementById('selLetterGradeEdit').value = 'Use percent';
-        document.getElementById('percentGradeEdit').value = course.grade.replace('%', '');
+        document.getElementById('percentGradeEdit').value = course.grade.replace('%', '').replace('A ', '').replace('B ', '').replace('C ', '').replace('D ', '').replace('F ', '');
         document.getElementById('percentGradeEdit').classList.remove('hidden');
     } else if (course.grade) {
         document.getElementById('selLetterGradeEdit').value = course.grade;
@@ -717,12 +718,13 @@ function saveCourse() {
         }
 
         if (letterGradeInput == 'Use percent') {
-            course.grade = percentGradeInput + '%';
+            letter = getLetter(percentGradeInput);
+            course.grade = letter + ' ' + percentGradeInput + '%';
         } else {
             course.grade = letterGradeInput;
         }
 
-        course.innerHTML = `<i id='${course.id}SbjI'></i>${course.name}<div id='${course.id}Diff'></div><div id='${course.id}Grade'>${course.grade}</div>`;
+        course.innerHTML = `<i id='${course.id}SbjI'></i>${course.name}<div id='${course.id}Diff'></div><div id='${course.id}Grade'>Grade: ${course.grade}</div>`;
 
         div = document.createElement('div');
         div.className = 'optDiv';
@@ -1212,18 +1214,32 @@ function calcListDiff() { // calcs diffs of ALL lists
 }
 
 function updateAllItems() {
-    /* for (let i = 9; i <= 13; i++) {
+    for (let i = 9; i <= 13; i++) {
         currentItems = document.getElementById('list' + i).getElementsByTagName('li');
 
         for (let j = 0; j < currentItems.length; j++) {
             course = currentItems[j];
 
-            if (course.draggable == false) {
-                course.draggable = true;
+            document.getElementById(course.id + 'Diff2').classList.add('hidden');
+            if (document.getElementById(course.id + 'Grade').innerText.includes('%')) {
+                letter = getLetter(Number(document.getElementById(course.id + 'Grade').innerText.replace('%', '').replace('Grade: ', '').replace('A ', '').replace('B ', '').replace('C ', '').replace('D ', '').replace('F ', '')));
+                //console.log(Number(document.getElementById(course.id + 'Grade').innerText.replace('%', '').replace('Grade: ', '')));
+                console.log(document.getElementById(course.id + 'Grade').innerText);
+                document.getElementById(course.id + 'Grade').innerHTML = 'Grade: ' + letter + ' ' + document.getElementById(course.id + 'Grade').innerText.replace('%', '').replace('Grade: ', '').replace('A ', '').replace('B ', '').replace('C ', '').replace('D ', '').replace('F ', '') + '%';
             }
+            if (!document.getElementById(course.id + 'Grade').innerText.includes('Grade')) {
+                document.getElementById(course.id + 'Grade').innerHTML = 'Grade: ' + document.getElementById(course.id + 'Grade').innerText;
+            }
+            if (document.getElementById(course.id + 'Grade').className.includes('desc')) {
+                document.getElementById(course.id + 'Grade').classList.remove('desc');
+                document.getElementById(course.id + 'Grade').classList.add('attr');
+            }
+
+            /* if (course.draggable == false) {
+                course.draggable = true;
+            } */
         }
     }
-    */
 
     currentItems = document.getElementById('listActs').getElementsByTagName('li');
     for (let j = 0; j < currentItems.length; j++) {
@@ -1408,15 +1424,29 @@ function getDiff(diff) {
 
 function getDiff2(diff2) {
     if (diff2 == '3') {
-        return 'attr challenging';
+        return 'attr challenging hidden';
     } else if (diff2 == '2') {
-        return 'attr difficult';
+        return 'attr difficult hidden';
     } else if (diff2 == '0.5') {
-        return 'attr easy';
+        return 'attr easy hidden';
     } else if (diff2 == '0.25') {
-        return 'attr effortless';
+        return 'attr effortless hidden';
     } else {
-        return 'attr normal';
+        return 'attr normal hidden';
+    }
+}
+
+function getLetter(pc) {
+    if (pc >= 90) {
+        return 'A';
+    } else if (pc >= 80) {
+        return 'B';
+    } else if (pc >= 70) {
+        return 'C';
+    } else if (pc >= 60) {
+        return 'D';
+    } else {
+        return 'F';
     }
 }
 
