@@ -83,6 +83,10 @@
     @apply bg-yellow-500 dark:bg-yellow-600;
   }
 
+  .none {
+    @apply hidden;
+  }
+
   .listPercent {
     @apply bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 transition-all;
   }

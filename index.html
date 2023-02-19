@@ -63,6 +63,30 @@
                 </optgroup>
             </select>
 
+            <h2 class='text-base text-gray-500 px-2 mb-1'>Letter grade</h2>
+            <select id='selLetterGrade' class='input text-lg p-2 mb-4' onchange='selLetterGrade()'>
+                <optgroup label='Select a letter grade'>
+                    <option value='none'>None</option>
+                    <option value='A+'>A+</option>
+                    <option value='A'>A</option>
+                    <option value='A-'>A-</option>
+                    <option value='B+'>B+</option>
+                    <option value='B'>B</option>
+                    <option value='B-'>B-</option>
+                    <option value='C+'>C+</option>
+                    <option value='C'>C</option>
+                    <option value='C-'>C-</option>
+                    <option value='D+'>D+</option>
+                    <option value='D'>D</option>
+                    <option value='D-'>D-</option>
+                    <option value='F'>F</option>
+                    <option value='Use percent'>Use percent</option>
+                </optgroup>
+            </select>
+
+            <input placeholder='Number 0-100' id='percentGrade' type='number'
+                class='input hidden text-lg p-2 pl-3 mb-4 mr-2'>
+
             <h2 class='text-base text-gray-500 px-2 mb-1'>Advancement level</h2>
             <select id='selDiff' class='input text-lg p-2 mb-4'>
                 <optgroup label='Select an advancement level'>
@@ -97,7 +121,7 @@
 
             <button
                 class='text-lg text-gray-100 dark:text-gray-300 border-2 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 dark:bg-green-700 dark:hover:bg-green-800 dark:active:bg-green-900 border-transparent text-left transition-all px-3 py-2 mt-4'
-                onclick='addCourse(document.getElementById("courseTitle").value.trim(), document.getElementById("selGradeLev").value, document.getElementById("selSubject").value, document.getElementById("selDiff").value, document.getElementById("selDiff2").value)'><i
+                onclick='addCourse(document.getElementById("courseTitle").value.trim(), document.getElementById("selGradeLev").value, document.getElementById("selSubject").value, document.getElementById("selDiff").value, document.getElementById("selDiff2").value, document.getElementById("selLetterGrade").value, document.getElementById("percentGrade").value)'><i
                     class='fa-solid fa-plus mr-1'></i>Add course</button>
 
             <button
@@ -146,6 +170,30 @@
                     <option value='Other'>Other</option>
                 </optgroup>
             </select>
+
+            <h2 class='text-base text-gray-500 px-2 mb-1'>Letter grade</h2>
+            <select id='selLetterGradeEdit' class='input text-lg p-2 mb-4' onchange='selLetterGradeEdit()'>
+                <optgroup label='Select a letter grade'>
+                    <option value='none'>None</option>
+                    <option value='A+'>A+</option>
+                    <option value='A'>A</option>
+                    <option value='A-'>A-</option>
+                    <option value='B+'>B+</option>
+                    <option value='B'>B</option>
+                    <option value='B-'>B-</option>
+                    <option value='C+'>C+</option>
+                    <option value='C'>C</option>
+                    <option value='C-'>C-</option>
+                    <option value='D+'>D+</option>
+                    <option value='D'>D</option>
+                    <option value='D-'>D-</option>
+                    <option value='F'>F</option>
+                    <option value='Use percent'>Use percent</option>
+                </optgroup>
+            </select>
+
+            <input placeholder='Number 0-100' id='percentGradeEdit' type='number'
+                class='input hidden text-lg p-2 pl-3 mb-4 mr-2'>
 
             <h2 class='text-base text-gray-500 px-2 mb-1'>Advancement level</h2>
             <select id='selDiffEdit' class='input text-lg p-2 mb-4'>

@@ -94,6 +94,22 @@ function selTestSpeciesEdit() {
     }
 }
 
+function selLetterGrade() {
+    document.getElementById('percentGrade').classList.add('hidden');
+
+    if (document.getElementById('selLetterGrade').value == 'Use percent') {
+        document.getElementById('percentGrade').classList.remove('hidden');
+    }
+}
+
+function selLetterGradeEdit() {
+    document.getElementById('percentGradeEdit').classList.add('hidden');
+
+    if (document.getElementById('selLetterGradeEdit').value == 'Use percent') {
+        document.getElementById('percentGradeEdit').classList.remove('hidden');
+    }
+}
+
 function openAddCourse(num) {
     document.getElementById('courseModal').classList.remove('fadeIn');
     document.getElementById('courseModal').classList.add('fadeOut');
@@ -196,11 +212,13 @@ function showTests() {
     toggleMenu();
 }
 
-function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff) {
+function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPercentGrade) {
     if (cName.length > 60) {
         alert('Course title is too long');
     } else if (cName == '') {
         alert('Enter the title of your course');
+    } else if (cLetterGrade == 'Use percent' && (Number(cPercentGrade) > 100 || Number(cPercentGrade) < 0)) {
+        alert('Grade not possible');
     } else {
         let course = document.createElement('li');
         course.name = cName;
@@ -230,6 +248,23 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff) {
         [diffText, diffClass] = getDiff(course.diff);
         t = document.createTextNode(diffText);
         div.className = diffClass;
+        div.appendChild(t);
+        course.appendChild(div);
+
+        if (cLetterGrade == 'Use percent') {
+            course.grade = cPercentGrade + '%';
+        } else {
+            course.grade = cLetterGrade;
+        }
+
+        div = document.createElement('div');
+        div.id = course.id + 'Grade';
+        [diffText, diffClass] = getDiff(course.diff);
+        t = document.createTextNode(course.grade);
+        div.className = 'attr grade';
+        if (course.grade == 'none') {
+            div.classList.add('hidden');
+        }
         div.appendChild(t);
         course.appendChild(div);
 
@@ -272,6 +307,7 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff) {
         localStorage.setItem(course.id + 'Diff', course.diff);
         localStorage.setItem(course.id + 'Diff2', course.diff2);
         localStorage.setItem(course.id + 'DiffFull', course.diffFull);
+        localStorage.setItem(course.id + 'Grade', course.grade);
 
         document.getElementById('list' + cGradeLevel).appendChild(course);
 
@@ -571,6 +607,16 @@ function clickPen(c) {
     document.getElementById('selDiffEdit').value = course.diff;
     document.getElementById('selDiff2Edit').value = course.diff2;
 
+    if (course.grade && course.grade.includes('%')) {
+        document.getElementById('selLetterGradeEdit').value = 'Use percent';
+        document.getElementById('percentGradeEdit').value = course.grade.replace('%', '');
+        document.getElementById('percentGradeEdit').classList.remove('hidden');
+    } else if (course.grade) {
+        document.getElementById('selLetterGradeEdit').value = course.grade;
+    } else {
+        document.getElementById('selLetterGradeEdit').value = 'none';
+    }
+
     if (course.diff2 != 1) {
         document.getElementById('advOptEditCI').classList.add('rotate-90');
         document.getElementById('advOptionsEditC').classList.remove('hidden');
@@ -642,99 +688,123 @@ function clickTrash(el) {
 }
 
 function saveCourse() {
-    if (course.gradeLevel != document.getElementById('selGradeLevEdit').value) {
-        course.gradeLevel = document.getElementById('selGradeLevEdit').value;
-        document.getElementById('list' + course.gradeLevel).appendChild(course.cloneNode(true));
+    let nameInput = document.getElementById('courseTitleEdit').value.trim();
+    let letterGradeInput = document.getElementById('selLetterGradeEdit').value;
+    let percentGradeInput = document.getElementById('percentGradeEdit').value;
 
-        course.remove();
-    }
-
-    course.name = document.getElementById('courseTitleEdit').value;
-    course.sub = document.getElementById('selSubjectEdit').value;
-    course.diff = document.getElementById('selDiffEdit').value;
-    course.diff2 = document.getElementById('selDiff2Edit').value;
-    course.diffFull = course.diff * course.diff2;
-
-    if (course.sub == 'PE') {
-        course.diffFull = course.diffFull * 0.01;
-    }
-
-    course.innerHTML = `<i id='${course.id}SbjI'></i>${course.name}<div id='${course.id}Diff'></div>`;
-
-    div = document.createElement('div');
-    div.className = 'optDiv';
-
-    let btn = document.createElement('button');
-    icon = document.createElement('i');
-    icon.className = 'text-lg fa-solid fa-pen';
-    btn.className = 'opt pen';
-    btn.ariaLabel = 'Edit course';
-    btn.title = 'Edit course';
-    btn.appendChild(icon);
-    div.appendChild(btn);
-
-    btn = document.createElement('button');
-    icon = document.createElement('i');
-    icon.className = 'text-lg fa-solid fa-trash';
-    btn.className = 'opt trash';
-    btn.ariaLabel = 'Remove course';
-    btn.title = 'Remove course';
-    btn.appendChild(icon);
-    div.appendChild(btn);
-
-    course.appendChild(div);
-
-    [diffText, diffClass] = getDiff(course.diff);
-    document.getElementById(course.id + 'Diff').className = diffClass;
-    document.getElementById(course.id + 'Diff').innerText = diffText;
-
-    if (document.getElementById(course.id + 'Diff2') == null || document.getElementById(course.id + 'Diff2') == undefined) {
-        div = document.createElement('div');
-        div.id = course.id + 'Diff2';
-        diff2Class = getDiff2(course.diff2);
-        div.className = diff2Class;
-        course.appendChild(div);
+    if (nameInput.length > 60) {
+        alert('Course title is too long');
+    } else if (nameInput == '') {
+        alert('Enter the title of your course');
+    } else if (percentGradeInput != '' && (Number(percentGradeInput) > 100 || Number(percentGradeInput) < 0)) {
+        alert('Grade not possible');
     } else {
-        diff2Class = getDiff2(course.diff2);
-        document.getElementById(course.id + 'Diff2').className = diff2Class;
-    }
+        if (course.gradeLevel != document.getElementById('selGradeLevEdit').value) {
+            course.gradeLevel = document.getElementById('selGradeLevEdit').value;
+            document.getElementById('list' + course.gradeLevel).appendChild(course.cloneNode(true));
 
-    document.getElementById(course.id + 'SbjI').className = getSubjectIcon(course.sub);
-    document.getElementById(course.id + 'SbjI').ariaLabel = course.sub;
+            course.remove();
+        }
 
-    localStorage.setItem(course.id + 'Name', course.name);
-    localStorage.setItem(course.id + 'GradeLevel', course.gradeLevel);
-    localStorage.setItem(course.id + 'Sub', course.sub);
-    localStorage.setItem(course.id + 'Diff', course.diff);
-    localStorage.setItem(course.id + 'Diff2', course.diff2);
-    localStorage.setItem(course.id + 'DiffFull', course.diffFull);
+        course.name = document.getElementById('courseTitleEdit').value;
+        course.sub = document.getElementById('selSubjectEdit').value;
+        course.diff = document.getElementById('selDiffEdit').value;
+        course.diff2 = document.getElementById('selDiff2Edit').value;
+        course.diffFull = course.diff * course.diff2;
 
-    saveLists();
-    getLists();
-    getCourses();
-    calcListDiff();
+        if (course.sub == 'PE') {
+            course.diffFull = course.diffFull * 0.01;
+        }
 
-    let pen = document.getElementsByClassName('pen');
-    for (i = 0; i < pen.length; i++) {
-        pen[i].onclick = function () {
-            if (this.parentElement.parentElement.id.startsWith('C')) {
-                clickPen(this.parentElement.parentElement);
-            } else if (this.parentElement.parentElement.id.startsWith('A')) {
-                clickPenAct(this.parentElement.parentElement);
-            } else if (this.parentElement.parentElement.id.startsWith('T')) {
-                clickPenTest(this.parentElement.parentElement);
+        if (letterGradeInput == 'Use percent') {
+            course.grade = percentGradeInput + '%';
+        } else {
+            course.grade = letterGradeInput;
+        }
+
+        course.innerHTML = `<i id='${course.id}SbjI'></i>${course.name}<div id='${course.id}Diff'></div><div id='${course.id}Grade'>${course.grade}</div>`;
+
+        div = document.createElement('div');
+        div.className = 'optDiv';
+
+        let btn = document.createElement('button');
+        icon = document.createElement('i');
+        icon.className = 'text-lg fa-solid fa-pen';
+        btn.className = 'opt pen';
+        btn.ariaLabel = 'Edit course';
+        btn.title = 'Edit course';
+        btn.appendChild(icon);
+        div.appendChild(btn);
+
+        btn = document.createElement('button');
+        icon = document.createElement('i');
+        icon.className = 'text-lg fa-solid fa-trash';
+        btn.className = 'opt trash';
+        btn.ariaLabel = 'Remove course';
+        btn.title = 'Remove course';
+        btn.appendChild(icon);
+        div.appendChild(btn);
+
+        course.appendChild(div);
+
+        [diffText, diffClass] = getDiff(course.diff);
+        document.getElementById(course.id + 'Diff').className = diffClass;
+        document.getElementById(course.id + 'Diff').innerText = diffText;
+
+        document.getElementById(course.id + 'Grade').className = 'attr grade';
+        if (course.grade == 'none') {
+            document.getElementById(course.id + 'Grade').classList.add('hidden');
+        }
+
+        if (document.getElementById(course.id + 'Diff2') == null || document.getElementById(course.id + 'Diff2') == undefined) {
+            div = document.createElement('div');
+            div.id = course.id + 'Diff2';
+            diff2Class = getDiff2(course.diff2);
+            div.className = diff2Class;
+            course.appendChild(div);
+        } else {
+            diff2Class = getDiff2(course.diff2);
+            document.getElementById(course.id + 'Diff2').className = diff2Class;
+        }
+
+        document.getElementById(course.id + 'SbjI').className = getSubjectIcon(course.sub);
+        document.getElementById(course.id + 'SbjI').ariaLabel = course.sub;
+
+        localStorage.setItem(course.id + 'Name', course.name);
+        localStorage.setItem(course.id + 'GradeLevel', course.gradeLevel);
+        localStorage.setItem(course.id + 'Sub', course.sub);
+        localStorage.setItem(course.id + 'Diff', course.diff);
+        localStorage.setItem(course.id + 'Diff2', course.diff2);
+        localStorage.setItem(course.id + 'DiffFull', course.diffFull);
+        localStorage.setItem(course.id + 'Grade', course.grade);
+
+        saveLists();
+        getLists();
+        getCourses();
+        calcListDiff();
+
+        let pen = document.getElementsByClassName('pen');
+        for (i = 0; i < pen.length; i++) {
+            pen[i].onclick = function () {
+                if (this.parentElement.parentElement.id.startsWith('C')) {
+                    clickPen(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('A')) {
+                    clickPenAct(this.parentElement.parentElement);
+                } else if (this.parentElement.parentElement.id.startsWith('T')) {
+                    clickPenTest(this.parentElement.parentElement);
+                }
             }
         }
-    }
 
-    let trash = document.getElementsByClassName('trash');
-    for (i = 0; i < trash.length; i++) {
-        trash[i].onclick = function () {
-            clickTrash(this.parentElement.parentElement);
+        let trash = document.getElementsByClassName('trash');
+        for (i = 0; i < trash.length; i++) {
+            trash[i].onclick = function () {
+                clickTrash(this.parentElement.parentElement);
+            }
         }
-    }
 
-    hide();
+        hide();
+    }
 }
 
 function saveAct() {
@@ -1003,13 +1073,14 @@ function getCourses() { // gets all stored info of each course
 
         for (let j = 0; j < currentItems.length; j++) {
             course = currentItems[j];
+
             course.name = localStorage.getItem(course.id + 'Name');
             course.gradeLevel = localStorage.getItem(course.id + 'GradeLevel');
             course.sub = localStorage.getItem(course.id + 'Sub');
             course.diff = localStorage.getItem(course.id + 'Diff');
             course.diff2 = localStorage.getItem(course.id + 'Diff2');
             course.diffFull = localStorage.getItem(course.id + 'DiffFull');
-
+            course.grade = localStorage.getItem(course.id + 'Grade');
         }
     }
 }
@@ -1077,13 +1148,13 @@ function calcListDiff() { // calcs diffs of ALL lists
                 course.appendChild(div);
             }
 
-            if (document.getElementById(course.id + 'Diff2').className == 'challenging') {
+            if (document.getElementById(course.id + 'Diff2').className.includes('challenging')) {
                 course.diff2 = 3;
-            } else if (document.getElementById(course.id + 'Diff2').className == 'difficult') {
+            } else if (document.getElementById(course.id + 'Diff2').className.includes('difficult')) {
                 course.diff2 = 2;
-            } else if (document.getElementById(course.id + 'Diff2').className == 'easy') {
+            } else if (document.getElementById(course.id + 'Diff2').className.includes('easy')) {
                 course.diff2 = 0.5;
-            } else if (document.getElementById(course.id + 'Diff2').className == 'effortless') {
+            } else if (document.getElementById(course.id + 'Diff2').className.includes('effortless')) {
                 course.diff2 = 0.25;
             } else {
                 course.diff2 = 1;
@@ -1337,15 +1408,15 @@ function getDiff(diff) {
 
 function getDiff2(diff2) {
     if (diff2 == '3') {
-        return 'challenging';
+        return 'attr challenging';
     } else if (diff2 == '2') {
-        return 'difficult';
+        return 'attr difficult';
     } else if (diff2 == '0.5') {
-        return 'easy';
+        return 'attr easy';
     } else if (diff2 == '0.25') {
-        return 'effortless';
+        return 'attr effortless';
     } else {
-        return 'normal';
+        return 'attr normal';
     }
 }
 
@@ -1471,6 +1542,8 @@ function hide() {
     document.getElementById('diffTip').classList.add('hidden');
     document.getElementById('advOptAddCI').classList.remove('rotate-90');
     document.getElementById('advOptionsAddC').classList.add('hidden');
+    document.getElementById('percentGrade').classList.add('hidden');
+    document.getElementById('percentGrade').value = '';
     input.classList.add('mb-4');
 
     document.getElementById('editCourseModal').classList.add('fadeIn');
@@ -1478,6 +1551,8 @@ function hide() {
     document.getElementById('diffTipE').classList.add('hidden');
     document.getElementById('advOptEditCI').classList.remove('rotate-90');
     document.getElementById('advOptionsEditC').classList.add('hidden');
+    document.getElementById('percentGradeEdit').classList.add('hidden');
+    document.getElementById('percentGradeEdit').value = '';
     inputE.classList.add('mb-4');
 
     document.getElementById('actModal').classList.add('fadeIn');
