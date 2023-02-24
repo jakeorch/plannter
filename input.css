@@ -59,6 +59,10 @@
     @apply block text-gray-600 dark:text-gray-400 text-base p-0 m-0 mt-1;
   }
 
+  .grade {
+    @apply bg-transparent text-teal-600 dark:text-teal-500 p-0 ml-2.5;
+  }
+
   .desc {
     @apply text-gray-600 dark:text-gray-400 text-base break-words mt-1;
   }
@@ -88,15 +92,15 @@
   }
 
   .listPercent {
-    @apply bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 transition-all;
   }
 
   .lev1 {
-    @apply bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 transition-all;
   }
 
   .lev2 {
-    @apply bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 transition-all;
   }
 
   .lev3 {
