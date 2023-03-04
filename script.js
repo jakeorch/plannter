@@ -19,10 +19,10 @@ input.addEventListener('keyup', function () {
 inputE = document.getElementById('courseTitleEdit');
 inputE.addEventListener('keyup', function () {
     if (inputE.value.toLowerCase().includes('advance') || inputE.value.toLowerCase().includes('accel') || inputE.value.toLowerCase().includes('honor') || inputE.value.toLowerCase().includes('ap') || inputE.value.toLowerCase().includes('ib')) {
-        document.getElementById('diffTipE').classList.remove('hidden');
+        document.getElementById('diffTipEdit').classList.remove('hidden');
         inputE.classList.remove('mb-4');
     } else {
-        document.getElementById('diffTipE').classList.add('hidden');
+        document.getElementById('diffTipEdit').classList.add('hidden');
         inputE.classList.add('mb-4');
     }
 });
@@ -41,7 +41,7 @@ function toggleMenu() {
     document.getElementById('menuDiv').classList.toggle('block');
 }
 
-// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+// set theme on page load
 if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark')
     localStorage.theme = 'dark';
@@ -62,7 +62,7 @@ function toggleDark() {
     }
 }
 
-function selTestSpecies() {
+function selTestSpeciesFunc() {
     document.getElementById('testSubSpecies').classList.add('hidden');
     document.getElementById('testSpeciesOther').classList.add('hidden');
     document.getElementById('readingTestScore').classList.add('hidden');
@@ -78,7 +78,7 @@ function selTestSpecies() {
     }
 }
 
-function selTestSpeciesEdit() {
+function selTestSpeciesEditFunc() {
     document.getElementById('testSubSpeciesdit').classList.add('hidden');
     document.getElementById('testSpeciesOtherEdit').classList.add('hidden');
     document.getElementById('readingTestScoreEdit').classList.add('hidden');
@@ -94,7 +94,7 @@ function selTestSpeciesEdit() {
     }
 }
 
-function selLetterGrade() {
+function selLetterGradeFunc() {
     document.getElementById('percentGrade').classList.add('hidden');
 
     if (document.getElementById('selLetterGrade').value == 'Use percent') {
@@ -102,7 +102,7 @@ function selLetterGrade() {
     }
 }
 
-function selLetterGradeEdit() {
+function selLetterGradeEditFunc() {
     document.getElementById('percentGradeEdit').classList.add('hidden');
 
     if (document.getElementById('selLetterGradeEdit').value == 'Use percent') {
@@ -212,21 +212,31 @@ function showTests() {
     toggleMenu();
 }
 
-function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPercentGrade) {
-    if (cName.length > 60) {
+document.getElementById('addCourseBtn').addEventListener('click', function (event) {
+    let cTitleInput = document.getElementById("courseTitle").value.trim();
+    let cGradeLevInput = document.getElementById("selGradeLev").value;
+    let cSubInput = document.getElementById("selSubject").value;
+    let cAdvInput = document.getElementById("selDiff").value;
+    let cDiff2Input = document.getElementById("selDiff2").value;
+    let cLetterGradeInput = document.getElementById("selLetterGrade").value;
+    let cPercentGradeInput = document.getElementById("percentGrade").value;
+
+    if (cTitleInput.length > 60) {
         alert('Course title is too long');
-    } else if (cName == '') {
+    } else if (cTitleInput == '') {
         alert('Enter the title of your course');
-    } else if (cLetterGrade == 'Use percent' && (Number(cPercentGrade) > 100 || Number(cPercentGrade) < 0)) {
+    } else if (cLetterGradeInput == 'Use percent' && (Number(cPercentGradeInput) > 100 || Number(cPercentGradeInput) < 0)) {
         alert('Grade not possible');
     } else {
+        event.preventDefault();
+
         let course = document.createElement('li');
-        course.name = cName;
+        course.name = cTitleInput;
         // course.draggable = true;
 
         course.id = 'C' + Math.floor(100000000 + Math.random() * 900000000);
 
-        course.sub = cSub;
+        course.sub = cSubInput;
         let i = document.createElement('i');
         i.id = course.id + 'SbjI'
         i.className = getSubjectIcon(course.sub);
@@ -237,10 +247,10 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPe
         course.appendChild(t);
         course.className = 'item course';
 
-        course.gradeLevel = cGradeLevel;
+        course.gradeLevel = cGradeLevInput;
 
-        course.diff = cAdvLevel;
-        course.diff2 = cDiff;
+        course.diff = cAdvInput;
+        course.diff2 = cDiff2Input;
         course.diffFull = course.diff * course.diff2;
 
         let div = document.createElement('div');
@@ -251,11 +261,11 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPe
         div.appendChild(t);
         course.appendChild(div);
 
-        if (cLetterGrade == 'Use percent') {
-            letter = getLetter(cPercentGrade);
-            course.grade = letter + ' ' + ((Math.round((cPercentGrade) * 100)) / 100) + '%';
+        if (cLetterGradeInput == 'Use percent') {
+            letter = getLetter(cPercentGradeInput);
+            course.grade = letter + ' ' + ((Math.round((cPercentGradeInput) * 100)) / 100) + '%';
         } else {
-            course.grade = cLetterGrade;
+            course.grade = cLetterGradeInput;
         }
 
         div = document.createElement('div');
@@ -310,7 +320,7 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPe
         localStorage.setItem(course.id + 'DiffFull', course.diffFull);
         localStorage.setItem(course.id + 'Grade', course.grade);
 
-        document.getElementById('list' + cGradeLevel).appendChild(course);
+        document.getElementById('list' + course.gradeLevel).appendChild(course);
 
         let pen = document.getElementsByClassName('pen');
         for (i = 0; i < pen.length; i++) {
@@ -336,24 +346,31 @@ function addCourse(cName, cGradeLevel, cSub, cAdvLevel, cDiff, cLetterGrade, cPe
         saveLists();
         hide();
     }
-}
+})
 
-function addAct(aName, aDesc, aCategory, aPos) {
-    if (aName.length > 60) {
+document.getElementById('addActBtn').addEventListener('click', function (event) {
+    let aTitleInput = document.getElementById("actTitle").value.trim();
+    let aDescInput = document.getElementById("actDesc").value.trim();
+    let aCategoryInput = document.getElementById("selActCategory").value;
+    let aPosInput = document.getElementById("actPosition").value.trim();
+
+    if (aTitleInput.length > 60) {
         alert('Actvity title is too long');
-    } else if (aDesc.length > 160) {
+    } else if (aDescInput.length > 160) {
         alert('Actvity description is too long');
-    } else if (aPos.length > 20) {
+    } else if (aPosInput.length > 20) {
         alert('Position title is too long');
-    } else if (aName == '') {
+    } else if (aTitleInput == '') {
         alert('Enter the title of your activity');
     } else {
+        event.preventDefault();
+
         let activity = document.createElement('li');
-        activity.name = aName;
+        activity.name = aTitleInput;
 
         activity.id = 'A' + Math.floor(100000000 + Math.random() * 900000000);
 
-        activity.category = aCategory;
+        activity.category = aCategoryInput;
         let i = document.createElement('i');
         i.id = activity.id + 'ActI';
         actClass = getActIcon(activity.category);
@@ -365,7 +382,7 @@ function addAct(aName, aDesc, aCategory, aPos) {
         activity.appendChild(t);
         activity.className = 'item activity';
 
-        activity.pos = aPos;
+        activity.pos = aPosInput;
 
         let div = document.createElement('div');
         div.className = 'attr actPos';
@@ -400,7 +417,7 @@ function addAct(aName, aDesc, aCategory, aPos) {
 
         activity.appendChild(div);
 
-        activity.desc = aDesc;
+        activity.desc = aDescInput;
 
         if (activity.desc != '') {
             let h2 = document.createElement('h2');
@@ -441,26 +458,37 @@ function addAct(aName, aDesc, aCategory, aPos) {
         saveLists();
         hide();
     }
-}
+})
 
-function addTest(tSpecies, tSubSpecies, tSpeciesOther, tMonth, tYear, tScore, tReadScore, tMathScore) {
-    if (tMonth < 1 || tMonth > 12) {
+document.getElementById('addTestBtn').addEventListener('click', function (event) {
+    let tSpeciesInput = document.getElementById("selTestSpecies").value;
+    let tSubSpeciesInput = document.getElementById("testSubSpecies").value.trim();
+    let tSpeciesOtherInput = document.getElementById("testSpeciesOther").value.trim();
+    let tMonthInput = document.getElementById("testMonth").value;
+    let tYearInput = document.getElementById("testYear").value;
+    let tScoreInput = document.getElementById("testScore").value;
+    let tReadScoreInput = document.getElementById("readingTestScore").value;
+    let tMathScoreInput = document.getElementById("mathTestScore").value;
+
+    if (tMonthInput < 1 || tMonthInput > 12) {
         alert('Enter a valid month 1-12');
-    } else if (tYear < 1900 || tYear > currentYear + 10) {
+    } else if (tYearInput < 1900 || tYearInput > currentYear + 10) {
         alert('Enter a valid year');
-    } else if (tScore < 0 || tScore > 9999 || tReadScore < 0 || tMathScore < 0 || ((tSpecies == 'SAT' || tSpecies == 'PSAT') && (tReadScore != '' && tMathScore != '' && +tReadScore + +tMathScore != +tScore))) {
+    } else if (tScoreInput < 0 || tScoreInput > 9999 || tReadScoreInput < 0 || tMathScoreInput < 0 || ((tSpeciesInput == 'SAT' || tSpeciesInput == 'PSAT') && (tReadScoreInput != '' && tMathScoreInput != '' && +tReadScoreInput + +tMathScoreInput != +tScoreInput))) {
         alert('Score not possible');
-    } else if (tScore == '' || (tReadScore == '' && tMathScore != '') || (tReadScore != '' && tMathScore == '')) {
+    } else if (tScoreInput == '' || (tReadScoreInput == '' && tMathScoreInput != '') || (tReadScoreInput != '' && tMathScoreInput == '')) {
         alert('Enter the test score');
-    } else if (tSubSpecies.length > 30) {
+    } else if (tSubSpeciesInput.length > 30) {
         alert('Subject title is too long');
-    } else if (tSubSpecies == '' && tSpecies == 'AP') {
+    } else if (tSubSpeciesInput == '' && tSpeciesInput == 'AP') {
         alert('Enter the course');
-    } else if (tSpeciesOther.length > 30) {
+    } else if (tSpeciesOtherInput.length > 30) {
         alert('Test name is too long');
-    } else if (tSpeciesOther == '' && tSpecies == 'Other') {
+    } else if (tSpeciesOtherInput == '' && tSpeciesInput == 'Other') {
         alert('Enter the test name');
     } else {
+        event.preventDefault();
+
         let test = document.createElement('li');
         test.id = 'T' + Math.floor(100000000 + Math.random() * 900000000);
 
@@ -470,15 +498,15 @@ function addTest(tSpecies, tSubSpecies, tSpeciesOther, tMonth, tYear, tScore, tR
         i.ariaLabel = 'Test icon';
         test.appendChild(i);
 
-        test.species = tSpecies;
-        test.subSpecies = tSubSpecies;
-        test.speciesOther = tSpeciesOther;
+        test.species = tSpeciesInput;
+        test.subSpecies = tSubSpeciesInput;
+        test.speciesOther = tSpeciesOtherInput;
 
-        test.year = tYear;
-        if (tMonth.length == 1) {
-            test.month = '0' + tMonth;
+        test.year = tYearInput;
+        if (tMonthInput.length == 1) {
+            test.month = '0' + tMonthInput;
         } else {
-            test.month = tMonth;
+            test.month = tMonthInput;
         }
 
         t = `${test.species} — ${test.month}/${test.year}`;
@@ -491,9 +519,9 @@ function addTest(tSpecies, tSubSpecies, tSpeciesOther, tMonth, tYear, tScore, tR
         test.className = 'item test';
         test.name = t;
 
-        test.score = tScore;
-        test.readScore = tReadScore;
-        test.mathScore = tMathScore;
+        test.score = tScoreInput;
+        test.readScore = tReadScoreInput;
+        test.mathScore = tMathScoreInput;
 
         let div = document.createElement('div');
         div.className = 'attr testScore';
@@ -578,7 +606,7 @@ function addTest(tSpecies, tSubSpecies, tSpeciesOther, tMonth, tYear, tScore, tR
         saveLists();
         hide();
     }
-}
+})
 
 let pen = document.getElementsByClassName('pen');
 for (i = 0; i < pen.length; i++) {
@@ -691,18 +719,20 @@ function clickTrash(el) {
     }
 }
 
-function saveCourse() {
-    let nameInput = document.getElementById('courseTitleEdit').value.trim();
-    let letterGradeInput = document.getElementById('selLetterGradeEdit').value;
-    let percentGradeInput = document.getElementById('percentGradeEdit').value;
+document.getElementById('saveCourseBtn').addEventListener('click', function (event) {
+    let cTitleInput = document.getElementById('courseTitleEdit').value.trim();
+    let cLetterGradeInput = document.getElementById('selLetterGradeEdit').value;
+    let cPercentGradeInput = document.getElementById('percentGradeEdit').value;
 
-    if (nameInput.length > 60) {
+    if (cTitleInput.length > 60) {
         alert('Course title is too long');
-    } else if (nameInput == '') {
+    } else if (cTitleInput == '') {
         alert('Enter the title of your course');
-    } else if (percentGradeInput != '' && (Number(percentGradeInput) > 100 || Number(percentGradeInput) < 0)) {
+    } else if (cPercentGradeInput != '' && (Number(cPercentGradeInput) > 100 || Number(cPercentGradeInput) < 0)) {
         alert('Grade not possible');
     } else {
+        event.preventDefault();
+
         if (course.gradeLevel != document.getElementById('selGradeLevEdit').value) {
             course.gradeLevel = document.getElementById('selGradeLevEdit').value;
             document.getElementById('list' + course.gradeLevel).appendChild(course.cloneNode(true));
@@ -720,11 +750,11 @@ function saveCourse() {
             course.diffFull = course.diffFull * 0.01;
         }
 
-        if (letterGradeInput == 'Use percent') {
-            letter = getLetter(percentGradeInput);
-            course.grade = letter + ' ' + ((Math.round((percentGradeInput) * 100)) / 100) + '%';
+        if (cLetterGradeInput == 'Use percent') {
+            letter = getLetter(cPercentGradeInput);
+            course.grade = letter + ' ' + ((Math.round((cPercentGradeInput) * 100)) / 100) + '%';
         } else {
-            course.grade = letterGradeInput;
+            course.grade = cLetterGradeInput;
         }
 
         course.innerHTML = `<i id='${course.id}SbjI'></i>${course.name}<div id='${course.id}Diff'></div><div id='${course.id}Grade'>Grade: ${course.grade}</div>`;
@@ -810,21 +840,29 @@ function saveCourse() {
 
         hide();
     }
-}
+})
 
-function saveAct() {
-    let descInput = document.getElementById('actDescEdit').value.trim();
-    let posInput = document.getElementById('actPositionEdit').value.trim();
+document.getElementById('saveActBtn').addEventListener('click', function (event) {
+    let aTitleInput = document.getElementById("actTitleEdit").value.trim();
+    let aDescInput = document.getElementById("actDescEdit").value.trim();
+    let aCategoryInput = document.getElementById("selActCategoryEdit").value;
+    let aPosInput = document.getElementById("actPositionEdit").value.trim();
 
-    if (descInput.length > 160) {
+    if (aTitleInput.length > 60) {
+        alert('Actvity title is too long');
+    } else if (aDescInput.length > 160) {
         alert('Actvity description is too long');
-    } else if (posInput.length > 20) {
+    } else if (aPosInput.length > 20) {
         alert('Position title is too long');
+    } else if (aTitleInput == '') {
+        alert('Enter the title of your activity');
     } else {
-        activity.name = document.getElementById('actTitleEdit').value;
-        activity.desc = descInput;
-        activity.category = document.getElementById('selActCategoryEdit').value;
-        activity.pos = posInput;
+        event.preventDefault();
+
+        activity.name = aTitleInput;
+        activity.desc = aDescInput;
+        activity.category = aCategoryInput;
+        activity.pos = aPosInput;
 
         if (activity.desc != '') {
             activity.innerHTML = `<i id='${activity.id}ActI' class='${getActIcon(activity.category)}' aria-label='${activity.category}'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div><h2 class='desc' id='${activity.id}Desc'>${activity.desc}</h2>`;
@@ -890,56 +928,58 @@ function saveAct() {
 
         hide();
     }
-}
+})
 
-function saveTest() {
-    let monthInput = document.getElementById('testMonthEdit').value.trim();
-    let yearInput = document.getElementById('testYearEdit').value.trim();
-    let speciesInput = document.getElementById('selTestSpeciesEdit').value.trim();
-    let subSpeciesInput = document.getElementById('testSubSpeciesEdit').value.trim();
-    let speciesOtherInput = document.getElementById('testSpeciesOtherEdit').value.trim();
-    let scoreInput = document.getElementById('testScoreEdit').value.trim();
-    let readingScoreInput = document.getElementById('readingTestScoreEdit').value.trim();
-    let mathScoreInput = document.getElementById('mathTestScoreEdit').value.trim();
+document.getElementById('saveTestBtn').addEventListener('click', function (event) {
+    let tSpeciesInput = document.getElementById("selTestSpeciesEdit").value;
+    let tSubSpeciesInput = document.getElementById("testSubSpeciesEdit").value.trim();
+    let tSpeciesOtherInput = document.getElementById("testSpeciesOtherEdit").value.trim();
+    let tMonthInput = document.getElementById("testMonthEdit").value;
+    let tYearInput = document.getElementById("testYearEdit").value;
+    let tScoreInput = document.getElementById("testScoreEdit").value;
+    let tReadScoreInput = document.getElementById("readingTestScoreEdit").value;
+    let tMathScoreInput = document.getElementById("mathTestScoreEdit").value;
 
-    if (monthInput < 1 || monthInput > 12) {
+    if (tMonthInput < 1 || tMonthInput > 12) {
         alert('Enter a valid month 1-12');
-    } else if (yearInput < 1900 || yearInput > currentYear + 10) {
+    } else if (tYearInput < 1900 || tYearInput > currentYear + 10) {
         alert('Enter a valid year');
-    } else if (scoreInput < 0 || scoreInput > 9999 || readingScoreInput < 0 || mathScoreInput < 0 || ((speciesInput == 'SAT' || speciesInput == 'PSAT') && (readingScoreInput != '' && mathScoreInput != '' && +readingScoreInput + +mathScoreInput != +scoreInput))) {
+    } else if (tScoreInput < 0 || tScoreInput > 9999 || tReadScoreInput < 0 || tMathScoreInput < 0 || ((tSpeciesInput == 'SAT' || tSpeciesInput == 'PSAT') && (tReadScoreInput != '' && tMathScoreInput != '' && +tReadScoreInput + +tMathScoreInput != +tScoreInput))) {
         alert('Score not possible');
-    } else if (scoreInput == '' || (readingScoreInput == '' && mathScoreInput != '') || (readingScoreInput != '' && mathScoreInput == '')) {
+    } else if (tScoreInput == '' || (tReadScoreInput == '' && tMathScoreInput != '') || (tReadScoreInput != '' && tMathScoreInput == '')) {
         alert('Enter the test score');
-    } else if (subSpeciesInput.length > 30) {
+    } else if (tSubSpeciesInput.length > 30) {
         alert('Subject title is too long');
-    } else if (subSpeciesInput == '' && speciesInput == 'AP') {
+    } else if (tSubSpeciesInput == '' && tSpeciesInput == 'AP') {
         alert('Enter the course');
-    } else if (speciesOtherInput.length > 30) {
+    } else if (tSpeciesOtherInput.length > 30) {
         alert('Test name is too long');
-    } else if (speciesOtherInput == '' && speciesInput == 'Other') {
+    } else if (tSpeciesOtherInput == '' && tSpeciesInput == 'Other') {
         alert('Enter the test name');
     } else {
+        event.preventDefault();
+
         test = document.getElementById(test.id);
 
-        if (monthInput.length == 1) {
-            test.month = '0' + monthInput;
+        if (tMonthInput.length == 1) {
+            test.month = '0' + tMonthInput;
         } else {
-            test.month = monthInput;
+            test.month = tMonthInput;
         }
-        test.year = yearInput;
-        test.score = scoreInput;
-        test.readScore = readingScoreInput;
-        test.mathScore = mathScoreInput;
-        test.species = speciesInput;
-        test.subSpecies = subSpeciesInput;
-        test.speciesOther = speciesOtherInput;
+        test.year = tYearInput;
+        test.score = tScoreInput;
+        test.readScore = tReadScoreInput;
+        test.mathScore = tMathScoreInput;
+        test.species = tSpeciesInput;
+        test.subSpecies = tSubSpeciesInput;
+        test.speciesOther = tSpeciesOtherInput;
 
         test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
         if (test.species == 'AP') {
             test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
         } else if (test.species == 'SAT' || test.species == 'PSAT') {
             test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div><div class='testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
-            if (readingScoreInput == '' && mathScoreInput == '') {
+            if (tReadScoreInput == '' && tMathScoreInput == '') {
                 test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
             }
         } else if (test.species == 'Other') {
@@ -1012,13 +1052,15 @@ function saveTest() {
 
         hide();
     }
-}
+})
 
-function saveCD() {
-    gradDay = Number(document.getElementById('gradDay').value);
-    gradMonth = Number(document.getElementById('gradMonth').value);
-    gradYear = Number(document.getElementById('gradYear').value);
-    gradDate = new Date(gradYear, gradMonth - 1, gradDay);
+document.getElementById('saveDateBtn').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    let gradDay = Number(document.getElementById('gradDay').value);
+    let gradMonth = Number(document.getElementById('gradMonth').value);
+    let gradYear = Number(document.getElementById('gradYear').value);
+    let gradDate = new Date(gradYear, gradMonth - 1, gradDay);
 
     if (gradDay == '' && gradMonth == '' && gradYear == '') {
         localStorage.setItem('gradDate', gradDate);
@@ -1055,7 +1097,7 @@ function saveCD() {
 
         hide();
     }
-}
+})
 
 function getCD() {
     gradDay = Number(localStorage.getItem('gradDay', gradDay));
@@ -1466,15 +1508,19 @@ function getLetter(pc) {
     }
 }
 
-function toggleAdvOptions(n) {
-    if (n == 'addC') {
-        document.getElementById('advOptionsAddC').classList.toggle('hidden');
-        document.getElementById('advOptAddCI').classList.toggle('rotate-90');
-    } else if (n == 'editC') {
-        document.getElementById('advOptionsEditC').classList.toggle('hidden');
-        document.getElementById('advOptEditCI').classList.toggle('rotate-90');
-    }
-}
+document.getElementById('advOptAddC').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    document.getElementById('advOptionsAddC').classList.toggle('hidden');
+    document.getElementById('advOptAddCI').classList.toggle('rotate-90');
+})
+
+document.getElementById('advOptEditC').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    document.getElementById('advOptionsEditC').classList.toggle('hidden');
+    document.getElementById('advOptEditCI').classList.toggle('rotate-90');
+})
 
 /* document.addEventListener('DOMContentLoaded', (event) => {
     var dragSrcEl = null;
@@ -1580,6 +1626,8 @@ window.onclick = function (event) {
 }
 
 function hide() {
+    event.preventDefault();
+
     document.getElementById('courseModal').classList.add('fadeIn');
     document.getElementById('courseModal').classList.remove('fadeOut');
     document.getElementById('courseTitle').value = '';
@@ -1595,7 +1643,7 @@ function hide() {
 
     document.getElementById('editCourseModal').classList.add('fadeIn');
     document.getElementById('editCourseModal').classList.remove('fadeOut');
-    document.getElementById('diffTipE').classList.add('hidden');
+    document.getElementById('diffTipEdit').classList.add('hidden');
     document.getElementById('advOptEditCI').classList.remove('rotate-90');
     document.getElementById('advOptionsEditC').classList.add('hidden');
     document.getElementById('percentGradeEdit').classList.add('hidden');

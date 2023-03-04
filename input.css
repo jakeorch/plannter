@@ -64,23 +64,23 @@
   }
 
   .ib {
-    @apply bg-pink-500 dark:bg-pink-400;
+    @apply bg-pink-700/80 dark:bg-pink-400;
   }
 
   .ap {
-    @apply bg-red-500 dark:bg-red-400;
+    @apply bg-red-700/80 dark:bg-red-300;
   }
 
   .hon {
-    @apply bg-orange-500 dark:bg-orange-400;
+    @apply bg-orange-700/80 dark:bg-orange-300;
   }
 
   .cp {
-    @apply bg-amber-500 dark:bg-amber-400;
+    @apply bg-amber-700/80 dark:bg-amber-300;
   }
 
   .adv {
-    @apply bg-yellow-500 dark:bg-yellow-400;
+    @apply bg-yellow-700/80 dark:bg-yellow-300;
   }
 
   .none {
@@ -88,31 +88,31 @@
   }
 
   .listPercent {
-    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all;
   }
 
   .lev1 {
-    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all;
   }
 
   .lev2 {
-    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 transition-all;
   }
 
   .lev3 {
-    @apply bg-yellow-300 dark:bg-yellow-700/70 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-yellow-300 dark:bg-yellow-700/80 text-gray-700 dark:text-gray-200 transition-all;
   }
 
   .lev4 {
-    @apply bg-orange-300 dark:bg-orange-700/70 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-orange-300 dark:bg-orange-700/80 text-gray-700 dark:text-gray-200 transition-all;
   }
 
   .lev5 {
-    @apply bg-red-300 dark:bg-red-700/70 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-red-300 dark:bg-red-700/80 text-gray-700 dark:text-gray-200 transition-all;
   }
 
   .lev6 {
-    @apply bg-pink-300 dark:bg-pink-700/70 text-gray-700 dark:text-gray-300 transition-all;
+    @apply bg-pink-300 dark:bg-pink-700/80 text-gray-700 dark:text-gray-200 transition-all;
   }
 
   .trash {
