@@ -496,7 +496,7 @@ function addTest(tSpecies, tSubSpecies, tSpeciesOther, tMonth, tYear, tScore, tR
         test.mathScore = tMathScore;
 
         let div = document.createElement('div');
-        div.className = 'testScore';
+        div.className = 'attr testScore';
         div.id = test.id + 'Score';
         t = document.createTextNode(test.score);
         div.appendChild(t);
@@ -934,16 +934,16 @@ function saveTest() {
         test.subSpecies = subSpeciesInput;
         test.speciesOther = speciesOtherInput;
 
-        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
         if (test.species == 'AP') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
         } else if (test.species == 'SAT' || test.species == 'PSAT') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div><div class='testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div><div class='testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
             if (readingScoreInput == '' && mathScoreInput == '') {
-                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
             }
         } else if (test.species == 'Other') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.speciesOther} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.speciesOther} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
         }
 
         test.name = `${test.species} — ${test.month}/${test.year}`;
@@ -1292,16 +1292,16 @@ function updateAllItems() {
             test.name = `${test.speciesOther} — ${test.month}/${test.year}`;
         }
 
-        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+        test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
         if (test.species == 'AP') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} ${test.subSpecies} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
         } else if (test.species == 'SAT' || test.species == 'PSAT') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div><div class='testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div><div class='testReadScore' id='${test.id}ReadScore'>Reading: ${test.readScore}</div><div class='testMathScore' id='${test.id}MathScore'>Math: ${test.mathScore}</div>`;
             if (test.readScore == '' && test.mathScore == '') {
-                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+                test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.species} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
             }
         } else if (test.species == 'Other') {
-            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.speciesOther} — ${test.month}/${test.year}<div class='testScore' id='${test.id}Score'> ${test.score}</div>`;
+            test.innerHTML = `<i id='${test.id}TestI' aria-label='Test icon' class='testI fa-solid fa-file-lines'></i>${test.speciesOther} — ${test.month}/${test.year}<div class='attr testScore' id='${test.id}Score'> ${test.score}</div>`;
 
         }
 
