@@ -44,11 +44,7 @@
   }
 
   .attr {
-    @apply inline-flex bg-teal-600 text-base text-gray-100 dark:text-gray-900 rounded-md px-2 /* py-[0.075rem] */ ml-2;
-  }
-
-  .testScore {
-    @apply inline-flex bg-teal-600 text-base text-gray-100 dark:text-gray-900 rounded-md break-words p-0 px-2 m-0 ml-2;
+    @apply inline-flex bg-gray-500 dark:bg-gray-400 text-base text-gray-100 dark:text-gray-900 rounded-md break-words px-2 py-[0.055rem] ml-2;
   }
 
   .testReadScore {
@@ -60,7 +56,7 @@
   }
 
   .grade {
-    @apply bg-transparent text-teal-600 dark:text-teal-500 p-0 ml-2.5;
+    @apply block bg-transparent dark:bg-transparent text-gray-600 dark:text-gray-400 p-0 m-0 mt-1.5;
   }
 
   .desc {
@@ -68,23 +64,23 @@
   }
 
   .ib {
-    @apply bg-pink-500 dark:bg-pink-600;
+    @apply bg-pink-500 dark:bg-pink-400;
   }
 
   .ap {
-    @apply bg-red-500 dark:bg-red-600;
+    @apply bg-red-500 dark:bg-red-400;
   }
 
   .hon {
-    @apply bg-orange-500 dark:bg-orange-600;
+    @apply bg-orange-500 dark:bg-orange-400;
   }
 
   .cp {
-    @apply bg-amber-500 dark:bg-amber-600;
+    @apply bg-amber-500 dark:bg-amber-400;
   }
 
   .adv {
-    @apply bg-yellow-500 dark:bg-yellow-600;
+    @apply bg-yellow-500 dark:bg-yellow-400;
   }
 
   .none {

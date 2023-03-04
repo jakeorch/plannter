@@ -369,6 +369,9 @@ function addAct(aName, aDesc, aCategory, aPos) {
 
         let div = document.createElement('div');
         div.className = 'attr actPos';
+        if (activity.pos == '') {
+            div.classList.add('hidden');
+        }
         div.id = activity.id + 'Pos';
         t = document.createTextNode(activity.pos);
         div.appendChild(t);
@@ -829,6 +832,10 @@ function saveAct() {
             activity.innerHTML = `<i id='${activity.id}ActI' class='${getActIcon(activity.category)}' aria-label='${activity.category}'></i>${activity.name}<div class='attr actPos' id='${activity.id}Pos'>${activity.pos}</div>`;
         }
 
+        if (activity.pos !== '') {
+            document.getElementById(activity.id + 'Pos').classList.remove('hidden');
+        }
+
         div = document.createElement('div');
         div.className = 'optDiv';
 
@@ -1096,6 +1103,10 @@ function getActs() { // gets all stored info of activities
         activity.desc = localStorage.getItem(activity.id + 'Desc');
         activity.category = localStorage.getItem(activity.id + 'Category');
         activity.pos = localStorage.getItem(activity.id + 'Pos');
+
+        if (activity.pos == '') {
+            document.getElementById(activity.id + 'Pos').classList.add('hidden');
+        }
     }
 }
 
@@ -1135,7 +1146,7 @@ function calcListDiff() { // calcs diffs of ALL lists
                 course.diff = 4;
             } else if (document.getElementById(course.id + 'Diff').innerText == 'Honors') {
                 course.diff = 3;
-            } else if (document.getElementById(course.id + 'Diff').innerText == 'CP') {
+            } else if (document.getElementById(course.id + 'Diff').innerText == 'College') {
                 course.diff = 2.5;
             } else if (document.getElementById(course.id + 'Diff').innerText == 'Advanced') {
                 course.diff = 2;
@@ -1232,6 +1243,9 @@ function updateAllItems() {
                 document.getElementById(course.id + 'Grade').classList.remove('desc');
                 document.getElementById(course.id + 'Grade').classList.add('attr');
             }
+            if (document.getElementById(course.id + 'Diff') && document.getElementById(course.id + 'Diff').className.includes('cp')) {
+                document.getElementById(course.id + 'Diff').innerText = 'College';
+            }
 
             /* if (course.draggable == false) {
                 course.draggable = true;
@@ -1322,6 +1336,10 @@ function updateAllItems() {
             document.getElementById(test.id + 'MathScore').classList.remove('attr');
         }
 
+        if (document.getElementById(test.id + 'Score') && !document.getElementById(test.id + 'Score').classList.contains('attr')) {
+            document.getElementById(test.id + 'Score').classList.add('attr');
+        }
+
         /* if (test.draggable == false) {
             test.draggable = true;
         } */
@@ -1383,7 +1401,7 @@ function getActIcon(act) {
         return 'actI fa-solid fa-briefcase';
     } else if (act == 'Event') {
         return 'actI fa-solid fa-calendar-day';
-    } else if (act == 'Literature') {
+    } else if (act == 'Writing') {
         return 'actI fa-solid fa-pencil';
     } else if (act == 'Math') {
         return 'actI fa-solid fa-plus-minus';
@@ -1412,7 +1430,7 @@ function getDiff(diff) {
     } else if (diff == '3') {
         return ['Honors', 'attr hon'];
     } else if (diff == '2.5') {
-        return ['CP', 'attr cp'];
+        return ['College', 'attr cp'];
     } else if (diff == '2') {
         return ['Advanced', 'attr adv'];
     } else {
